@@ -1,0 +1,36 @@
+
+// ============================== Navbar ======================================
+nav{
+  background-color: $cherry;
+  img{
+    max-height: 50px;
+  }
+  li{
+    .nav-link{;
+      transition: 1s ease all;
+      &:hover{
+        transition: 1s ease all;
+      }
+    }
+  }
+}
+// ============================== End Navbar ======================================
+// ============================== Home ======================================
+#home{
+  .btn-green{
+    background-color: $green;
+    transition: 1s ease all;
+    color: white;
+    &:hover{
+      background-color: $green_dark;
+      transition: 1s ease all;
+    }
+  }
+}
+// ============================== End Home ======================================
+// ============================== Footer ======================================
+footer{
+  background-color: $green;
+  color: white;
+}
+// ============================== End footer ======================================
