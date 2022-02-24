@@ -1,0 +1,18 @@
+<section id="users_profile" class="container-fluid">
+  <div class="row">
+    <div class="col-10 mx-auto p-5">
+      <h1 class="text-center">Perfil del Trabajador</h1>
+      <% if logged_in? %>
+      <p class="display-6 text-capitalize">Nombre: <%= current_worker.name %> <%= current_worker.last_name.capitalize %></p>
+      <p class="display-6 text-capitalize">Email: <%= current_worker.mail %></p>
+      <p class="display-6 text-capitalize">Teléfono: <%= current_worker.telephone %></p>
+      <p class="display-6">Role: </p>
+      <% else %>
+      <%= link_to "Login", login_path %>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</section>

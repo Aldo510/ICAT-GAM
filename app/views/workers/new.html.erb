@@ -1,0 +1,44 @@
+<section id="new_user" class="container-fluid">
+  <div class="row">
+    <div class="col-10 mx-auto p-5">
+      <%= form_for :worker, url: signup_path do |f| %>
+
+      <div class="form-group">
+        <%= f.label :nombre %><br/>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :Apellidos %><br/>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :teléfono %><br/>
+        <%= f.telephone_field :telephone, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %><br/>
+        <%= f.email_field :mail, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %><br/>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %><br/>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Registrarse", class: "btn btn-primary mt-3" %>
+        <%= link_to "Iniciar sesión", login_path, class: "btn btn-primary ml-3 mt-3" %>
+
+      </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</section>
