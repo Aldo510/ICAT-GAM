@@ -3,10 +3,68 @@
     <div class="col-10 mx-auto p-5">
       <h1 class="text-center">Perfil del Trabajador</h1>
       <% if logged_in? %>
-      <p class="display-6 text-capitalize">Nombre: <%= current_worker.name %> <%= current_worker.last_name.capitalize %></p>
-      <p class="display-6 text-capitalize">Email: <%= current_worker.mail %></p>
-      <p class="display-6 text-capitalize">Teléfono: <%= current_worker.telephone %></p>
-      <p class="display-6">Role: </p>
+      <p class=" text-capitalize">Nombre: <%= current_worker.name %> <%= current_worker.last_name.capitalize %></p>
+      <p class="">Email: <%= current_worker.mail %></p>
+      <p class=" text-capitalize">Teléfono: <%= current_worker.telephone %></p>
+      <p class="">Contraseña encriptada: <%= current_worker.password_digest %></p>
+      <p class="text-capitalize">Role: <%= Role.find(current_worker.role_ids[0]).name %></p>
+      <%= link_to "Mostrar todos los Trabajadores", workers_index_path, class: "btn btn-info" %>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Agregar nuevo Trabajador
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Datos trabajador</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_for :worker, url: signup_path do |f| %>
+
+              <div class="form-group">
+                <%= f.label :nombre %><br/>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :Apellidos %><br/>
+                <%= f.text_field :last_name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :teléfono %><br/>
+                <%= f.telephone_field :telephone, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :email %><br/>
+                <%= f.email_field :mail, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :password %><br/>
+                <%= f.password_field :password, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :password_confirmation %><br/>
+                <%= f.password_field :password_confirmation, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.submit "Crear Trabajador", class: "btn btn-primary mt-3" %>
+              </div>
+
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-green" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
       <% else %>
       <%= link_to "Login", login_path %>
       <% end %>

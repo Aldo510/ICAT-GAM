@@ -8,14 +8,14 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
+            <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              Menú
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="#">Action</a></li>
@@ -26,13 +26,13 @@
           </li>
           <li class="nav-item">
           <% if logged_in? %>
-            <%= link_to "#{current_worker.name.capitalize} #{current_worker.last_name.capitalize}", worker_profile_path, class: "nav-link" %>
+            <%= link_to "#{current_worker.name.capitalize} #{current_worker.last_name.capitalize}", worker_profile_path(session[:worker_id]), class: "nav-link" %>
             <% else %>
               <a class="nav-link" href="#">Iniciar Sesión</a>
           <% end %>
           <% if logged_in? %>
           <li class="nav-item">
-          <%= button_to "Cerrar sesión", logout_path, class: "nav-link", :method => "delete" %>
+          <%= button_to "Cerrar sesión", logout_path, class: "nav-link btn-green rounded text-white", :method => "delete" %>
           </li>
           <% end %>
         </li>

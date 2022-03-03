@@ -1,0 +1,16 @@
+<section class="container-fluid my-5" id="workers-all">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h2 class="text-center display-5 text-capitalize pb-4"> Lista de Trabajadores</h2>
+      <ul class="list-group">
+      <% @workers.each do |worker| %>
+        <li class="list-group-item text-capitalize">
+          <p class="m-0"><%= "#{worker.name} #{worker.last_name}" %></p>
+          <p class="m-0"><%= "#{worker.mail}" %></p>
+          <p class="m-0"><%= "#{worker.telephone}" %></p>
+        </li>
+      <% end %>
+    </ul>
+    </div>
+  </div>
+</section>

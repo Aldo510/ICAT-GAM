@@ -8,6 +8,19 @@ $brown_dark: #BC955C;
 $gray: #98989A;
 $gray_dark: #6F7271;
 //  ==================== End Colors ==============
+// ====================== Buttons =====================
+.btn-green{
+  background-color: $green;
+  transition: 1s ease all;
+  border: 0;
+  color: white;
+  &:hover{
+    background-color: $green_dark;
+    transition: 1s ease all;
+    color: white!important;
+  }
+}
+// =========================== End Buttons =========================
 // ============================== Navbar ======================================
 nav{
   background-color: $cherry;
@@ -17,9 +30,22 @@ nav{
   li{
     .nav-link{;
       transition: 1s ease all;
+      color: white!important;
       &:hover{
         transition: 1s ease all;
+        color: $gray!important;
       }
+    }
+  }
+  .btn-green{
+    background-color: $green;
+    transition: 1s ease all;
+    border: 0;
+    color: white;
+    &:hover{
+      background-color: $green_dark;
+      transition: 1s ease all;
+      color: white!important;
     }
   }
 }
@@ -43,3 +69,5 @@ footer{
   color: white;
 }
 // ============================== End footer ======================================
+// ============================== Workers show ======================================
+// ============================== End Workers show ======================================

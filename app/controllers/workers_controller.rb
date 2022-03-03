@@ -9,9 +9,8 @@ class WorkersController < ApplicationController
     puts "Soy el create worker controller"
     @worker = Worker.create(worker_params)
     if @worker.save
-      session[:worker_id] = @worker.id
       flash[:notice] = "Trabajador creado."
-      redirect_to worker_profile_path(@worker.id)
+      redirect_to worker_profile_path(session[:worker_id])
     else
       flash[:alert] = "no se pudo crear el trabajador"
       render "new"
@@ -23,6 +22,14 @@ class WorkersController < ApplicationController
     else
       redirect_to login_path
     end
+  end
+  def index
+    if logged_in?
+      @workers = Worker.all
+    else
+      redirect_to login_path
+    end
+
   end
 
   def edit
