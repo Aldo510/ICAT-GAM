@@ -10,9 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_25_170851) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_10_163320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "courses", force: :cascade do |t|
+    t.string "id_ddc"
+    t.string "site"
+    t.string "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "total_hours"
+    t.integer "quantity"
+    t.string "days"
+    t.integer "sessions_number"
+    t.integer "profesor_id"
+    t.boolean "confirmed"
+    t.string "modality"
+    t.integer "academy_id"
+    t.string "status"
+    t.integer "approved"
+    t.integer "reprobated"
+    t.string "downs"
+    t.string "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time "start_hour"
+    t.time "end_hour"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -22,6 +47,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_170851) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "id_ddc"
+    t.string "name"
+    t.string "last_name"
+    t.string "second_last_name"
+    t.integer "taken_courses"
+    t.string "gender"
+    t.string "curp"
+    t.string "scholarity"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "course_id"
   end
 
   create_table "workers", force: :cascade do |t|

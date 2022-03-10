@@ -1,0 +1,127 @@
+<section id="courses" class="container-fluid py-5">
+  <div class="row">
+    <div class="col-11 col-md-10 mx-auto">
+      <h1 class="text-center display-6">Todos los Cursos</h1>
+      <br/>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Agregar Curso
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Información del Curso</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_for :course, url: course_create_path do |f| %>
+              <div class="form-group">
+                <%= f.label :id_ddc %><br/>
+                <%= f.text_field :id_ddc, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :nombre_curso %><br/>
+                <%= f.text_field :name, class: "form-control", required: true %>
+              </div>
+              <div class="form-group d-none">
+                <%#= f.label :sitio_o_ubicación %><br/>
+                <%#= f.select :site, ["ICAT GAM", "Oficinas centrales", "Otro"], class: "dropdown-item" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :fecha_inicio %><br/>
+                <%= f.date_field :start_date, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :fecha_terminación %><br/>
+                <%= f.date_field :end_date, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :start_date, "Hora de inicio" %> <br/>
+                <%= f.select :start_hour, (9..17).to_a %>:00
+              </div>
+              <div class="form-group">
+                <%= f.label :end_date, "Hora de finalización" %> <br/>
+                <%= f.select :end_hour, (9..17).to_a %>:00
+              </div>
+
+              <div class="form-group py-2">
+                <%= f.label :dias_del_curso %><br/>
+                <%#= f.check_box("course", "days",{}, ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]) %>
+                <%= f.check_box :days %>
+                <%= f.label :days, "Lunes" %>
+                <%= f.check_box :days %>
+                <%= f.label :days, "Martes" %>
+                <%= f.check_box :days %>
+                <%= f.label :days, "Miércoles" %>
+                <%= f.check_box :days %>
+                <%= f.label :days, "Jueves" %>
+                <%= f.check_box :days %>
+                <%= f.label :days, "Viernes" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :número_de_sesiones %><br/>
+                <%= f.select :sessions_number, (1..30).to_a, class: "form-control" %>
+              </div>
+              <div class="form-group dropdown ">
+                <%= f.label :modalidad %><br>
+                <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], class: "dropdown-item" %>
+              </div>
+              <div class="form-group d-none">
+                <%= f.label :Costo_curso %><br/>
+                <%= f.text_field :cost, class: "form-control" %>
+              </div>
+              <!-- Este se puede usar después para mostrar las academias -->
+              <div class="form-group dropdown d-none">
+                <%#= f.label :escolaridad %><br>
+                <%#= f.select :scholarity, ['Primaria', 'Secundaria', 'Preparatoria', "Licenciatura", "Maestría", "Doctorado"], class: "dropdown-item" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.submit "Agregar curso", class: "btn btn-green mt-3" %>
+              </div>
+
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if @courses.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id_ddc</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Modalidad</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Final</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @courses.each do |course| %>
+          <tr>
+            <!-- <th scope="row"><%#= course.id%></th> -->
+            <td><%= course.id_ddc %></td>
+            <td><%= link_to course.name, course_show_path(course.id) %></td>
+            <td><%= course.modality %></td>
+            <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
+            <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
+            <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
+            <td><%= button_to "Delete", course_delete_path(course.id), method: :delete, data: { confirm: "Estas segura de borrar el curso?" }, class: "btn btn-danger" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <p class="text-center">Aún no hay curso agregados</p>
+      <% end %>
+    </div>
+  </div>
+</section>

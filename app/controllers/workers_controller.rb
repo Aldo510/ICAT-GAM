@@ -23,6 +23,7 @@ class WorkersController < ApplicationController
       redirect_to login_path
     end
   end
+  
   def index
     if logged_in?
       @workers = Worker.all
