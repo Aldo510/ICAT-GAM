@@ -7,6 +7,9 @@ $brown: #DDc9A3;
 $brown_dark: #BC955C;
 $gray: #98989A;
 $gray_dark: #6F7271;
+.gray{
+  color: $gray;
+}
 //  ==================== End Colors ==============
 // ====================== Buttons =====================
 .btn-green{
@@ -71,3 +74,17 @@ footer{
 // ============================== End footer ======================================
 // ============================== Workers show ======================================
 // ============================== End Workers show ======================================
+// ============================== Studentds Index ======================================
+#students_index{
+  .link-email-student{
+    text-decoration: none;
+    transition: 1s ease all;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    &:hover{
+      border-bottom: 1px solid black;
+      transition: 1s ease all;
+    }
+  }
+}
+// ============================== End Students Index ======================================

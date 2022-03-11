@@ -23,6 +23,7 @@ class WorkersController < ApplicationController
       redirect_to login_path
     end
   end
+
   def index
     if logged_in?
       @workers = Worker.all
@@ -33,9 +34,24 @@ class WorkersController < ApplicationController
   end
 
   def edit
+    @worker = Worker.find(params[:id])
+    if @worker.update(worker_params)
+      flash[:notice] = "Se ha actualizado correctamente"
+      redirect_to workers_index_path
+    else
+      flash[:alert] = "No se ha podido actualizar"
+    end
   end
 
   def delete
+    @worker = Worker.find(params[:id])
+    if @worker.destroy!
+      flash[:notice] = "Se ha eliminado el Trabajador"
+      redirect_to workers_index_path
+    else
+      flash[:alert] = "No se ha podido eliminar el Trabajador"
+      render "index"
+    end
   end
 
   private

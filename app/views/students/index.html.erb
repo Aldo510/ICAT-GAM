@@ -1,0 +1,148 @@
+<section class="container-fluiw" id="students_index">
+  <div class="row">
+    <div class="col-10 mx-auto py-5">
+      <!-- Button New user modal -->
+      <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Agregar nuevo Usuario
+      </button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar Usuarios por Archivo
+      </button>
+      <h1 class="d-none">Agregar Todos los campos del csv de prueba a el modelo Estudiante y mostrar los que ya estan y alcadía y teléfono</h1>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Selecciona el archivo para subir</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_for :student, url: students_multiple_path do |f| %>
+              <div class="form-group">
+                <%= f.label :file, "Sube el archivo CSV" %>
+                <%= f.file_field :file, accept: 'text/csv'%><br/>
+                <%= f.label :course_id, "Selecciona el curso" %><br/>
+                <%= f.collection_select :course_id, Course.order(:name),:id,:name, include_blank: false %>
+
+              </div>
+              <%= f.submit "Agregar Usuarios", class: "btn btn-green mt-3" %>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New user Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Datos Estudiante</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_for :student, url: students_create_path do |f| %>
+              <div class="form-group">
+                <%= f.label :id_ddc %><br/>
+                <%= f.text_field :id_ddc, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :nombre %><br/>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :Apellidos %><br/>
+                <%= f.text_field :last_name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :teléfono %><br/>
+                <%= f.text_field :second_last_name, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :email %><br/>
+                <%= f.email_field :email, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :curso %><br/>
+                <%= f.collection_select :course_id, Course.order(:name),:id,:name, include_blank: false %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :curp %><br/>
+                <%= f.text_field :curp, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :género %><br>
+                <%= f.radio_button :gender, "Hombre", class: "" %>
+                <%= f.label :genero, "Hombre" %>
+                <%= f.radio_button :gender, "Mujer", class: "" %>
+                <%= f.label :genero, "Mujer" %>
+                <%= f.radio_button :gender, "Prefiero no especificar", class: "" %>
+                <%= f.label :genero, "Prefiero no especificar" %>
+              </div>
+
+              <div class="form-group dropdown">
+                <%= f.label :escolaridad %><br>
+                <%= f.select :scholarity, ['Primaria', 'Secundaria', 'Preparatoria', "Licenciatura", "Maestría", "Doctorado"], class: "dropdown-item" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.submit "Agregar estudiante", class: "btn btn-green mt-3" %>
+              </div>
+
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-green" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if @students.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Email</th>
+            <th scope="col">Género</th>
+            <th scope="col">escolaridad</th>
+            <th scope="col">CURP</th>
+            <th scope="col">Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student | %>
+          <tr>
+            <td><%= student.name.capitalize %></td>
+            <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+            <td><a href="mailto:<%= student.email %>" class="text-black link-email-student"><%= student.email %></a></td>
+            <td><%= student.gender %></td>
+            <td><%= student.scholarity %></td>
+            <td><%= student.curp.upcase %></td>
+            <td>
+              <%= button_to 'Borrar usuario', students_destroy_path(student.id), method: :delete, data: {confirm: "Estas seguro?"}, class: "btn btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <h3 class="text-center">Aún no hay estudiantes agregados</h3>
+      <% end %>
+      <div class="digg_pagination text-center">
+        <div class="page_info">
+          <%= page_entries_info @posts %>
+        </div>
+        <%= will_paginate @posts, :container => false %>
+      </div>
+    </div>
+  </div>
+</section>

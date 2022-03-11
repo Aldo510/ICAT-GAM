@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_ddc: MyString
+  name: MyString
+  last_name: MyString
+  second_last_name: MyString
+  taken_courses: 1
+  gender: MyString
+  curp: MyString
+  scholarity: MyString
+  email: MyString
+
+two:
+  id_ddc: MyString
+  name: MyString
+  last_name: MyString
+  second_last_name: MyString
+  taken_courses: 1
+  gender: MyString
+  curp: MyString
+  scholarity: MyString
+  email: MyString

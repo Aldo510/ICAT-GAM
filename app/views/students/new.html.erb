@@ -1,0 +1,57 @@
+<section id="student-new" class="container-fluid">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h2 class="text-center text-capitalize my-5">Agregar nuevo estudiante</h2>
+      <%= form_for :student, url: signup_path do |f| %>
+
+      <div class="form-group">
+        <%= f.label :nombre %><br/>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :id_ddc %><br/>
+        <%= f.text_field :id_ddc, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :Apellidos %><br/>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :teléfono %><br/>
+        <%= f.text_field :second_last_name, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %><br/>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :curp %><br/>
+        <%= f.text_field :curp, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %><br/>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.radio_button :gender, "Hombre" %>
+        <%= f.label :genero, "Hombre" %>
+        <%= f.radio_button :gender, "Mujer" %>
+        <%= f.label :genero, "Mujer" %>
+        <%= f.radio_button :gender, "Mujer" %>
+        <%= f.label :genero, "Mujer" %>
+        <%= f.radio_button :gender, "Prefiero no especificar" %>
+        <%= f.label :genero, "Prefiero no especificar" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit "Registrarse", class: "btn btn-primary mt-3" %>
+        <%= link_to "Iniciar sesión", login_path, class: "btn btn-primary ml-3 mt-3" %>
+
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_ddc: MyString
+  site: MyString
+  name: MyString
+  start_date: 2022-03-09 20:09:26
+  end_date: 2022-03-09 20:09:26
+  total_hours: 1
+  quantity: 1
+  days: MyString
+  sessions_number: 1
+  profesor_id: 1
+  confirmed: false
+  modality: MyString
+  academy_id: 1
+  status: MyString
+  approved: 1
+  reprobated: 1
+  downs: MyString
+  cost: MyString
+
+two:
+  id_ddc: MyString
+  site: MyString
+  name: MyString
+  start_date: 2022-03-09 20:09:26
+  end_date: 2022-03-09 20:09:26
+  total_hours: 1
+  quantity: 1
+  days: MyString
+  sessions_number: 1
+  profesor_id: 1
+  confirmed: false
+  modality: MyString
+  academy_id: 1
+  status: MyString
+  approved: 1
+  reprobated: 1
+  downs: MyString
+  cost: MyString

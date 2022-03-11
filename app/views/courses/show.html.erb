@@ -1,0 +1,36 @@
+<section class="container-fluid py-5" id="courses_show">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h4 class="text-center gray">Curso</h4>
+      <h1 class="display-3 text-center"><%= @course.name %></h1>
+      <%= link_to "Ver todos los cursos", courses_index_path, class: "btn btn-green mb-3 d-block w-50  m-auto text-center" %>
+      <p>Ubicación: <%= @course.site %></p>
+      <p>Modalidad: <%= @course.modality %></p>
+      <p>Fecha de inicio: <%= @course.start_date.strftime("%m / %d / %Y") %></p>
+      <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
+      <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
+      <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
+      <h3 class="text-center">Alumnos inscritos al curso:</h3>
+      <% if @students.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student | %>
+          <tr>
+            <td><%= student.name.capitalize %></td>
+            <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <h3 class="text-center">Aún no hay estudiantes agregados a este curso</h3>
+      <% end %>
+    </div>
+  </div>
+</section>
