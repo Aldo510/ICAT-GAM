@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post "signup", to: "workers#create"
   get "worker/:id", to: "workers#show", as: "worker_profile"
   get "workers/all", to: "workers#index", as: "workers_index"
+  post "workers/edit/:id", to: "workers#edit", as: "worker_edit"
+  delete "workers/delete/:id", to: "workers#delete", as: "worker_delete"
   # Sessions
   get 'login', to: "sessions#new"
   post 'login', to: "sessions#create"

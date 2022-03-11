@@ -37,7 +37,14 @@ class StudentsController < ApplicationController
     end
   end
 
-  def update
+  def edit
+    @student = Student.find(params[:id])
+    if @student.update_attributes(student_params)
+      flash[:notice] = "Se ha actualizado correctamente"
+      redirect_to students_index_path
+    else
+      flash[:alert] = "No se ha podido actualizar"
+    end
   end
 
   def destroy

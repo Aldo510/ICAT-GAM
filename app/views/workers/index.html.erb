@@ -3,14 +3,72 @@
     <div class="col-10 mx-auto">
       <h2 class="text-center display-5 text-capitalize pb-4"> Lista de Trabajadores</h2>
       <ul class="list-group">
-      <% @workers.each do |worker| %>
+        <% @workers.each do |worker| %>
         <li class="list-group-item text-capitalize">
           <p class="m-0"><%= "#{worker.name} #{worker.last_name}" %></p>
           <p class="m-0"><%= "#{worker.mail}" %></p>
           <p class="m-0"><%= "#{worker.telephone}" %></p>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
+            Editar Trabajador
+          </button>
+          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, data: {confirm: "Estas seguro?"}, class: "btn btn-danger my-2" %>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModal<%= worker.id %>Label">Editar trabajador</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="modal-body">
+                    <%= form_for :worker, url: worker_edit_path(worker.id) do |f| %>
+
+                    <div class="form-group">
+                      <%= f.label :nombre %><br/>
+                      <%= f.text_field :name, placeholder: "#{worker.name}", class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :Apellidos %><br/>
+                      <%= f.text_field :last_name, placeholder: "#{worker.last_name}", class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :teléfono %><br/>
+                      <%= f.telephone_field :telephone, placeholder: "#{worker.telephone}", class: "form-control" %>
+                    </div>
+
+                    <div class="form-group">
+                      <%= f.label :email %><br/>
+                      <%= f.email_field :mail, placeholder: "#{worker.mail}", class: "form-control" %>
+                    </div>
+
+                    <div class="form-group">
+                      <%= f.label :password %><br/>
+                      <%= f.password_field :password, class: "form-control" %>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :password_confirmation %><br/>
+                      <%= f.password_field :password_confirmation, class: "form-control" %>
+                    </div>
+
+                    <div class="form-group">
+                      <%= f.submit "Editar Trabajador", class: "btn btn-primary mt-3" %>
+                    </div>
+
+                    <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
-      <% end %>
-    </ul>
+        <% end %>
+      </ul>
     </div>
   </div>
 </section>
