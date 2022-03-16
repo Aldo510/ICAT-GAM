@@ -17,9 +17,24 @@ class CoursesController < ApplicationController
     end
   end
 
+  def show_list
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Lista curso", template: "courses/show"
+      end
+    end
+  end
+
   def show
     @course = Course.find(params[:id])
     @students = @course.students
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape"
+      end
+    end
   end
 
   def destroy

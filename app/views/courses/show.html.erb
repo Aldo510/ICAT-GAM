@@ -10,6 +10,7 @@
       <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
       <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
       <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
+      <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank" %>
       <h3 class="text-center">Alumnos inscritos al curso:</h3>
       <% if @students.any? %>
       <table class="table">
@@ -20,7 +21,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @students.each do |student | %>
+          <% @students.each do |student| %>
           <tr>
             <td><%= student.name.capitalize %></td>
             <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>

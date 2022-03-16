@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'courses/index'
   get 'courses/new'
   get 'courses/show/:id', to: "courses#show", as: "course_show"
+  #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
   post 'courses/create', to: "courses#create", as: "course_create"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   # Students

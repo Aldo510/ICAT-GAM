@@ -33,6 +33,10 @@ gem "jbuilder"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
+#Use wicked_pdf for create a pdf of list os Models
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 #Use will paginate for order the models
 gem 'will_paginate', '~> 3.3'
 
