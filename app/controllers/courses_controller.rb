@@ -10,7 +10,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.create(course_params)
     if @course.save
-      flash[:notice] = "Curso agregado exitosamente!"
+      flash[:success] = "Curso agregado exitosamente!"
       redirect_to courses_index_path
     else
       flash[:alert] = "El curso no se pudo crear"
@@ -40,7 +40,7 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     if @course.destroy
-      flash[:notice] = "Se ha eliminado el curso exitosamente"
+      flash[:success] = "Se ha eliminado el curso exitosamente"
       redirect_to courses_index_path
     else
       flash[:alert] = "No se ha podido eliminar el curso"

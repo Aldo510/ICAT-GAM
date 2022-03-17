@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   root "static_pages#index"
+  # Classrooms
+  get 'classrooms/index', to: "classrooms#index", as: "classrooms_index"
+  get 'classrooms/show/:id', to: "classrooms#show", as: "classroom_show"
+  post 'classrom/create', to: "classrooms#create", as: "classroom_create"
+  delete 'classroom/delete:id', to: "classrooms#delete", as: "classroom_delete"
   # Courses
   get 'courses/index'
   get 'courses/new'

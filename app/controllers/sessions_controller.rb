@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       worker = Worker.find_by(mail: params[:email.downcase])
       if worker.present? && worker.authenticate(params[:password])
         session[:worker_id] = worker.id
-        flash[:notice] = "Has iniciado sesión satisfactoriamente"
+        flash[:success] = "Has iniciado sesión satisfactoriamente"
         redirect_to worker_profile_path(worker.id)
       else
         flash.now[:alert] = "Email invalido o contraseña incorrecta"
@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   def destroy
     if logged_in?
       session[:worker_id] = nil
-      flash[:notice] = "Cerraste la sesión satisfactoriamente."
+      flash[:success] = "Cerraste la sesión satisfactoriamente."
       redirect_to login_path
     else
       redirect_to root_path

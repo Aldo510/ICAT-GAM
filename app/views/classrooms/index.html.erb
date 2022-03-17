@@ -1,0 +1,122 @@
+<section id="classroom-index" class="container-fluid">
+  <div class="row">
+    <div class="col-10 mx-auto">
+      <h1 class="display-4 text-center">Lista de Salones</h1>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Agregar nuevo salón
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Datos del salón</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%= form_for :classroom, url: classroom_create_path do |f|%>
+              <div class="form-group">
+                <%= f.label "Nombre" %>
+                <%= f.text_field :name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Descripción" %>
+                <%= f.text_field :description, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Capacidad" %>
+                <%= f.select :capacity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Tamaño (metros cuadrados)" %>
+                <%= f.number_field :size, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "¿Cuenta con equipo de computo ?", class: "text-capitalize" %><br/>
+                <%= f.radio_button :computing_equipment, true %>Sí
+                <%= f.radio_button :computing_equipment, false %>No <br/>
+              </div>
+              <div class="form-group">
+                <%= f.label "¿Cuenta con pizarrón?", class: "text-capitalize" %><br/>
+                <%= f.radio_button :board, true %>Sí
+                <%= f.radio_button :board, false %>No <br/>
+              </div>
+              <div class="form-group">
+                <%= f.label "¿Cuenta con mobiliario específico?", class: "text-capitalize" %><br/>
+                <%= f.radio_button :moobiliary, true %>Sí
+                <%= f.radio_button :moobiliary, false %>No <br/>
+              </div>
+              <div class="form-group">
+                <%= f.label "Cantidad de sillas" %>
+                <%= f.select :chairs_quantity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.submit "Crear Salón", class: "btn btn-green mt-3" %>
+              </div>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if @classrooms.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">id</th>
+            <th scope="col" class="text-center">Nombre</th>
+            <th scope="col" class="text-center">Descripción</th>
+            <th scope="col" class="text-center">Capacidad de alumnos</th>
+            <th scope="col" class="text-center">Tamaño m<sup>2</sup></th>
+            <th scope="col" class="text-center">Equipo de computo</th>
+            <th scope="col" class="text-center">Pizarrón</th>
+            <th scope="col" class="text-center">Mobiliario especial</th>
+            <th scope="col" class="text-center">Cantidad de sillas</th>
+            <th scope="col" class="text-center">Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @classrooms.each do |classroom| %>
+          <tr>
+            <td class="text-center"><%= classroom.id %></td>
+            <td class="text-center"><%= link_to classroom.name, classroom_show_path(classroom.id) %></td>
+            <td class="text-center"><%= classroom.description %></td>
+            <td class="text-center"><%= classroom.capacity %></td>
+            <td><%= classroom.size%></td>
+            <td class="text-center">
+              <% if classroom.computing_equipment %>
+                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <% else %>
+                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%end%>
+            </td>
+            <td class="text-center">
+              <% if classroom.board %>
+                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <% else %>
+                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%end%>
+            </td>
+            <td class="text-center">
+              <% if classroom.moobiliary %>
+                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <% else %>
+                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%end%>
+            </td>
+            <td class="text-center"><%= classroom.chairs_quantity %></td>
+            <td class="text-center"><%= button_to "Borrar", classroom_delete_path(classroom.id), method: :delete, data: { confirm: "Estas segura de borrar el curso?" }, class: "btn btn-danger" %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+      <p class="text-center display-6">Aún no hay salones agregados</p>
+      <% end %>
+    </div>
+  </div>
+</section>
