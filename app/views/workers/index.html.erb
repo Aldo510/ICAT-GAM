@@ -12,7 +12,7 @@
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
             Editar Trabajador
           </button>
-          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, data: {confirm: "Estas seguro?"}, class: "btn btn-danger my-2" %>
+          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger my-2" %>
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">

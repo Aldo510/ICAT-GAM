@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shelf: one
+  number: 1
+
+two:
+  shelf: two
+  number: 1

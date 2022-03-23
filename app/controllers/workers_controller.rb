@@ -10,7 +10,7 @@ class WorkersController < ApplicationController
     @worker = Worker.create(worker_params)
     if @worker.save
       flash[:notice] = "Trabajador creado."
-      redirect_to worker_profile_path(session[:worker_id])
+      redirect_to worker_profile_path(@worker.id)
     else
       flash[:alert] = "no se pudo crear el trabajador"
       render "new"

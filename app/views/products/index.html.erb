@@ -1,0 +1,28 @@
+<section id="products-index" class="container-fluid">
+	<div class="row">
+		<div class="col-10 mx-auto">
+			<h1 class="text-center">Aquí se mostraran todos los insumos</h1>
+			<% unless @warehouses.nil? %>
+			<% @warehouses.each do |warehouse| %>
+			<div class="border rounded shadow my-2 p-2">
+				<h3><%= warehouse.name %></h3>
+				<div class="container">
+					<div class="row">
+						<% warehouse.shelves.each do |shelf| %>
+						<div class="col">
+							Anaquel <%= shelf.id %> : <%= shelf.code %>
+							<% shelf.shelf_sections.each do |section| %>
+							<p class=""># Sección: <%= section.number %> </p>
+							<% end %>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			<% else %>
+			<p>Aún no hay almacenes</p>
+			<% end %>
+		</div>
+	</div>	
+</section>

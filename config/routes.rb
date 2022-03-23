@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "static_pages#index"
+  #Products
+  get 'products/index', to: 'products#index', as: "products_index"
+  get 'products/show', to: 'products#show', as: "product_show"
   # Courses
   get 'courses/index'
   get 'courses/new'

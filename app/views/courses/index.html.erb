@@ -114,7 +114,7 @@
             <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
             <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
             <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
-            <td><%= button_to "Delete", course_delete_path(course.id), method: :delete, data: { confirm: "Estas segura de borrar el curso?" }, class: "btn btn-danger" %></td>
+            <td><%= button_to "Delete", course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %></td>
           </tr>
           <% end %>
         </tbody>

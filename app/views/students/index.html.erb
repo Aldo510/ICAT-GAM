@@ -128,7 +128,7 @@
             <td><%= student.scholarity %></td>
             <td><%= student.curp.upcase %></td>
             <td>
-              <%= button_to 'Borrar usuario', students_destroy_path(student.id), method: :delete, data: {confirm: "Estas seguro?"}, class: "btn btn-danger" %>
+              <%= button_to 'Borrar usuario', students_destroy_path(student.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
             </td>
           </tr>
           <% end %>
