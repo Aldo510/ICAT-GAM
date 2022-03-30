@@ -8,7 +8,7 @@ class CreateCourses < ActiveRecord::Migration[7.0]
       t.datetime :end_date
       t.integer :total_hours
       t.integer :quantity
-      t.string :days
+      t.text :days, array: true, default: []
       t.integer :sessions_number
       t.integer :profesor_id
       t.boolean :confirmed

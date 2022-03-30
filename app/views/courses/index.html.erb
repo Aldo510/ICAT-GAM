@@ -49,17 +49,12 @@
 
               <div class="form-group py-2">
                 <%= f.label :dias_del_curso %><br/>
-                <%#= f.check_box("course", "days",{}, ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]) %>
-                <%= f.check_box :days %>
-                <%= f.label :days, "Lunes" %>
-                <%= f.check_box :days %>
-                <%= f.label :days, "Martes" %>
-                <%= f.check_box :days %>
-                <%= f.label :days, "Miércoles" %>
-                <%= f.check_box :days %>
-                <%= f.label :days, "Jueves" %>
-                <%= f.check_box :days %>
-                <%= f.label :days, "Viernes" %>
+                <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes']], :first, :first do |b| %>
+                <li>
+                  <%= b.label %>
+                  <%= b.check_box %>
+                </li>
+                <% end %>
               </div>
               <div class="form-group">
                 <%= f.label :número_de_sesiones %><br/>
@@ -114,7 +109,7 @@
             <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
             <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
             <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
-            <td><%= button_to "Delete", course_delete_path(course.id), method: :delete, data: { confirm: "Estas segura de borrar el curso?" }, class: "btn btn-danger" %></td>
+            <td><%= button_to "Delete", course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %></td>
           </tr>
           <% end %>
         </tbody>

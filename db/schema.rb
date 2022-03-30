@@ -29,13 +29,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_16_235431) do
 
   create_table "courses", force: :cascade do |t|
     t.string "id_ddc"
-    t.string "site"
+    t.string "site", default: "UC GAM"
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer "total_hours"
     t.integer "quantity"
-    t.string "days"
+    t.text "days", default: [], array: true
     t.integer "sessions_number"
     t.integer "profesor_id"
     t.boolean "confirmed"
@@ -62,6 +62,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_16_235431) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "shelf_sections", force: :cascade do |t|
+    t.bigint "shelf_id", null: false
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shelf_id"], name: "index_shelf_sections_on_shelf_id"
+  end
+
+  create_table "shelves", force: :cascade do |t|
+    t.bigint "warehouse_id", null: false
+    t.string "code"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["warehouse_id"], name: "index_shelves_on_warehouse_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "id_ddc"
     t.string "name"
@@ -75,6 +92,25 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_16_235431) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "course_id"
+  end
+
+  create_table "supplies", force: :cascade do |t|
+    t.integer "shelf_section_id"
+    t.text "name"
+    t.text "description"
+    t.text "identification_code"
+    t.integer "quantity"
+    t.boolean "perishable"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "shelf_id"
+    t.integer "warehouse_id"
+  end
+
+  create_table "warehouses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "workers", force: :cascade do |t|
@@ -95,4 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_16_235431) do
     t.index ["worker_id"], name: "index_workers_roles_on_worker_id"
   end
 
+  add_foreign_key "shelf_sections", "shelves"
+  add_foreign_key "shelves", "warehouses"
 end

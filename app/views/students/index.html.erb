@@ -56,12 +56,16 @@
                 <%= f.text_field :name, class: "form-control" %>
               </div>
               <div class="form-group">
-                <%= f.label :Apellidos %><br/>
+                <%= f.label "Apellido Paterno" %><br/>
                 <%= f.text_field :last_name, class: "form-control" %>
               </div>
               <div class="form-group">
-                <%= f.label :teléfono %><br/>
+                <%= f.label "Apellido Materno" %><br/>
                 <%= f.text_field :second_last_name, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Teléfono" %><br/>
+                <%= f.text_field :telephone, class: "form-control" %>
               </div>
 
               <div class="form-group">
@@ -128,7 +132,7 @@
             <td><%= student.scholarity %></td>
             <td><%= student.curp.upcase %></td>
             <td>
-              <%= button_to 'Borrar usuario', students_destroy_path(student.id), method: :delete, data: {confirm: "Estas seguro?"}, class: "btn btn-danger" %>
+              <%= button_to 'Borrar usuario', students_destroy_path(student.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-danger" %>
             </td>
           </tr>
           <% end %>

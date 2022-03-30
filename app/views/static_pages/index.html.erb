@@ -4,7 +4,7 @@
       <h1 id="title" class="display-5 text-capitalize">unidad de capacitación Gustavo A. Madero</h1>
       <p class="text-uppercase display-6 mb-5">Instituto de capacitación para el trabajo</p>
       <%= image_tag "logos/logo_color_extend.png", class: "img-fluid" %>
-      <%if current_worker %>
+      <% if current_worker != nil %>
       <%= link_to "Ver perfil", worker_path(current_worker.id), class: "btn btn-green"%>
       <% else %>
       <%= link_to "Iniciar sesión", login_path, class:" btn btn-green" %>

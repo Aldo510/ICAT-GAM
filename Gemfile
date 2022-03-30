@@ -33,6 +33,8 @@ gem "jbuilder"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
+# Use ploty to create graphics to show data
+gem 'plotly-rails-js', '~> 1.39', '>= 1.39.2'
 #Use wicked_pdf for create a pdf of list os Models
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
