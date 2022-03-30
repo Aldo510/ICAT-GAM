@@ -2,8 +2,7 @@
   <div class="row">
     <div class="col-10 mx-auto">
       <h4 class="text-center gray">Curso</h4>
-      <h1 class="display-3 text-center"><%= @course.name %></h1>
-      <h3 class="text-center">Alumnos inscritos al curso:</h3>
+      <h1 class="display-3 text-center"><%= @course.name.upcase %></h1>
       <%= link_to "Ver todos los cursos", courses_index_path, class: "btn btn-green mb-5 d-block w-50 m-auto text-center" %>
       <div class="container-fluid">
         <div class="row">
@@ -18,7 +17,7 @@
               <%= course %>,
               <% end %>
             </p>
-            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank" %>
+            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn" %>
           </div>
           <div class="col-12 col-sm-10 col-lg-6 mx-auto text-center">
             <div id="tester" class="text-center"></div>
@@ -26,6 +25,7 @@
         </div>
       </div>
       <% if @students.any? %>
+      <h3 class="text-center">Alumnos inscritos al curso:</h3>
       <table class="table">
         <thead>
           <tr>
