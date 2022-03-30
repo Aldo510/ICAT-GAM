@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_225944) do
     t.datetime "end_date"
     t.integer "total_hours"
     t.integer "quantity"
-    t.string "days"
+    t.text "days", default: [], array: true
     t.integer "sessions_number"
     t.integer "profesor_id"
     t.boolean "confirmed"

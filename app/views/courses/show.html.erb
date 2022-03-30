@@ -3,15 +3,28 @@
     <div class="col-10 mx-auto">
       <h4 class="text-center gray">Curso</h4>
       <h1 class="display-3 text-center"><%= @course.name %></h1>
-      <%= link_to "Ver todos los cursos", courses_index_path, class: "btn btn-green mb-3 d-block w-50  m-auto text-center" %>
-      <p>Ubicación: <%= @course.site %></p>
-      <p>Modalidad: <%= @course.modality %></p>
-      <p>Fecha de inicio: <%= @course.start_date.strftime("%m / %d / %Y") %></p>
-      <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
-      <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
-      <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
-      <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank" %>
       <h3 class="text-center">Alumnos inscritos al curso:</h3>
+      <%= link_to "Ver todos los cursos", courses_index_path, class: "btn btn-green mb-5 d-block w-50 m-auto text-center" %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-sm-10 col-lg-6 mx-auto">
+            <p>Ubicación: <%= @course.site %></p>
+            <p>Modalidad: <%= @course.modality %></p>
+            <p>Fecha de inicio: <%= @course.start_date.strftime("%m / %d / %Y") %></p>
+            <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
+            <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
+            <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
+            <p>Días del curso: <% @course.days.each do |course| %> 
+              <%= course %>,
+              <% end %>
+            </p>
+            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank" %>
+          </div>
+          <div class="col-12 col-sm-10 col-lg-6 mx-auto text-center">
+            <div id="tester" class="text-center"></div>
+          </div>
+        </div>
+      </div>
       <% if @students.any? %>
       <table class="table">
         <thead>
@@ -35,3 +48,24 @@
     </div>
   </div>
 </section>
+<script>
+  <%= %>
+  // TESTER = document.getElementById('tester');
+  // Plotly.newPlot( TESTER, [{
+  // x: ["Hombres", "Mujeres", "Prefiero no especificar"],
+  // y: [<%= @man %>, <%= @women %>, <%= @other %>] }], {
+  // margin: { t: 10 } } );
+  var data = [{
+    values: [<%= @man %>, <%= @women %>, <%= @other %>],
+    labels: ["Hombres", "Mujeres", "Prefiero no especificar"],
+    type: 'pie'
+  }];
+
+  var layout = {
+    height: 400,
+    width: 500,
+    margin: {"t": 0, "b": 0, "l": 0, "r": 0}
+  };
+
+  Plotly.newPlot('tester', data, layout);
+</script>
