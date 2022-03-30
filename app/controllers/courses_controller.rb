@@ -13,7 +13,7 @@ class CoursesController < ApplicationController
     @course.update(days: days_week)
     debugger
     if @course.save
-      flash[:notice] = "Curso agregado exitosamente!"
+      flash[:success] = "Curso agregado exitosamente!"
       redirect_to courses_index_path
     else
       flash[:alert] = "El curso no se pudo crear"
@@ -38,7 +38,8 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape"
+        render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape", viewport_size: '1280x1024'
+
       end
     end
   end
@@ -46,7 +47,7 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     if @course.destroy
-      flash[:notice] = "Se ha eliminado el curso exitosamente"
+      flash[:success] = "Se ha eliminado el curso exitosamente"
       redirect_to courses_index_path
     else
       flash[:alert] = "No se ha podido eliminar el curso"

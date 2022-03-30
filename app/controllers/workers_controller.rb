@@ -1,12 +1,9 @@
 class WorkersController < ApplicationController
   def new
     @worker = Worker.new
-    puts "Soy el new worker controller"
-
   end
 
   def create
-    puts "Soy el create worker controller"
     @worker = Worker.create(worker_params)
     if @worker.save
       flash[:notice] = "Trabajador creado."
@@ -36,7 +33,7 @@ class WorkersController < ApplicationController
   def edit
     @worker = Worker.find(params[:id])
     if @worker.update(worker_params)
-      flash[:notice] = "Se ha actualizado correctamente"
+      flash[:success] = "Se ha actualizado correctamente"
       redirect_to workers_index_path
     else
       flash[:alert] = "No se ha podido actualizar"
@@ -46,7 +43,7 @@ class WorkersController < ApplicationController
   def delete
     @worker = Worker.find(params[:id])
     if @worker.destroy!
-      flash[:notice] = "Se ha eliminado el Trabajador"
+      flash[:success] = "Se ha eliminado el Trabajador"
       redirect_to workers_index_path
     else
       flash[:alert] = "No se ha podido eliminar el Trabajador"

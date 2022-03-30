@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  capacity: 1
+  size: 1.5
+  computing_equipment: false
+  board: false
+  moobiliary: false
+  chairs_quantity: 1
+
+two:
+  name: MyString
+  description: MyString
+  capacity: 1
+  size: 1.5
+  computing_equipment: false
+  board: false
+  moobiliary: false
+  chairs_quantity: 1

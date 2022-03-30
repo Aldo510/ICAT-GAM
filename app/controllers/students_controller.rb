@@ -20,7 +20,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.create(student_params)
     if @student.save
-      flash[:notice] = "Estudiante creado"
+      flash[:success] = "Estudiante creado"
       redirect_to students_index_path
     else
       flash[:alert] = "no se pudo crear el Estudiante"
@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
 
   def create_multiple
     if Student.import(params[:student][:file], params[:student][:course_id])
-      flash[:notice] = "Se han agregado los estudiantes"
+      flash[:success] = "Se han agregado los estudiantes"
       redirect_to students_index_path
     else
       flash[:alert] = "hubo un problema al crear los usuarios"
@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
   def edit
     @student = Student.find(params[:id])
     if @student.update_attributes(student_params)
-      flash[:notice] = "Se ha actualizado correctamente"
+      flash[:success] = "Se ha actualizado correctamente"
       redirect_to students_index_path
     else
       flash[:alert] = "No se ha podido actualizar"
@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   def destroy
     @student = Student.find(params[:format])
     @student.destroy
-    flash[:notice] = "Estudiante borrado exitosamente"
+    flash[:success] = "Estudiante borrado exitosamente"
     redirect_to students_index_path
   end
 

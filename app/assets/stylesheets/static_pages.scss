@@ -10,6 +10,9 @@ $gray_dark: #6F7271;
 .gray{
   color: $gray;
 }
+.bg-wine{
+  background-color: $cherry;
+}
 //  ==================== End Colors ==============
 // ====================== Buttons =====================
 .btn-green{
@@ -22,6 +25,10 @@ $gray_dark: #6F7271;
     transition: 1s ease all;
     color: white!important;
   }
+}
+.form-group{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 // =========================== End Buttons =========================
 // ============================== Navbar ======================================
