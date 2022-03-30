@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show', to: 'products#show', as: "product_show"
+  post 'products/create', to: 'products#create', as: "product_create"
+  post 'products/edit/:id', to: "products#update", as: "product_update"
+  delete 'products/delete/:id', to: "products#delete", as: "product_delete"
   # Courses
   get 'courses/index'
   get 'courses/new'

@@ -1,18 +1,98 @@
 <section id="products-index" class="container-fluid">
 	<div class="row">
 		<div class="col-10 mx-auto">
-			<h1 class="text-center">Aquí se mostraran todos los insumos</h1>
+			<h1 class="text-center my-3">Insumos</h1>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-green mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+				Agregar Insumo
+			</button>
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="staticBackdropLabel">Información del insumo</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<%= form_for :supply, url: product_create_path do |f| %>
+							<div class="form-group">
+								<%= f.label "Almacen" %><br/>
+								<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
+							</div>
+							<div class="form-group">
+								<%= f.label "Anaquel" %><br/>
+								<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
+							</div>
+							<div class="form-group">
+								<%= f.label "Sección " %><br/>
+								<%= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
+							</div>
+
+
+							<div class="form-group">
+								<%= f.label "Nombre del insumo" %><br/>
+								<%= f.text_field :name, class: "form-control", required: true %>
+							</div>
+
+							<div class="form-group">
+								<%= f.label "Descripción" %><br/>
+								<%= f.text_field :description, class: "form-control", required: true %>
+							</div>
+
+							<div class="form-group">
+								<%= f.label "Cantidad" %><br/>
+								<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
+							</div>
+							
+							<div class="form-group">
+								<%= f.label "Código de identificación" %><br/>
+								<%= f.text_field :identification_code, class: "form-control", required: true %>
+							</div>
+							<div class="form-group">
+								<%= f.label "Es de un solo uso?" %> <br/>
+								<%= f.label "Sí" %>
+								<%= f.radio_button :perishable, true%>
+								<%= f.label "No" %>
+								<%= f.radio_button :perishable, false %>
+							</div>
+
+							<div class="form-group">
+								<%= f.submit "Agregar Insumo", class: "btn btn-green mt-3" %>
+							</div>
+
+							<% end %>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<% unless @warehouses.nil? %>
 			<% @warehouses.each do |warehouse| %>
-			<div class="border rounded shadow my-2 p-2">
-				<h3><%= warehouse.name %></h3>
+			<div class="border rounded shadow m-3 p-5">
+				<h3 class="text-center mb-3"><%= warehouse.name %></h3>
 				<div class="container">
 					<div class="row">
 						<% warehouse.shelves.each do |shelf| %>
 						<div class="col">
-							Anaquel <%= shelf.id %> : <%= shelf.code %>
-							<% shelf.shelf_sections.each do |section| %>
-							<p class=""># Sección: <%= section.number %> </p>
+							<p class="h3">Anaquel <%= shelf.id %> : <%= shelf.code %></p>
+							<% shelf.shelf_sections.each_with_index do |section, index| %>
+							<p class="fw-bold h4">Sección <%= section.number %>: <%= shelf.category %> </p>
+							<% if section.supplies.any? %>
+							<a class="btn btn-green" data-bs-toggle="collapse" href="#collapseExample<%=index%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=index%>">
+								Insumos en esta sección
+							</a>
+							<div class="collapse" id="collapseExample<%=index%>">
+								<div class="card card-body">
+									<% section.supplies.each do |supply| %>
+									<p class=""> <%= supply.name %>: <%= supply.quantity %> </p>
+									<% end %>
+								</div>
+							</div>
+							
+							<% end %>
 							<% end %>
 						</div>
 						<% end %>
