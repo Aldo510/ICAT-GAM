@@ -10,7 +10,7 @@
       <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
       <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
       <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
-      <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank" %>
+      <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn btn-green" %>
       <h3 class="text-center">Alumnos inscritos al curso:</h3>
       <% if @students.any? %>
       <table class="table">

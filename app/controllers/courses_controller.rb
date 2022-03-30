@@ -32,7 +32,8 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape"
+        render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape", viewport_size: '1280x1024'
+
       end
     end
   end

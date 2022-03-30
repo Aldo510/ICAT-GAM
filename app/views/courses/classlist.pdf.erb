@@ -1,45 +1,80 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
-    <%= wicked_pdf_javascript_include_tag "number_pages" %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body onload='number_pages'>
-    <div id="header">
-    </div>
-    <div id="content">
-      <section class="container-fluid" id="classlist">
-        <div class="row">
-          <div class="col-10 mx-auto">
-            <h1>Lista creada: <%= Time.now.strftime("%d / %m / %y - %k:%M" ) %></h1>
-            <%#= image_tag wicked_pdf_asset_pack_path("logos/logo_icat_color.png") %>
-            <h3>Lista de asistencia</h3>
-            <h5>Curso: <%= @course.name %></h5>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellidos</th>
-                  <th scope="col">Clase 1</th>
-                  <th scope="col">Clase 2</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @students.each do |student| %>
-                <tr>
-                  <td><%= student.name.capitalize %></td>
-                  <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+  <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    .bg-wine{
+      background-color: #9F2241;
+    }
+    .w-33{
+      width: 33%;
+      max-width: 33%;
+    }
+    .fw-bold{
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body onload='number_pages'>
+  <div id="header">
+  </div>
+  <div id="content">
+    <section class="container-fluid" id="classlist">
+      <div class="row">
+        <div class="col-12 mx-auto">
+          <%#= image_tag image_url("logos/logo_icat_color_extend.png"), class: "w-25 img-fluid" %>
+          <p class="text-uppercase w-100 bg-wine text-white text-center m-0">Lista de asistencia y registro de evaluaciones</p>
+          <div class="">
+            <!-- Usar el display table cell : d-table-cell para poder acomodar las cosas en el pdf -->
+              <div class="w-33 border border-dark text-center mx-auto d-table-cell">
+                <p class="text-center m-0"><span class="fw-bold">ID_Curso:</span> <%= @course.id_ddc %></p>
+              </div>
+              <div class="w-33 border border-dark text-center mx-auto d-table-cell">
+                <p class="text-center m-0"><span class="fw-bold">Curso:</span> <%= @course.name %></p>
+              </div>
+              <div class="w-33 border border-dark text-center mx-auto d-table-cell">
+                <p class="text-center m-0"><span class="fw-bold">Sede:</span> <span class="text-uppercase">Unidad de capacitación GAM, cuauhtémoc 30, la pastora, gustavo a. madero 07290 (</span><%= @course.modality %>)</p>
+              </div>
           </div>
+          <div class="">
+
+          </div>
+          <p><span class="fw-bold">Horario:</span> <%= @course.start_hour.strftime ("%H:%M") %> - <%= @course.end_hour.strftime("%H:%M") %></p>
+          <p class="text-center"><span class="fw-bold">Fecha de inicio:</span> <%= @course.start_date.strftime ("%d-%m-%y")%></p>
+          <p class="text-center"><span class="fw-bold">Fecha de término:</span> <%= @course.end_date.strftime ("%d-%m-%y")%></p>
+          <table class="table ">
+            <thead>
+              <tr class="bg-wine text-white" style="background-color: #9F2241;">
+                <th scope="col">Número</th>
+                <th scope="col">Participante</th>
+                <% 1..5.times do |session| %>
+                <th scope="col">Día <%= session +1 %></th>
+                <% end %>
+                <th>Faltas</th>
+                <th>EV INIC</th>
+                <th>EV FINAL</th>
+                <th>COMENTARIOS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @students.each_with_index do |student, index| %>
+              <tr class=>
+                <td class="text-center bg-wine text-white"><%= index + 1 %></td>
+                <td class="border border-dark"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
+                <% 1..@course.sessions_number.times do |session| %>
+                <td class="border border-dark"></td>
+                <% end %>
+                <td class="border border-dark"></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
-      </section>
-    </div>
-  </body>
+      </div>
+    </section>
+  </div>
+</body>
 </html>
