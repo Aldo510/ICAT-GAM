@@ -13,7 +13,7 @@
             <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
             <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
             <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
-            <p>Días del curso: <% @course.days.each do |course| %> 
+            <p>Días del curso: <% @course.days.each do |course| %>
               <%= course %>,
               <% end %>
             </p>
@@ -36,8 +36,8 @@
         <tbody>
           <% @students.each do |student| %>
           <tr>
-            <td><%= student.name.capitalize %></td>
-            <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+            <td class="text-capitalize"><%= student.name.capitalize %></td>
+            <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
           </tr>
           <% end %>
         </tbody>
@@ -49,22 +49,20 @@
   </div>
 </section>
 <script>
-  <%= %>
-  // TESTER = document.getElementById('tester');
-  // Plotly.newPlot( TESTER, [{
-  // x: ["Hombres", "Mujeres", "Prefiero no especificar"],
-  // y: [<%= @man %>, <%= @women %>, <%= @other %>] }], {
-  // margin: { t: 10 } } );
   var data = [{
     values: [<%= @man %>, <%= @women %>, <%= @other %>],
     labels: ["Hombres", "Mujeres", "Prefiero no especificar"],
-    type: 'pie'
+    type: 'pie',
+    marker: {
+      colors: 'rgb(56, 75, 126)'
+    }
   }];
 
   var layout = {
     height: 400,
     width: 500,
-    margin: {"t": 0, "b": 0, "l": 0, "r": 0}
+    margin: {"t": 0, "b": 0, "l": 0, "r": 0},
+    colorway : ['#FF69B4', '#109dfa', '#B22222']
   };
 
   Plotly.newPlot('tester', data, layout);

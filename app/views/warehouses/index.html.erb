@@ -1,0 +1,40 @@
+<section id="warehouse-index" class="container-fluid">
+  <div class="row">
+    <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+      <h1 class="text-center display-3 m-3">Almacenes</h1>
+      <div class="container-fluid">
+        <div class="row">
+          <% @warehouses.each do |warehouse| %>
+          <div class="col-12 col-md-6 mx-auto">
+            <p class="btn btn-green w-100 p-2"><%= warehouse.name %></p>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+      <p style="color: green"><%= notice %></p>
+      <h1 class="text-center">Buscar Producto</h1>
+      <%= form_with(url: warehouses_index_path, method: "GET") do |form| %>
+      <%= form.label :query, "Buscar Insumo por nombre:" %>
+      <%= form.text_field :query %>
+      <%= form.submit 'Search', name: nil %>
+      <% end %>
+      <div id="players">
+        <% Supply.all.each do |player| %>
+        <%#= render player %>
+        <%= player.name%> - cantidad: <%= player.quantity %>
+        <p>
+          <%#= link_to "Show this player", player %>
+        </p>
+        <% end %>
+      </div>
+
+      <%#= link_to "New player", new_player_path %>
+    </div>
+  </div>
+</section>

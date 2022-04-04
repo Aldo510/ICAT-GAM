@@ -11,7 +11,6 @@ class CoursesController < ApplicationController
     @course = Course.create(course_params)
     days_week = params[:course][:days].drop(1)
     @course.update(days: days_week)
-    debugger
     if @course.save
       flash[:success] = "Curso agregado exitosamente!"
       redirect_to courses_index_path
@@ -32,8 +31,8 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @students = @course.students
-    @man = Student.where(gender: "Hombre").count
-    @women = Student.where(gender: "Mujer").count
+    @man = Student.where(gender: "HOMBRE").count
+    @women = Student.where(gender: "MUJER").count
     @other = Student.where(gender: "Prefiero no especificar").count
     respond_to do |format|
       format.html

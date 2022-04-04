@@ -39,4 +39,7 @@ Rails.application.routes.draw do
   post 'login', to: "sessions#create"
   delete "logout", to: "sessions#destroy"
   resources :workers, except: [:new]
+  #Warehoouses
+  get 'warehouses/index', to: "warehouses#index", as: "warehouses_index"
+  get 'warehouses/show', to: 'warehouses#show', as: "warehouse_show"
 end

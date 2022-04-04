@@ -6,6 +6,7 @@
 			<button type="button" class="btn btn-green mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 				Agregar Insumo
 			</button>
+			<h1>SEparar los almacenes por botones almace/:id</h1>
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -44,7 +45,7 @@
 								<%= f.label "Cantidad" %><br/>
 								<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
 							</div>
-							
+
 							<div class="form-group">
 								<%= f.label "Código de identificación" %><br/>
 								<%= f.text_field :identification_code, class: "form-control", required: true %>
@@ -91,7 +92,7 @@
 									<% end %>
 								</div>
 							</div>
-							
+
 							<% end %>
 							<% end %>
 						</div>
@@ -104,5 +105,5 @@
 			<p>Aún no hay almacenes</p>
 			<% end %>
 		</div>
-	</div>	
+	</div>
 </section>
