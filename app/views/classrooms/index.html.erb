@@ -2,67 +2,98 @@
   <div class="row">
     <div class="col-10 mx-auto">
       <h1 class="display-4 text-center">Lista de Salones</h1>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Agregar nuevo salón
-      </button>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-10 mx-auto">
+            <div class="col-3 mx-auto align-self-center text-center">
 
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Datos del salón</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-green fs-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Agregar nuevo salón
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade text-start" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Datos del salón</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <%= form_for :classroom, url: classroom_create_path do |f|%>
+                      <div class="form-group">
+                        <%= f.label "Nombre" %>
+                        <%= f.text_field :name, class: "form-control" %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "Descripción" %>
+                        <%= f.text_field :description, class: "form-control" %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "Capacidad" %>
+                        <%= f.select :capacity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "Tamaño (metros cuadrados)" %>
+                        <%= f.number_field :size, class: "form-control" %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "¿Cuenta con equipo de computo ?", class: "text-capitalize" %><br/>
+                        <%= f.radio_button :computing_equipment, true %>Sí
+                        <%= f.radio_button :computing_equipment, false %>No <br/>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "¿Cuenta con pizarrón?", class: "text-capitalize" %><br/>
+                        <%= f.radio_button :board, true %>Sí
+                        <%= f.radio_button :board, false %>No <br/>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "¿Cuenta con mobiliario específico?", class: "text-capitalize" %><br/>
+                        <%= f.radio_button :moobiliary, true %>Sí
+                        <%= f.radio_button :moobiliary, false %>No <br/>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "Cantidad de sillas" %>
+                        <%= f.select :chairs_quantity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.submit "Crear Salón", class: "btn btn-green mt-3" %>
+                      </div>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-              <%= form_for :classroom, url: classroom_create_path do |f|%>
-              <div class="form-group">
-                <%= f.label "Nombre" %>
-                <%= f.text_field :name, class: "form-control" %>
+          </div>
+          <div class="col-10 mx-auto my-4 text-center">
+            <p>
+              <a class="btn btn-green" data-bs-toggle="collapse" href="#collapseCapacity" role="button" aria-expanded="false" aria-controls="collapseCapacity">
+                Gráfica de capacidad de salones
+              </a>
+              <button class="btn btn-green" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobiliary" aria-expanded="false" aria-controls="collapseMobiliary">
+                Gráfica de salones con mobiliario
+              </button>
+            </p>
+            <div class="collapse text-center" id="collapseCapacity">
+              <div class="card card-body">
+                <div id="myDiv" class="w-100"></div>
               </div>
-              <div class="form-group">
-                <%= f.label "Descripción" %>
-                <%= f.text_field :description, class: "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.label "Capacidad" %>
-                <%= f.select :capacity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.label "Tamaño (metros cuadrados)" %>
-                <%= f.number_field :size, class: "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.label "¿Cuenta con equipo de computo ?", class: "text-capitalize" %><br/>
-                <%= f.radio_button :computing_equipment, true %>Sí
-                <%= f.radio_button :computing_equipment, false %>No <br/>
-              </div>
-              <div class="form-group">
-                <%= f.label "¿Cuenta con pizarrón?", class: "text-capitalize" %><br/>
-                <%= f.radio_button :board, true %>Sí
-                <%= f.radio_button :board, false %>No <br/>
-              </div>
-              <div class="form-group">
-                <%= f.label "¿Cuenta con mobiliario específico?", class: "text-capitalize" %><br/>
-                <%= f.radio_button :moobiliary, true %>Sí
-                <%= f.radio_button :moobiliary, false %>No <br/>
-              </div>
-              <div class="form-group">
-                <%= f.label "Cantidad de sillas" %>
-                <%= f.select :chairs_quantity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.submit "Crear Salón", class: "btn btn-green mt-3" %>
-              </div>
-              <% end %>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="collapse text-center" id="collapseMobiliary">
+              <div class="card card-body">
+                <div id="mobiliary-quantity" class="w-100"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div class="col-10 mx-auto">
       <% if @classrooms.any? %>
       <table class="table">
         <thead>
@@ -89,23 +120,23 @@
             <td><%= classroom.size%></td>
             <td class="text-center">
               <% if classroom.computing_equipment %>
-                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
               <% else %>
-                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
               <%end%>
             </td>
             <td class="text-center">
               <% if classroom.board %>
-                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
               <% else %>
-                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
               <%end%>
             </td>
             <td class="text-center">
               <% if classroom.moobiliary %>
-                <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+              <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
               <% else %>
-                <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+              <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
               <%end%>
             </td>
             <td class="text-center"><%= classroom.chairs_quantity %></td>
@@ -120,3 +151,56 @@
     </div>
   </div>
 </section>
+<script>
+  var trace1 = {
+    type: 'bar',
+    x: <%= raw @classrooms_name %>,
+    y: <%= raw @classrooms_capacity %>,
+    marker: {
+      color: '#235B4E',
+      line: {
+        width: 2.5
+      }
+    }
+  };
+
+  var data = [ trace1 ];
+
+  var layout = { 
+    title: 'Capacidad de salones',
+    font: {size: 18}
+  };
+
+  var config = {responsive: true}
+
+  Plotly.newPlot('myDiv', data, layout, config );
+  var trace1 = {
+    x: ["Equipo de computo", "Pizarrones", "Mobiliario especial"],
+    y: [<%= @classrooms_computing %>, <%= @classrooms_board %>, <%= @classrooms_mobiliary %>],
+    mode: 'lines+markers'
+  };
+
+  var trace2 = {
+    x: ["Equipo de computo", "Pizarrones", "Mobiliario especial"],
+    y: [<%= @classrooms_computing %>, <%= @classrooms_board %>, <%= @classrooms_mobiliary %>],
+    mode: 'lines+markers'
+  };
+
+  var trace3 = {
+    x: ["Equipo de computo", "Pizarrones", "Mobiliario especial"],
+    y: [<%= @classrooms_computing %>, <%= @classrooms_board %>, <%= @classrooms_mobiliary %>],
+    mode: 'lines+markers'
+  };
+
+  var data = [ trace1 ];
+
+  var layout = {
+    title:'Cantidad de salones con mobiliario'
+  };
+
+  Plotly.newPlot('mobiliary-quantity', data, layout);
+
+
+
+
+</script>

@@ -24,6 +24,10 @@
       width: 25%;
       max-width: 25%;
     }
+    .w-75{
+      width: 75%;
+      max-width: 75%;
+    }
     .fw-bold{
       font-weight: bold;
     }
@@ -70,35 +74,57 @@
     </div>
     <div class="">
       <div class="flexrow">
-        <div class="w-25 p-3"><span class="fw-bold">Id Curso:</span> <%=@course.id_ddc%></div>
-        <div class="w-25 p-3"><span class="fw-bold">Curso:</span> <%=@course.name%></div>
-        <div class="w-50 p-3"><span class="fw-bold">Sede:</span> <span class="text-uppercase">unidad de capacitación GAM, cuauhtémoc 30, la pastora, gustavo a. madero 07290 ( <%= @course.modality %> )</span></div>
+        <div class="w-50">
+          <div class="flexrow">
+            <div class="flexrow">
+            <div class="w-25 p-3 border-bottom-0"><span class="fw-bold">ID_Curso:</span></div>
+            <div class="w-25 p-3 border-bottom-0"><%= @course.id_ddc %></div>
+            <div class="w-25 p-3 border-bottom-0"><span class="fw-bold">Curso:</span></div>
+            <div class="w-25 p-3 border-bottom-0"><%= @course.name %></div>
+          </div>
+          </div>
+        </div>
+        <div class="w-50 p-1 fs-12"><span class="fw-bold">Sede:</span> <span class="text-uppercase">OFICINAS CENTRALES ICAT CDMX DR. LUCIO 220 COL. DOCTORES ALCALDÍA. CUAUHTÉMOC 06720 ( <%= @course.modality %> )</span></div>
       </div>
       <div class="flexrow">
         <div class="w-50">
           <div class="flexrow">
-            <div class="w-25 p-3"><span class="fw-bold">Fecha de inicio:</span></div>
-            <div class="w-25 p-3"><%= @course.start_date.strftime("%m / %d / %Y") %></div>
-            <div class="w-25 p-3"><span class="fw-bold">Fecha de término:</span></div>
-            <div class="w-25 p-3"><%= @course.end_date.strftime("%m / %d / %Y") %></div>
+            <div class="w-25 p-1"><span class="fw-bold">Fecha de inicio:</span></div>
+            <div class="w-25 p-1"><%= @course.start_date.strftime("%m / %d / %Y") %></div>
+            <div class="w-25 p-1"><span class="fw-bold">Fecha de término:</span></div>
+            <div class="w-25 p-1"><%= @course.end_date.strftime("%m / %d / %Y") %></div>
           </div>
+        </div>
+        <div class="w-50 fw-bold text-center">
           <div class="flexrow">
-            <div class="w-50">
-              <p class="fw-bold m-0 pl-3">Horario:</p>
-              <% @course.days.each do |day| %>
-              <p class="px-3 d-inline"><%= day %></p>
-              <% end %>
-              <p class="px-3"><%= @course.start_hour.strftime('%H:%M') %> - <%= @course.end_hour.strftime('%H:%M') %></p>
-
-            </div>
-            <div class="w-50"><span class="fw-bold p-3">Observaciones:</span></div>
+            <div class="w-25 p-1"><span class="fw-bold">Instructor:</span></div>
+            <div class="w-75 p-1"></div>
           </div>
         </div>
-        <div class="w-50 p-3 fw-bold text-center">
-          <p>Vo. Bo.</p>
-          <p>Lic. Jóse Manuel Mnguía Martínez</p>
-          <p>Director de Desarrollo de Competencias</p>
+      </div>
+      <div class="w-100">
+        <div class="flexrow">
+          <div class="w-25">
+            <div class="flexrow">
+              <div class="w-50 p-1"><span class="fw-bold">Modalidad:</span></div>
+              <div class="w-50 p-1"><%= @course.modality%></div>
+            </div>
+            <div class="w-100 p-1 fs-12">
+              <% @course.days.each do |day| %>
+              <%= "#{day} " %>
+              <% end %>
+              <%= @course.start_hour.strftime('%H:%M') %> - <%= @course.end_hour.strftime('%H:%M') %> hrs
+            </div>
+
+          </div>
+          <div class="w-75">
+            <div class="flexrow">
+              <div class="w-25 p-1 border-0"><span class="fw-bold">Observaciones:</span></div>
+              <div class="w-75 p-1 border-0"></div>
+            </div>
+          </div>
         </div>
+        
       </div>
     </div>
   </div>
@@ -106,25 +132,31 @@
 <div id="content">
   <section class="" id="classlist">
 
-    <table class="table w-100 m-0 fs-14">
+    <table class="table w-100 m-0 fs-12">
       <thead>
         <tr class="bg-wine text-white" style="background-color: #9F2241;">
-          <th scope="col">Número</th>
+          <th scope="col" style="max-width: 15px;">No.</th>
           <th scope="col">Participante</th>
           <% 1..5.times do |session| %>
-          <th scope="col">Día <%= session +1 %></th>
+          <th scope="col" class="text-center p-0 m-0" style="max-width: 25px;">Día <%= session +1 %><br>DD/MM
+            <div class="bg-light w-100">
+              p
+              <br>
+              p
+            </div>
+          </th>
           <% end %>
-          <th>Faltas</th>
-          <th>EV INIC</th>
-          <th>EV FINAL</th>
-          <th>COMENTARIOS</th>
+          <th style="max-width: 30px;">Faltas</th>
+          <th style="max-width: 30px;">EV INIC</th>
+          <th style="max-width: 30px;">EV FINAL</th>
+          <th style="max-width: 50px;">COMENTARIOS</th>
         </tr>
       </thead>
       <tbody>
         <% @students.each_with_index do |student, index| %>
         <tr class=>
           <td class="text-center bg-wine text-white"><%= index + 1 %></td>
-          <td class="border border-dark"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
+          <td class="border border-dark" ><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
           <% 1..@course.sessions_number.times do |session| %>
           <td class="border border-dark"></td>
           <% end %>

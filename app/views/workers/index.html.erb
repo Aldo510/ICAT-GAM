@@ -2,12 +2,14 @@
   <div class="row">
     <div class="col-10 mx-auto">
       <h2 class="text-center display-5 text-capitalize pb-4"> Lista de Trabajadores</h2>
-      <ul class="list-group">
+      <div class="container-fluid">
+      <ul class="row">
         <% @workers.each do |worker| %>
-        <li class="list-group-item text-capitalize">
+        <li class="list-group-item text-capitalize col-10 col-md-6 col-lg-4 col-xl-3 mx-auto">
           <p class="m-0"><%= "#{worker.name} #{worker.last_name}" %></p>
           <p class="m-0"><%= "#{worker.mail}" %></p>
           <p class="m-0"><%= "#{worker.telephone}" %></p>
+          <p class="m-0"><%= current_worker.roles.first.name %></p>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
             Editar Trabajador
@@ -69,6 +71,7 @@
         </li>
         <% end %>
       </ul>
+    </div>
     </div>
   </div>
 </section>

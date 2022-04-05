@@ -1,6 +1,15 @@
 class ClassroomsController < ApplicationController
   def index
     @classrooms = Classroom.all
+    @classrooms_name = []
+    @classrooms_capacity = []
+    @classrooms_computing = Classroom.where(computing_equipment: true).count
+    @classrooms_board = Classroom.where(board: true).count
+    @classrooms_mobiliary = Classroom.where(moobiliary: true).count
+    @classrooms.each do |classroom| 
+      @classrooms_name << classroom.name 
+      @classrooms_capacity << classroom.capacity
+    end
   end
 
   def show
