@@ -9,17 +9,23 @@
 # Warehouses, shelfs and shelfsections
 Warehouse.create(name: "Almacen 1")
 Warehouse.create(name: "Almacen 2")
-
-Shelf.create(warehouse_id: 1, code: "asdasd", category: "Niños")
-Shelf.create(warehouse_id: 1, code: "asdasd", category: "Adultos mayores")
-Shelf.create(warehouse_id: 1, code: "asdasd", category: "Cosecha de lluvia")
-Shelf.create(warehouse_id: 1, code: "asdasd", category: "Ferreteria")
-Shelf.create(warehouse_id: 1, code: "asdasd", category: "Papelería")
-Shelf.create(warehouse_id: 2, code: "asdasd", category: "Niños")
-Shelf.create(warehouse_id: 2, code: "asdasd", category: "Adultos mayores")
-Shelf.create(warehouse_id: 2, code: "asdasd", category: "Cosecha de lluvia")
-Shelf.create(warehouse_id: 2, code: "asdasd", category: "Ferreteria")
-Shelf.create(warehouse_id: 2, code: "asdasd", category: "Papelería")
+caregories = ["Niños", "Adultos Mayores", "Cocina", "Cosecha de lluvia", "Ferreteria", "Papelería", "Electronica"]
+19.times do |t|
+	Shelf.create(warehouse_id: 1, code: "AN-#{t+1}", category: caregories.sample)	
+end
+10.time do |t|
+	Shelf.create(warehouse_id: 2, code: "AN-#{t+1}", category: caregories.sample)	
+end
+# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Niños")
+# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Adultos mayores")
+# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Cosecha de lluvia")
+# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Ferreteria")
+# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Papelería")
+# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Niños")
+# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Adultos mayores")
+# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Cosecha de lluvia")
+# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Ferreteria")
+# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Papelería")
 ShelfSection.create(shelf_id: 1, number: 1)
 ShelfSection.create(shelf_id: 1, number: 2)
 ShelfSection.create(shelf_id: 1, number: 3)

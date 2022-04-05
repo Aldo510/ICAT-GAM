@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
   post 'courses/create', to: "courses#create", as: "course_create"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
+  #Shelves
+  get 'shelves/show/:id', to: "shelves#show", as: "shelf_show"
   # Students
   get 'students/index', to: "students#index", as: "students_index"
   get 'students/show/:id', to: "students#show", as: "student_profile"
@@ -41,5 +43,5 @@ Rails.application.routes.draw do
   resources :workers, except: [:new]
   #Warehoouses
   get 'warehouses/index', to: "warehouses#index", as: "warehouses_index"
-  get 'warehouses/show', to: 'warehouses#show', as: "warehouse_show"
+  get 'warehouses/show/:id', to: 'warehouses#show', as: "warehouse_show"
 end

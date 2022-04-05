@@ -6,7 +6,7 @@
         <div class="row">
           <% @warehouses.each do |warehouse| %>
           <div class="col-12 col-md-6 mx-auto">
-            <p class="btn btn-green w-100 p-2"><%= warehouse.name %></p>
+            <%= link_to warehouse.name, warehouse_show_path(warehouse.id), class: "btn btn-green w-100 p-2" %>
           </div>
           <% end %>
         </div>
@@ -19,22 +19,15 @@
     <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
       <p style="color: green"><%= notice %></p>
       <h1 class="text-center">Buscar Producto</h1>
-      <%= form_with(url: warehouses_index_path, method: "GET") do |form| %>
+      <%= link_to "Crear nuevo insumo", products_index_path, class: "btn btn-green my-3" %>
+      <%= form_with(url: warehouses_index_path, method: "GET", data: {controller: "form-submission-supply", turbo_frame: "supplies", turbo_action: "advance" }) do |form| %>
       <%= form.label :query, "Buscar Insumo por nombre:" %>
-      <%= form.text_field :query %>
+      <%= form.text_field :query, data: { action: "input->form-submission-supply#search" } %>
       <%= form.submit 'Search', name: nil %>
       <% end %>
-      <div id="players">
-        <% Supply.all.each do |player| %>
-        <%#= render player %>
-        <%= player.name%> - cantidad: <%= player.quantity %>
-        <p>
-          <%#= link_to "Show this player", player %>
-        </p>
-        <% end %>
-      </div>
+      <!-- Render the supplies -->
+      <%= render "warehouses/supplies", supplies: @supplies %>
 
-      <%#= link_to "New player", new_player_path %>
     </div>
   </div>
 </section>

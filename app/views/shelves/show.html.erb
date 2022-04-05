@@ -1,0 +1,30 @@
+<section id="shelf-show" class="container-fluid">
+	<div class="row">
+		<div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+			<h1 class="display-3 text-center">Anaqueles</h1>
+			<div class="accordion accordion-flush" id="accordionFlushExample">
+				<% @shelf_sections.each_with_index do |section, index| %>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="flush-heading<%= index %>">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%= index %>" aria-expanded="false" aria-controls="flush-collapse<%= index %>">
+							Sección: <%= section.number %>
+						</button>
+					</h2>
+					<div id="flush-collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="flush-heading<%= index %>" data-bs-parent="#accordionFlushExample">
+						<div class="accordion-body">
+							<% if section.supplies.any? %>
+							<p class="h4">Productos</p>
+								<% section.supplies.each do |supply| %>
+								<p><%= supply.name %>: <%= supply.quantity %></p>
+								<% end %>
+							<% else %>
+								<p>No se han agregado Insumos a este anaquel</p>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</section>
