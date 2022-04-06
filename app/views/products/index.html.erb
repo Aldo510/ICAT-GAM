@@ -3,10 +3,9 @@
 		<div class="col-10 mx-auto">
 			<h1 class="text-center my-3">Insumos</h1>
 			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-green mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+			<button type="button" class="btn btn-green mb-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 				Agregar Insumo
 			</button>
-			<h1>SEparar los almacenes por botones almace/:id</h1>
 			<!-- Modal -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -70,39 +69,35 @@
 					</div>
 				</div>
 			</div>
-			<% unless @warehouses.nil? %>
-			<% @warehouses.each do |warehouse| %>
-			<div class="border rounded shadow m-3 p-5">
-				<h3 class="text-center mb-3"><%= warehouse.name %></h3>
-				<div class="container">
-					<div class="row">
-						<% warehouse.shelves.each do |shelf| %>
-						<div class="col">
-							<p class="h3">Anaquel <%= shelf.id %> : <%= shelf.code %></p>
-							<% shelf.shelf_sections.each_with_index do |section, index| %>
-							<p class="fw-bold h4">Sección <%= section.number %>: <%= shelf.category %> </p>
-							<% if section.supplies.any? %>
-							<a class="btn btn-green" data-bs-toggle="collapse" href="#collapseExample<%=index%>" role="button" aria-expanded="false" aria-controls="collapseExample<%=index%>">
-								Insumos en esta sección
-							</a>
-							<div class="collapse" id="collapseExample<%=index%>">
-								<div class="card card-body">
-									<% section.supplies.each do |supply| %>
-									<p class=""> <%= supply.name %>: <%= supply.quantity %> </p>
-									<% end %>
-								</div>
-							</div>
-
-							<% end %>
-							<% end %>
+		</div>
+		<div class="col-10 col-sm-9 col-md-8 col-lg-7 mx-auto">
+			<% if @supplies.any? %>
+			<div class="container-fluid">
+				<div class="row">
+					<% @supplies.each_with_index do |supply, index| %>
+					<div class="card my-3 col-12 col-sm-6 col-md-4 col-xl-3">
+						<div class="card-header h3">
+							<%= supply.name.capitalize %>
 						</div>
-						<% end %>
+						<div class="card-body">
+							<p class="card-text"><span class="fw-bold">Descripción:</span> <%= supply.description %></p>
+						</div>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">Cantidad: <%= supply.quantity %></li>
+							<li class="list-group-item">Almacen: <%= Warehouse.find(supply.warehouse_id).name %></li>
+							<li class="list-group-item">Anaquel: <%= Shelf.find(ShelfSection.find(supply.shelf_section_id).id).code %></li>
+							<li class="list-group-item">Sección: <%= ShelfSection.find(supply.shelf_section_id).number %></li>
+						</ul>
+						<div class="card-body">
+							<%= link_to "Ver Insumo", product_show_path(supply.id), class: "card-link btn btn-green w-100" %>
+							<%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-danger mt-2 w-100" %>
+						</div>
 					</div>
+					<% end %>
 				</div>
 			</div>
-			<% end %>
 			<% else %>
-			<p>Aún no hay almacenes</p>
+			<p>No se han agregado insumos aún</p>
 			<% end %>
 		</div>
 	</div>
