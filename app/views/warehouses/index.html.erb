@@ -20,10 +20,10 @@
       <p style="color: green"><%= notice %></p>
       <h1 class="text-center">Buscar Producto</h1>
       <%= link_to "Crear nuevo insumo", products_index_path, class: "btn btn-green my-3" %>
-      <%= form_with(url: warehouses_index_path, method: "GET", data: {controller: "form-submission-supply", turbo_frame: "supplies", turbo_action: "advance" }) do |form| %>
-      <%= form.label :query, "Buscar Insumo por nombre:" %>
-      <%= form.text_field :query, data: { action: "input->form-submission-supply#search" } %>
-      <%= form.submit 'Search', name: nil %>
+      <%= form_with(url: warehouses_index_path, method: "GET", data: {controller: "form-submission-supply", turbo_frame: "supplies", turbo_action: "advance" }, class: "my-5 w-100") do |form| %>
+      <%= form.label :query, "Buscar Insumo:" %>
+      <%= form.text_field :query, data: { action: "input->form-submission-supply#search" }, class: "w-100 mb-3 shadow rounded border" %>
+      <%= form.submit 'Search', class: "btn btn-green" %>
       <% end %>
       <!-- Render the supplies -->
       <%= render "warehouses/supplies", supplies: @supplies %>

@@ -4,7 +4,7 @@ class WarehousesController < ApplicationController
     if params[:query].present?
       @supplies = Supply.where('lower(name) like ?', "%#{params[:query]}%")
     else
-      @supplies = Supply.all
+      @supplies = []
     end
     if turbo_frame_request?
       render partial: "warehouses/supplies", locals: { supplies: @supplies }

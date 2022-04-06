@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @warehouses = Warehouse.all
-    @supplies = Supply.all
+    @supplies = Supply.all.order(created_at: :desc)
   end
 
   def show
@@ -15,7 +14,7 @@ class ProductsController < ApplicationController
   def create
     @product = Supply.create(supply_params)
     if @product.save
-      flash[:notice] = "Insumo creado correctamente"
+      flash[:success] = "Insumo creado correctamente"
       redirect_to products_index_path
     else
       flash[:alert] = "No se pudó crear el insumo"
