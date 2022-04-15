@@ -26,6 +26,36 @@ $gray_dark: #6F7271;
     color: white!important;
   }
 }
+.btn-brown{
+  background-color: $brown;
+  transition: 1s ease all;
+  border: 0;
+  color: black;
+  &:hover{
+    background-color: $brown_dark;
+    color: white;
+  }
+}
+.btn-gray{
+  background-color: $gray;
+  transition: 1s ease all;
+  border: 0;
+  color: white;
+  &:hover{
+    background-color: $gray_dark;
+    color: white;
+  }
+}
+.btn-cherry{
+  background-color: $cherry;
+  transition: 1s ease all;
+  border: 0;
+  color: white;
+  &:hover{
+    background-color: $cherry_dark;
+    color: white;
+  }
+}
 .form-group{
   margin-top: 10px;
   margin-bottom: 10px;

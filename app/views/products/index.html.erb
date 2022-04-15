@@ -2,11 +2,41 @@
 	<div class="row">
 		<div class="col-10 mx-auto">
 			<h1 class="text-center my-3">Insumos</h1>
-			<!-- Button trigger modal -->
+			<!-- Button trigger modal new supply -->
 			<button type="button" class="btn btn-green mb-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 				Agregar Insumo
 			</button>
-			<!-- Modal -->
+			<!-- Button trigger modal multuple supplies -->
+			<button type="button" class="btn btn-green mb-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				Agregar insumos por archivo
+			</button>
+
+			<!-- Modal multiple supplies -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Selecciona el archivo de insumos</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<%= form_for :supply, url: products_multiple_path do |f| %>
+							<div class="form-group">
+								<%= f.label :file, "Sube el archivo CSV" %>
+								<%= f.file_field :file, accept: 'text/csv', required: true %><br/>
+								<%= f.label :warehouse_id, "Selecciona el Almacen" %><br/>
+								<%= f.collection_select :warehouse_id, Warehouse.order(:name),:id,:name, include_blank: false %>
+							</div>
+							<%= f.submit "Agregar insumos", class: "btn btn-green mt-3" %>
+							<% end %>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal new supply -->
 			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -89,6 +119,73 @@
 							<li class="list-group-item">Sección: <%= ShelfSection.find(supply.shelf_section_id).number %></li>
 						</ul>
 						<div class="card-body">
+							<!-- Button trigger modal Edit supply -->
+							<button type="button" class="btn btn-green w-100 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal<%= supply.id %>">
+								Editar insumo
+							</button>
+
+							<!-- Modal edit supply -->
+							<div class="modal fade" id="exampleModal<%= supply.id %>" tabindex="-1" aria-labelledby="exampleModal<%= supply.id %>Label" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModal<%= supply.id %>Label">Editar insumo</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<%= form_for :supply, url: product_update_path(supply.id) do |f| %>
+											<div class="form-group">
+												<%= f.label "Almacen" %><br/>
+												<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
+											</div>
+											<div class="form-group">
+												<%= f.label "Anaquel" %><br/>
+												<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
+											</div>
+											<div class="form-group">
+												<%= f.label "Sección " %><br/>
+												<%= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
+											</div>
+
+
+											<div class="form-group">
+												<%= f.label "Nombre del insumo" %><br/>
+												<%= f.text_field :name, class: "form-control", required: true, placeholder: "#{supply.name}" %>
+											</div>
+
+											<div class="form-group">
+												<%= f.label "Descripción" %><br/>
+												<%= f.text_field :description, class: "form-control", required: true, placeholder: "#{supply.description}" %>
+											</div>
+
+											<div class="form-group">
+												<%= f.label "Cantidad" %><br/>
+												<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
+											</div>
+
+											<div class="form-group">
+												<%= f.label "Código de identificación" %><br/>
+												<%= f.text_field :identification_code, class: "form-control", required: true, placeholder: "#{supply.identification_code}" %>
+											</div>
+											<div class="form-group">
+												<%= f.label "Es de un solo uso?" %> <br/>
+												<%= f.label "Sí" %>
+												<%= f.radio_button :perishable, true%>
+												<%= f.label "No" %>
+												<%= f.radio_button :perishable, false %>
+											</div>
+
+											<div class="form-group">
+												<%= f.submit "Editar Insumo", class: "btn btn-green mt-3" %>
+											</div>
+											<% end %>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
 							<%= link_to "Ver Insumo", product_show_path(supply.id), class: "card-link btn btn-green w-100" %>
 							<%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-danger mt-2 w-100" %>
 						</div>

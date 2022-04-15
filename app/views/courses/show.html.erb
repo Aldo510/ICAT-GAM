@@ -13,11 +13,13 @@
             <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
             <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
             <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
+            <p>Estatus del curso: <%= @course.status %></p>
             <p>Días del curso: <% @course.days.each do |course| %>
               <%= course %>,
               <% end %>
             </p>
             <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn" %>
+            <%= link_to "Agregar Ficha de materiales del curso", "#", class: "btn btn-green" %>
           </div>
           <div class="col-12 col-sm-10 col-lg-6 mx-auto text-center">
             <div id="tester" class="text-center"></div>

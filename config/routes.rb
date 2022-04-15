@@ -3,13 +3,15 @@ Rails.application.routes.draw do
   # Classrooms
   get 'classrooms/index', to: "classrooms#index", as: "classrooms_index"
   get 'classrooms/show/:id', to: "classrooms#show", as: "classroom_show"
-  post 'classrom/create', to: "classrooms#create", as: "classroom_create"
+  post 'classroom/create', to: "classrooms#create", as: "classroom_create"
+  post "classroom/update/:id", to: "classrooms#update", as: "classroom_update"
   delete 'classroom/delete:id', to: "classrooms#delete", as: "classroom_delete"
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show/:id', to: 'products#show', as: "product_show"
   post 'products/create', to: 'products#create', as: "product_create"
   post 'products/edit/:id', to: "products#update", as: "product_update"
+  post 'products/create_multiple', to: "products#create_multiple", as: "products_multiple"
   delete 'products/delete/:id', to: "products#delete", as: "product_delete"
   # Courses
   get 'courses/index'
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
   get 'courses/show/:id', to: "courses#show", as: "course_show"
   #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
   post 'courses/create', to: "courses#create", as: "course_create"
+  post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   #Shelves
   get 'shelves/show/:id', to: "shelves#show", as: "shelf_show"
@@ -26,8 +29,8 @@ Rails.application.routes.draw do
   get 'students/new', to: "students#new", as: "student_new"
   post 'students/create'
   post 'students/create_multiple', to: 'students#create_multiple', as: "students_multiple"
-  post 'students/update'
-  delete 'students/destroy'
+  post 'students/update/:id', to: "students#edit", as: "student_edit"
+  delete 'students/destroy/:id', to: "workers#delete", as: "student_delete"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Workers
   get "signup", to: "workers#new", as: "new_worker"

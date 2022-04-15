@@ -2,11 +2,32 @@
   <div class="row">
     <div class="col-10 mx-auto">
       <h1 class="display-4 my-2 text-center"><%= @classroom.name %></h1>
-      <p class="text-capitalize">description: <%= @classroom.description %></p>
+      <p class="text-capitalize">descrición: <%= @classroom.description %></p>
       <p class="text-capitalize">Capacidad: <%= @classroom.capacity %></p>
-      <p class="text-capitalize">Cuenta con mobiliario: <%= @classroom.moobiliary %></p>
+      <p class="text-capitalize">Cuenta con mobiliario: 
+        <% if @classroom.moobiliary %>
+        <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+        <% else %>
+        <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+        <%end%>
+      </p>
+      <p class="text-capitalize">Cuenta con pizarrón: 
+        <% if @classroom.board %>
+        <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+        <% else %>
+        <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+        <%end%>
+      </p>
+      <p class="text-capitalize">Cuenta con equipo de computo: 
+        <% if @classroom.computing_equipment %>
+        <%= bootstrap_icon "check-circle-fill", fill: "green", class: "text-center" %>
+        <% else %>
+        <%= bootstrap_icon "x-circle-fill", fill: "red", class: "text-center" %>
+        <%end%>
+      </p>
       <p class="text-capitalize">Tamaño m<sup>2</sup>: <%= @classroom.size %></p>
-      <p class="text-capitalize">Cantidad de sillas<%= @classroom.chairs_quantity %></p>
+      <p class="text-capitalize">Cantidad de sillas: <%= @classroom.chairs_quantity %></p>
+      <p>Estado del salón: <%= @status %></p>
     </div>
   </div>
 </section>

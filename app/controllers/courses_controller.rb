@@ -43,6 +43,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  def edit
+    @course = Course.find(params[:id])
+    if @course.update(course_params)
+      flash[:success] = "El curso se actualizo correctamente"
+      redirect_to courses_index_path
+    else 
+      flash[:alert] = "Hubó un problema al editar el curso"
+      render "index"
+    end
+  end
+
   def destroy
     @course = Course.find(params[:id])
     if @course.destroy

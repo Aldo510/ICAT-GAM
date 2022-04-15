@@ -14,6 +14,12 @@ class ClassroomsController < ApplicationController
 
   def show
     @classroom = Classroom.find(params[:id])
+    @status = ""
+    if @classroom.status
+      @status = "Disponible"
+    else
+      @status = "En uso"
+    end
   end
   def new
     @classroom = Classroom.new
@@ -27,8 +33,19 @@ class ClassroomsController < ApplicationController
       flash[:danger] = "No se pudó crear el salón"
       render "new"
     end
-
   end
+
+  def update
+    @classroom = Classroom.find(params[:id])  
+    if @classroom.update(classroom_params)
+      flash[:success] = "Se ha actualizado correctamente el salón"
+      redirect_to classrooms_index_path
+    else
+      flash[:alert] = "Hubó un problema al editar el salón"
+      render "index"
+    end
+  end
+
   def delete
     Classroom.find(params[:id]).destroy
     flash[:success] = "Salón borrado correctamente"

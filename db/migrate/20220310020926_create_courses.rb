@@ -14,7 +14,7 @@ class CreateCourses < ActiveRecord::Migration[7.0]
       t.boolean :confirmed
       t.string :modality
       t.integer :academy_id
-      t.string :status
+      t.string :status, default: "En preparación"
       t.integer :approved
       t.integer :reprobated
       t.string :downs

@@ -33,18 +33,19 @@ class StudentsController < ApplicationController
       flash[:success] = "Se han agregado los estudiantes"
       redirect_to students_index_path
     else
-      flash[:alert] = "hubo un problema al crear los usuarios"
-      render "new"
+      flash[:alert] = "hubó un problema al crear los usuarios"
+      render "index"
     end
   end
 
   def edit
     @student = Student.find(params[:id])
-    if @student.update_attributes(student_params)
+    if @student.update(student_params)
       flash[:success] = "Se ha actualizado correctamente"
       redirect_to students_index_path
     else
       flash[:alert] = "No se ha podido actualizar"
+      redirect_to students_index_path
     end
   end
 

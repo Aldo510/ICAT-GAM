@@ -21,8 +21,26 @@ class ProductsController < ApplicationController
       render "new"
     end    
   end
+
+  def create_multiple
+    if Supply.import(params[:supply][:file], params[:supply][:warehouse_id])
+      flash[:success] = "Se han agregado los insumos correctamente"
+      redirect_to products_index_path
+    else
+      flash[:alert] = "Hubó un problema al agregar los insumos"
+      render "index"
+    end
+  end
+
   def update
-    
+    @supply = Supply.find(params[:id])
+    if @supply.update(supply_params)
+      flash[:success] = "Insumo actualizado correctamente"
+      redirect_to products_index_path
+    else
+      flash[:danger] = "No se pudo actualizar el insumo"
+      render "index"
+    end
   end
 
   def delete
