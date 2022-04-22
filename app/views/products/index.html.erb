@@ -150,12 +150,12 @@
 
 											<div class="form-group">
 												<%= f.label "Nombre del insumo" %><br/>
-												<%= f.text_field :name, class: "form-control", required: true, placeholder: "#{supply.name}" %>
+												<%= f.text_field :name, class: "form-control", required: true, placeholder: "#{supply.name}", value: supply.name %>
 											</div>
 
 											<div class="form-group">
 												<%= f.label "Descripción" %><br/>
-												<%= f.text_field :description, class: "form-control", required: true, placeholder: "#{supply.description}" %>
+												<%= f.text_field :description, class: "form-control", required: true, placeholder: "#{supply.description}", value: supply.description %>
 											</div>
 
 											<div class="form-group">
@@ -165,7 +165,7 @@
 
 											<div class="form-group">
 												<%= f.label "Código de identificación" %><br/>
-												<%= f.text_field :identification_code, class: "form-control", required: true, placeholder: "#{supply.identification_code}" %>
+												<%= f.text_field :identification_code, class: "form-control", required: true, placeholder: "#{supply.identification_code}", value: supply.identification_code %>
 											</div>
 											<div class="form-group">
 												<%= f.label "Es de un solo uso?" %> <br/>

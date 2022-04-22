@@ -6,19 +6,16 @@
       <ul class="row">
         <% @workers.each do |worker| %>
         <li class="list-group-item text-capitalize col-10 col-md-6 col-lg-4 col-xl-3 mx-auto">
-          <p class="m-0"><%= "#{worker.name} #{worker.last_name}" %></p>
-          <p class="m-0"><%= "#{worker.mail}" %></p>
-          <p class="m-0"><%= "#{worker.telephone}" %></p>
-          <p class="m-0"><%= worker.roles.pluck(:name)%></p>
+          <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
+          <p class=""><%= "#{worker.mail}" %></p>
+          <p class=""><%= "#{worker.telephone}" %></p>
+          <p class="">Roles: <%= worker.roles.pluck(:name) %></p>
           <p>admin? <%= worker.has_role? :admin %></p>
-          <p>director? <%= worker.has_role? :director %></p>
-          <p>Sub director? <%= worker.has_role? :subdirector %></p>
-          <p>inscripciones? <%= worker.has_role? :inscriptions %></p>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
+          <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
             Editar Trabajador
           </button>
-          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-danger my-2" %>
+          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" %>
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">

@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
+  #Professors
+  get 'professors/show/:id', to: "professors#show", as: "professor_show"
+  post 'professors/create', to: "professors#create", as: "professor_create"
+  post 'professors/edit/:id', to: "professors#edit", as: "professor_update"
+  delete 'professors/delete/:id', to: "professors#delete", as: "professor_delete"
   #Shelves
   get 'shelves/show/:id', to: "shelves#show", as: "shelf_show"
   # Students

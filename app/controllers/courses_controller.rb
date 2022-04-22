@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
       redirect_to courses_index_path
     else
       flash[:alert] = "El curso no se pudo crear"
+      redirect_to courses_index_path
     end
   end
 
