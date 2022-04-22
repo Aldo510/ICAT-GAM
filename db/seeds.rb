@@ -13,7 +13,7 @@ caregories = ["Niños", "Adultos Mayores", "Cocina", "Cosecha de lluvia", "Ferre
 19.times do |t|
 	Shelf.create(warehouse_id: 1, code: "AN-#{t+1}", category: caregories.sample)	
 end
-10.time do |t|
+10.times do |t|
 	Shelf.create(warehouse_id: 2, code: "AN-#{t+1}", category: caregories.sample)	
 end
 # Shelf.create(warehouse_id: 1, code: "asdasd", category: "Niños")
