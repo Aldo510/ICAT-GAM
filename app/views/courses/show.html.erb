@@ -18,7 +18,7 @@
               <%= course %>,
               <% end %>
             </p>
-            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn" %>
+            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn mt-3" %>
             <%= link_to "Agregar Ficha de materiales del curso", "#", class: "btn btn-green" %>
             <% if @course.professor %>
             <p class="mt-3">Profesor: <%= link_to @course.professor.name, professor_show_path(@course.professor.id), class: "btn btn-brown" %></p>
