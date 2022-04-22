@@ -7,6 +7,7 @@
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <%= favicon_link_tag asset_path('logos/favicon.ico') %>
   <%= javascript_importmap_tags %>
   <script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
@@ -15,14 +16,18 @@
 <body>
   <% if flash.any? %>
   <% flash.each do |type, msg| %>
-    <div class="alert alert-<%= type %> alert-dismissible fade show fixed-top mt-3" role="alert">
-      <%= msg %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+  <div data-aos="fade-up" class="alert alert-<%= type %> alert-dismissible fade show fixed-top mt-3" role="alert">
+    <%= msg %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <% end %>
   <% end %>
   <%= render "partials/navbar" %>
   <%= yield %>
   <%= render "partials/footer" %>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 </html>
