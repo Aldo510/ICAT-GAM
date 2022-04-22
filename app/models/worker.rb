@@ -1,5 +1,5 @@
 class Worker < ApplicationRecord
+  # resourcify
   rolify
-  resourcify
   has_secure_password
 end

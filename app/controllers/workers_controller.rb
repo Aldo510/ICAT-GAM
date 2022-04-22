@@ -27,6 +27,11 @@ class WorkersController < ApplicationController
     else
       redirect_to login_path
     end
+    if current_worker.roles.any?
+      @roles = current_worker.roles.first.name
+    else
+      @roles = "No se han agregado roles a este Trabajador"
+    end
 
   end
 
@@ -53,7 +58,7 @@ class WorkersController < ApplicationController
 
   private
   def worker_params
-    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :password, :password_confirmation)
+    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :password, :password_confirmation, {role_ids: []})
   end
 
 end
