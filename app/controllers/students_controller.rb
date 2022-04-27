@@ -49,11 +49,15 @@ class StudentsController < ApplicationController
     end
   end
 
-  def destroy
+  def delete
     @student = Student.find(params[:id])
-    @student.destroy
-    flash[:success] = "Estudiante borrado exitosamente"
-    redirect_to students_index_path
+    if @student.destroy
+      flash[:success] = "Estudiante borrado exitosamente"
+      redirect_to students_index_path
+    else
+      flash[:alert] = "No se ha eliminar el estudiante"
+      redirect_to students_index_path
+    end
   end
 
   private
