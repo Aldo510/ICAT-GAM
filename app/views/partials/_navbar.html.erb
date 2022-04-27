@@ -10,33 +10,57 @@
           <li class="nav-item">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+          <% if logged_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Menú
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
+              <% if current_worker.has_role? :admin %>
+              <%= link_to "Trabajadores", workers_index_path, class: "dropdown-item" %>
+              <%= link_to "Estudiantes", students_index_path, class: "dropdown-item" %>
+              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
+              <%= link_to "Salones", classrooms_index_path, class: "dropdown-item" %>
+              <%= link_to "Insumos", warehouses_index_path, class: "dropdown-item" %>
+              <% end %>
+              <% if current_worker.has_role? :director %>
+              <%= link_to "Trabajadores", workers_index_path, class: "dropdown-item" %>
+              <%= link_to "Estudiantes", students_index_path, class: "dropdown-item" %>
+              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
+              <%= link_to "Salones", classrooms_index_path, class: "dropdown-item" %>
+              <%= link_to "Insumos", warehouses_index_path, class: "dropdown-item" %>
+              <% end %>
+              <% if current_worker.has_role? :capacitaion %>
+              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
+              <% end %>
+              <% if current_worker.has_role? :projects %>
+              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
+              <% end %>
+              <% if current_worker.has_role? :inscriptions %>
+              <%= link_to "Cursos", students_index_path, class: "dropdown-item" %>
+              <% end %>
+              <% if current_worker.has_role? :administration %>
+              <%= link_to "Cursos", warehouses_index_path, class: "dropdown-item" %>
+              <% end %>
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
-          <li class="nav-item">
+          <% end %>
           <% if logged_in? %>
-            <%= link_to "#{current_worker.name.capitalize} #{current_worker.last_name.capitalize}", worker_profile_path(session[:worker_id]), class: "nav-link" %>
+            <%= link_to "#{current_worker.name.capitalize} #{current_worker.last_name.capitalize}", worker_profile_path(session[:worker_id]), class: "nav-link text-white" %>
             <% else %>
+            <li class="nav-item">
               <!-- <a class="nav-link" href="#">Iniciar Sesión</a> -->
               <%= link_to "iniciar sesión", login_path, class: "nav-link" %>
+            </li>
           <% end %>
           <% if logged_in? %>
           <li class="nav-item">
           <%= button_to "Cerrar sesión", logout_path, class: "nav-link btn-green rounded text-white", :method => "delete" %>
           </li>
           <% end %>
-        </li>
         </ul>
       </div>
     </div>

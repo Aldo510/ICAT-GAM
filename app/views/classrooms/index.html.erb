@@ -156,11 +156,11 @@
                       <%= form_for :classroom, url: classroom_update_path(classroom.id) do |f| %>
                       <div class="form-group">
                         <%= f.label "Nombre" %>
-                        <%= f.text_field :name, class: "form-control", placeholder: classroom.name %>
+                        <%= f.text_field :name, class: "form-control", placeholder: classroom.name, value: classroom.name %>
                       </div>
                       <div class="form-group">
                         <%= f.label "Descripción" %>
-                        <%= f.text_field :description, class: "form-control", placeholder: classroom.description %>
+                        <%= f.text_field :description, class: "form-control", placeholder: classroom.description, value: classroom.description %>
                       </div>
                       <div class="form-group">
                         <%= f.label "Capacidad" %>
@@ -168,7 +168,7 @@
                       </div>
                       <div class="form-group">
                         <%= f.label "Tamaño (metros cuadrados)" %>
-                        <%= f.number_field :size, class: "form-control", placeholder: classroom.size %>
+                        <%= f.number_field :size, class: "form-control", placeholder: classroom.size, value: classroom.size %>
                       </div>
                       <div class="form-group">
                         <%= f.label "¿Cuenta con equipo de computo ?", class: "text-capitalize" %><br/>
@@ -226,7 +226,7 @@
 
     var data = [ trace1 ];
 
-    var layout = { 
+    var layout = {
       title: 'Capacidad de salones',
       font: {size: 18}
     };
