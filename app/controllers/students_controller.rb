@@ -50,7 +50,7 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    @student = Student.find(params[:format])
+    @student = Student.find(params[:id])
     @student.destroy
     flash[:success] = "Estudiante borrado exitosamente"
     redirect_to students_index_path

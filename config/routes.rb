@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   post 'students/create'
   post 'students/create_multiple', to: 'students#create_multiple', as: "students_multiple"
   post 'students/update/:id', to: "students#edit", as: "student_edit"
-  delete 'students/destroy/:id', to: "workers#delete", as: "student_delete"
+  delete 'students/destroy/:id', to: "students#delete", as: "student_delete"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Workers
   get "signup", to: "workers#new", as: "new_worker"
