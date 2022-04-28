@@ -7,7 +7,7 @@
       <p class="">Email: <%= current_worker.mail %></p>
       <p class=" text-capitalize">Teléfono: <%= current_worker.telephone %></p>
       <p class="">¿Eres admin? <%= current_worker.has_role? :admin %></p>
-      <p class="mb-3">Roles: <%= current_worker.roles.pluck(:name) %></p>
+      <p class="mb-3">Role: <%= current_worker.role %></p>
       <p class="text-capitalize d-none">Role: <%#= Role.find(current_worker.role_ids[0]).name %></p>
       <%= link_to "Mostrar todos los Trabajadores", workers_index_path, class: "btn btn-green text-white gap-2", data: { aos: "fade-up" } %>
       <%= link_to "Mostrar todos los Estudiantes", students_index_path, class: "btn btn-brown my-2 gap-2",  data: { aos: "fade-up" } %>
@@ -33,17 +33,20 @@
 
               <div class="form-group">
                 <%= f.label :nombre %><br/>
-                <%= f.text_field :name, class: "form-control" %>
+                <%= f.text_field :name, class: "form-control", required: true %>
               </div>
               <div class="form-group">
                 <%= f.label :Apellidos %><br/>
-                <%= f.text_field :last_name, class: "form-control" %>
+                <%= f.text_field :last_name, class: "form-control", required: true %>
               </div>
               <div class="form-group">
                 <%= f.label :teléfono %><br/>
-                <%= f.telephone_field :telephone, class: "form-control" %>
+                <%= f.telephone_field :telephone, class: "form-control", required: true %>
               </div>
-
+              <div class="form-group">
+                <%= f.label "Selecciona el Rol del Trabajador" %>
+                <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], required: true%>
+              </div>
               <div class="form-group">
                 <%= f.label :email %><br/>
                 <%= f.email_field :mail, class: "form-control" %>
@@ -51,11 +54,11 @@
 
               <div class="form-group">
                 <%= f.label :password %><br/>
-                <%= f.password_field :password, class: "form-control" %>
+                <%= f.password_field :password, class: "form-control", required: true %>
               </div>
               <div class="form-group">
                 <%= f.label :password_confirmation %><br/>
-                <%= f.password_field :password_confirmation, class: "form-control" %>
+                <%= f.password_field :password_confirmation, class: "form-control", required: true %>
               </div>
 
               <div class="form-group">
