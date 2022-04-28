@@ -5,18 +5,16 @@
       <div class="container-fluid">
       <ul class="row">
         <% @workers.each do |worker| %>
-        <li class="list-group-item text-capitalize col-10 col-md-6 col-lg-4 col-xl-3 mx-auto">
+        <li class="list-group-item text-capitalize col-12 col-md-6 col-lg-4 col-xl-3 mx-auto rounded border shadow my-2">
           <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
           <p class=""><%= "#{worker.mail}" %></p>
           <p class=""><%= "#{worker.telephone}" %></p>
-          <p class="">Roles: <%= worker.roles.pluck(:name) %></p>
-          <p>admin? <%= worker.has_role? :admin %></p>
+          <p class="">Role: <%= worker.role %></p>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
             Editar Trabajador
           </button>
           <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" %>
-
           <!-- Modal -->
           <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
             <div class="modal-dialog">
@@ -37,7 +35,7 @@
                       <%= f.label :Apellidos %><br/>
                       <%= f.text_field :last_name, placeholder: "#{worker.last_name}", value: "#{worker.last_name}", class: "form-control" %>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none">
                       <%= f.label "Asignar Roles" %><br/>
                       <div class="checkboxes">
                         <%= f.collection_check_boxes :role_ids, Role.all, :id, :name %>
@@ -47,8 +45,10 @@
                       <%= f.label :teléfono %><br/>
                       <%= f.telephone_field :telephone, placeholder: "#{worker.telephone}", value: "#{worker.telephone}", class: "form-control" %>
                     </div>
-
-
+                    <div class="form-froup">
+                      <%= f.label "Selecciona el Rol del Trabajador" %>
+                      <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"]%>
+                    </div>
                     <div class="form-group">
                       <%= f.label :email %><br/>
                       <%= f.email_field :mail, placeholder: "#{worker.mail}", value: "#{worker.mail}", class: "form-control" %>
@@ -56,11 +56,11 @@
 
                     <div class="form-group">
                       <%= f.label :password %><br/>
-                      <%= f.password_field :password, class: "form-control" %>
+                      <%= f.password_field :password, class: "form-control", required: true %>
                     </div>
                     <div class="form-group">
                       <%= f.label :password_confirmation %><br/>
-                      <%= f.password_field :password_confirmation, class: "form-control" %>
+                      <%= f.password_field :password_confirmation, class: "form-control", required: true %>
                     </div>
 
                     <div class="form-group">
