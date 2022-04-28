@@ -1,0 +1,31 @@
+<button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#modalDataSheet">
+  Agregar ficha de materiales
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalDataSheet" tabindex="-1" aria-labelledby="modalDataSheetLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDataSheetLabel">Agregar Ficha de materiales</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_for :datasheet, url: data_sheet_create_path do |f| %>
+        <div class="form-group d-none">
+          <%= f.label "Id del curso", class: "form-label", for: "disabledTextInput", disabled: true %>
+          <%= f.text_field :course_id, value: @course.id, class: "form-control", id: "disabledTextInput" %>
+        </div>
+        <div class="form-group">
+          <%= f.label "Selecciona el archivo csv de la ficha" %>
+          <%= f.file_field :file, accept: 'text/csv', class: "btn form-control", required: true %>
+        </div>
+        <%= f.submit "Agregar", class: "btn btn-green my-2" %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-cherry" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

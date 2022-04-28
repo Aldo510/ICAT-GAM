@@ -55,6 +55,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  def update_status
+    @course = Course.find(params[:id])
+    if @course.update_attribute(:status, params[:course_status][:status])
+      flash[:success] = "Se ha cambiado el estatus del curso"
+      redirect_to course_show_path(@course.id)
+    else
+      flash[:alert] = "No se pudó cambiar el status del curso"
+      redirect_to course_show_path(@course.id)
+    end
+  end
+
   def destroy
     @course = Course.find(params[:id])
     if @course.destroy

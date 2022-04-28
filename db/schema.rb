@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_28_171930) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_28_180452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_28_171930) do
     t.datetime "updated_at", null: false
     t.time "start_hour"
     t.time "end_hour"
+  end
+
+  create_table "data_sheets", force: :cascade do |t|
+    t.integer "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "professors", force: :cascade do |t|
@@ -114,6 +120,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_28_171930) do
     t.datetime "updated_at", null: false
     t.integer "shelf_id"
     t.integer "warehouse_id"
+  end
+
+  create_table "supply_data_sheets", force: :cascade do |t|
+    t.integer "data_sheet_id"
+    t.string "name"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "warehouses", force: :cascade do |t|

@@ -1,0 +1,45 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
+  Ver la ficha de materiales
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="datasheetShowModal" tabindex="-1" aria-labelledby="datasheetShowModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="datasheetShowModalLabel">Lista de materiales</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">    
+            <div class="col-4">
+              <p class="h4 text-center">Nombre del insumo</p>
+            </div>
+            <div class="col-4">
+              <p class="h4 text-center">Cantidad requerida para el curso</p>
+            </div>
+            <div class="col-4">
+              <p class="h4 text-center">Cantidad en almacen</p>
+            </div>
+            <% @course.data_sheet.supply_data_sheets.each do |data| %>
+            <div class="col-4">
+              <p class="text-center"><%= data.name %></p>
+            </div>
+            <div class="col-4">
+              <p class="text-center"><%= data.quantity %></p>
+            </div>
+            <div class="col-4">
+              
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

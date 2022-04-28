@@ -1,0 +1,2 @@
+class SupplyDataSheetsController < ApplicationController
+end
