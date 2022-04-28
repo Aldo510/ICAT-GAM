@@ -87,106 +87,113 @@
         </div>
       </div>
       <% if @courses.any? %>
-      <table class="table text-center">
-        <thead>
-          <tr>
-            <th scope="col">id_ddc</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Modalidad</th>
-            <th scope="col">Inicio</th>
-            <th scope="col">Final</th>
-            <th scope="col">Horario</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Borrar</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @courses.each do |course| %>
-          <tr>
-            <!-- <th scope="row"><%#= course.id%></th> -->
-            <td><%= course.id_ddc %></td>
-            <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
-            <td><%= course.modality %></td>
-            <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
-            <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
-            <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
-            <td><!-- Button trigger modal edit course -->
-              <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
-                Editar
-              </button>
+      <div class="table-responsive">
+        <table class="table text-center">
+          <thead>
+            <tr>
+              <th scope="col">id_ddc</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Modalidad</th>
+              <th scope="col">Inicio</th>
+              <th scope="col">Final</th>
+              <th scope="col">Horario</th>
+              <th scope="col">Status</th>
+              <th scope="col">Editar</th>
+              <th scope="col">Borrar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @courses.each do |course| %>
+            <tr>
+              <!-- <th scope="row"><%#= course.id%></th> -->
+              <td><%= course.id_ddc %></td>
+              <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+              <td><%= course.modality %></td>
+              <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
+              <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
+              <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
+              <td><%= course.status %></td>
+              <td><!-- Button trigger modal edit course -->
+                <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
+                  Editar
+                </button>
 
-              <!-- Modal edit course -->
-              <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-start">
-                      <%= form_for :course, url: edit_course_path(course.id) do |f| %>
-                      <div class="form-group">
-                        <%= f.label :id_ddc %><br/>
-                        <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}" %>
+                <!-- Modal edit course -->
+                <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="form-group">
-                        <%= f.label :nombre_curso %><br/>
-                        <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :fecha_inicio %><br/>
-                        <%= f.date_field :start_date, class: "form-control", required: true %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :fecha_terminación %><br/>
-                        <%= f.date_field :end_date, class: "form-control", required: true %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :start_date, "Hora de inicio" %> <br/>
-                        <%= f.select :start_hour, (9..17).to_a %>:00
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :end_date, "Hora de finalización" %> <br/>
-                        <%= f.select :end_hour, (10..17).to_a %>:00
-                      </div>
-
-                      <div class="form-group py-2">
-                        <%= f.label :dias_del_curso %><br/>
-                        <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes']], :first, :first do |b| %>
-                        <li>
-                          <%= b.label %>
-                          <%= b.check_box %>
-                        </li>
+                      <div class="modal-body text-start">
+                        <%= form_for :course, url: edit_course_path(course.id) do |f| %>
+                        <div class="form-group">
+                          <%= f.label :id_ddc %><br/>
+                          <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}" %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :nombre_curso %><br/>
+                          <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}" %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :fecha_inicio %><br/>
+                          <%= f.date_field :start_date, class: "form-control", required: true %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :fecha_terminación %><br/>
+                          <%= f.date_field :end_date, class: "form-control", required: true %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :start_date, "Hora de inicio" %> <br/>
+                          <%= f.select :start_hour, (9..17).to_a %>:00
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :end_date, "Hora de finalización" %> <br/>
+                          <%= f.select :end_hour, (10..17).to_a %>:00
+                        </div>
+                        <div class="form-group">
+                          <%= f.label "Estatus del curso" %>
+                          <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], class: "dropdown-item" %>
+                        </div>
+                        <div class="form-group py-2">
+                          <%= f.label :dias_del_curso %><br/>
+                          <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes']], :first, :first do |b| %>
+                          <li>
+                            <%= b.label %>
+                            <%= b.check_box %>
+                          </li>
+                          <% end %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :número_de_sesiones %><br/>
+                          <%= f.select :sessions_number, (1..30).to_a, class: "form-control" %>
+                        </div>
+                        <div class="form-group dropdown ">
+                          <%= f.label :modalidad %><br>
+                          <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], class: "dropdown-item" %>
+                        </div>
+                        <div class="form-group d-none">
+                          <%= f.label :Costo_curso %><br/>
+                          <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}" %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
+                        </div>
                         <% end %>
                       </div>
-                      <div class="form-group">
-                        <%= f.label :número_de_sesiones %><br/>
-                        <%= f.select :sessions_number, (1..30).to_a, class: "form-control" %>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       </div>
-                      <div class="form-group dropdown ">
-                        <%= f.label :modalidad %><br>
-                        <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], class: "dropdown-item" %>
-                      </div>
-                      <div class="form-group d-none">
-                        <%= f.label :Costo_curso %><br/>
-                        <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
-                      </div>
-                      <% end %>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
-                </div>
-              </div></td>
-              <td><%= button_to "Borrar", course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
+                </div></td>
+                <td><%= button_to "Borrar", course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
         <% else %>
         <p class="text-center">Aún no hay curso agregados</p>
         <% end %>

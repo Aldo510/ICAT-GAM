@@ -22,7 +22,7 @@
               <%= form_for :student, url: students_multiple_path do |f| %>
               <div class="form-group">
                 <%= f.label :file, "Sube el archivo CSV" %>
-                <%= f.file_field :file, accept: 'text/csv', required: true %><br/>
+                <%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %><br/>
                 <%= f.label :course_id, "Selecciona el curso" %><br/>
                 <%= f.collection_select :course_id, Course.order(:name),:id,:name, include_blank: false %>
 

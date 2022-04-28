@@ -14,16 +14,29 @@
             <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
             <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
             <p>Estatus del curso: <%= @course.status %></p>
+            <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
+            <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], class: "dropdown-item" %>
+            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2" %>
+            <% end %>
             <p>Días del curso: <% @course.days.each do |course| %>
               <%= course %>,
               <% end %>
             </p>
             <% if @course.professor %>
-              <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3" %>
+            <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3" %>
             <% else %>
-              <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3 disabled" %>
+            <%#= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3 disabled" %>
+            <button type="button" class="btn btn-green disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Para descargar se necesita agregar un profesor">
+              Descargar lista en PDF
+            </button>
             <% end %>
-            <%= link_to "Agregar Ficha de materiales del curso", "#", class: "btn btn-green" %>
+            <!-- Button trigger modal -->
+            <% if @course.data_sheet %>
+            <%= render "partials/courses/datasheetshow" %>
+            <% else %>
+            <%= render "partials/courses/datasheetnew" %>
+            <% end %>
+            
             <% if @course.professor %>
             <p class="mt-3">Profesor: <%= link_to @course.professor.name, professor_show_path(@course.professor.id), class: "btn btn-brown" %></p>
             <%= button_to 'Borrar professor', professor_delete_path(@course.professor.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este profesor?" } }, class: "btn btn-cherry my-2" %>

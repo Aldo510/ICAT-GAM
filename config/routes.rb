@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   post 'classroom/create', to: "classrooms#create", as: "classroom_create"
   post "classroom/update/:id", to: "classrooms#update", as: "classroom_update"
   delete 'classroom/delete:id', to: "classrooms#delete", as: "classroom_delete"
+  #DataSheets
+  get 'data_sheets/show/:id', to: "data_sheets#show", as: "data_sheet_show"
+  post 'data_sheets/create', to: "data_sheets#create", as: "data_sheet_create"
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show/:id', to: 'products#show', as: "product_show"
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
   #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
+  post 'courses/edit_status/:id', to: "courses#update_status", as: "edit_course_status"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   #Professors
   get 'professors/show/:id', to: "professors#show", as: "professor_show"
