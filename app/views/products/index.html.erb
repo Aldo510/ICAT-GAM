@@ -20,10 +20,10 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<%= form_for :supply, url: products_multiple_path do |f| %>
+							<%= form_for :supplies_file, url: products_multiple_path do |f| %>
 							<div class="form-group">
 								<%= f.label :file, "Sube el archivo CSV" %>
-								<%= f.file_field :file, accept: 'text/csv', required: true %><br/>
+								<%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %><br/>
 								<%= f.label :warehouse_id, "Selecciona el Almacen" %><br/>
 								<%= f.collection_select :warehouse_id, Warehouse.order(:name),:id,:name, include_blank: false %>
 							</div>
