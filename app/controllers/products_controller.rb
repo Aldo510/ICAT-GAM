@@ -23,12 +23,12 @@ class ProductsController < ApplicationController
   end
 
   def create_multiple
-    if Supply.import(params[:supply][:file], params[:supply][:warehouse_id])
+    if Supply.import(params[:supplies_file][:file], params[:supplies_file][:warehouse_id])
       flash[:success] = "Se han agregado los insumos correctamente"
       redirect_to products_index_path
     else
       flash[:alert] = "Hubó un problema al agregar los insumos"
-      render "index"
+      rredirect_to products_index_path
     end
   end
 

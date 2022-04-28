@@ -16,16 +16,6 @@ end
 10.times do |t|
 	Shelf.create(warehouse_id: 2, code: "AN-#{t+1}", category: caregories.sample)	
 end
-# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Niños")
-# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Adultos mayores")
-# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Cosecha de lluvia")
-# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Ferreteria")
-# Shelf.create(warehouse_id: 1, code: "asdasd", category: "Papelería")
-# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Niños")
-# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Adultos mayores")
-# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Cosecha de lluvia")
-# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Ferreteria")
-# Shelf.create(warehouse_id: 2, code: "asdasd", category: "Papelería")
 ShelfSection.create(shelf_id: 1, number: 1)
 ShelfSection.create(shelf_id: 1, number: 2)
 ShelfSection.create(shelf_id: 1, number: 3)

@@ -3,7 +3,10 @@
 		<div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
 			<h1 class="display-3 text-center">Anaqueles</h1>
 			<div class="accordion accordion-flush" id="accordionFlushExample">
-				<% @shelf_sections.each_with_index do |section, index| %>
+				<% unless @shelf_sections %>
+				<p>No se han agregado secciones</p>
+				<% else %>
+				 <% @shelf_sections.each_with_index do |section, index| %>
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="flush-heading<%= index %>">
 						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse<%= index %>" aria-expanded="false" aria-controls="flush-collapse<%= index %>">
@@ -23,6 +26,7 @@
 						</div>
 					</div>
 				</div>
+				<% end %>
 				<% end %>
 			</div>
 		</div>
