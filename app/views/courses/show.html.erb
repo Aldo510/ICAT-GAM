@@ -22,7 +22,7 @@
               <%= course %>,
               <% end %>
             </p>
-            <% if @course.professor %>
+            <% if @course.professor & @course.students.any? %>
             <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3" %>
             <% else %>
             <%#= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3 disabled" %>
@@ -36,7 +36,7 @@
             <% else %>
             <%= render "partials/courses/datasheetnew" %>
             <% end %>
-            
+
             <% if @course.professor %>
             <p class="mt-3">Profesor: <%= link_to @course.professor.name, professor_show_path(@course.professor.id), class: "btn btn-brown" %></p>
             <%= button_to 'Borrar professor', professor_delete_path(@course.professor.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este profesor?" } }, class: "btn btn-cherry my-2" %>
@@ -121,9 +121,11 @@
             </div>
             <% end %>
           </div>
+          <% if @course.students.any? %>
           <div class="col-12 col-sm-10 col-lg-6 mx-auto text-center">
             <div id="tester" class="text-center"></div>
           </div>
+          <% end %>
         </div>
       </div>
       <% if @students.any? %>
