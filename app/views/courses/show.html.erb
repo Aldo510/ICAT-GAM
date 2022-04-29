@@ -22,7 +22,7 @@
               <%= course %>,
               <% end %>
             </p>
-            <% if @course.professor & @course.students.any? %>
+            <% if @course.professor && @course.students.any? %>
             <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3" %>
             <% else %>
             <%#= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3 disabled" %>
