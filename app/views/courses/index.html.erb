@@ -145,19 +145,19 @@
                         <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                         <div class="form-group">
                           <%= f.label :id_ddc %><br/>
-                          <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}" %>
+                          <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                         </div>
                         <div class="form-group">
                           <%= f.label :nombre_curso %><br/>
-                          <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}" %>
+                          <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
                         </div>
                         <div class="form-group">
                           <%= f.label :fecha_inicio %><br/>
-                          <%= f.date_field :start_date, class: "form-control", required: true %>
+                          <%= f.date_field :start_date, class: "form-control", required: true, value: course.start_date %>
                         </div>
                         <div class="form-group">
                           <%= f.label :fecha_terminación %><br/>
-                          <%= f.date_field :end_date, class: "form-control", required: true %>
+                          <%= f.date_field :end_date, class: "form-control", required: true, value: course.end_date %>
                         </div>
                         <div class="form-group">
                           <%= f.label :start_date, "Hora de inicio" %> <br/>
@@ -182,7 +182,7 @@
                         </div>
                         <div class="form-group">
                           <%= f.label :número_de_sesiones %><br/>
-                          <%= f.select :sessions_number, (1..30).to_a, class: "form-control" %>
+                          <%= f.select :sessions_number, (1..30).to_a, class: "form-control", value: course.sessions_number %>
                         </div>
                         <div class="form-group dropdown ">
                           <%= f.label :modalidad %><br>
@@ -190,7 +190,7 @@
                         </div>
                         <div class="form-group d-none">
                           <%= f.label :Costo_curso %><br/>
-                          <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}" %>
+                          <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}", value: course.cost %>
                         </div>
                         <div class="form-group">
                           <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
