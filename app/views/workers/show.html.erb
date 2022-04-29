@@ -6,74 +6,8 @@
       <p class=" text-capitalize">Nombre: <%= current_worker.name %> <%= current_worker.last_name.capitalize %></p>
       <p class="">Email: <%= current_worker.mail %></p>
       <p class=" text-capitalize">Teléfono: <%= current_worker.telephone %></p>
-      <p class="">¿Eres admin? <%= current_worker.has_role? :admin %></p>
       <p class="mb-3">Role: <%= current_worker.role %></p>
-      <p class="text-capitalize d-none">Role: <%#= Role.find(current_worker.role_ids[0]).name %></p>
-      <%= link_to "Mostrar todos los Trabajadores", workers_index_path, class: "btn btn-green text-white gap-2", data: { aos: "fade-up" } %>
-      <%= link_to "Mostrar todos los Estudiantes", students_index_path, class: "btn btn-brown my-2 gap-2",  data: { aos: "fade-up" } %>
-      <%= link_to "mostrar todos los cursos", courses_index_path, class: "text-capitalize btn btn-green text-white my-2",  data: { aos: "fade-up" } %>
-      <%= link_to "Mostrar los salones", classrooms_index_path, class: "text-capitalize btn btn-brown my-2",  data: { aos: "fade-up" } %>
-      <%= link_to "Ver Insumos", warehouses_index_path, class: "btn btn-green my-2",  data: { aos: "fade-up" } %>
-
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-cherry" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
-        Agregar nuevo Trabajador
-      </button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Datos trabajador</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" data-aos="fade-up">
-              <%= form_for :worker, url: signup_path do |f| %>
-
-              <div class="form-group">
-                <%= f.label :nombre %><br/>
-                <%= f.text_field :name, class: "form-control", required: true %>
-              </div>
-              <div class="form-group">
-                <%= f.label :Apellidos %><br/>
-                <%= f.text_field :last_name, class: "form-control", required: true %>
-              </div>
-              <div class="form-group">
-                <%= f.label :teléfono %><br/>
-                <%= f.telephone_field :telephone, class: "form-control", required: true %>
-              </div>
-              <div class="form-group">
-                <%= f.label "Selecciona el Rol del Trabajador" %>
-                <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], required: true%>
-              </div>
-              <div class="form-group">
-                <%= f.label :email %><br/>
-                <%= f.email_field :mail, class: "form-control" %>
-              </div>
-
-              <div class="form-group">
-                <%= f.label :password %><br/>
-                <%= f.password_field :password, class: "form-control", required: true %>
-              </div>
-              <div class="form-group">
-                <%= f.label :password_confirmation %><br/>
-                <%= f.password_field :password_confirmation, class: "form-control", required: true %>
-              </div>
-
-              <div class="form-group">
-                <%= f.submit "Crear Trabajador", class: "btn btn-green mt-3" %>
-              </div>
-
-              <% end %>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-cherry" data-bs-dismiss="modal">Close</button>
-              <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render "partials/workers/buttons_roles" %>
       <% else %>
       <%= link_to "Login", login_path %>
       <% end %>

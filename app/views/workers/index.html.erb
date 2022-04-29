@@ -3,82 +3,85 @@
     <div class="col-10 mx-auto">
       <h2 class="text-center display-5 text-capitalize pb-4"> Lista de Trabajadores</h2>
       <div class="container-fluid">
-      <ul class="row">
-        <% @workers.each do |worker| %>
-        <li class="list-group-item text-capitalize col-12 col-md-6 col-lg-4 col-xl-3 mx-auto rounded border shadow my-2">
-          <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
-          <p class=""><%= "#{worker.mail}" %></p>
-          <p class=""><%= "#{worker.telephone}" %></p>
-          <p class="">Role: <%= worker.role %></p>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
-            Editar Trabajador
-          </button>
-          <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" %>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModal<%= worker.id %>Label">Editar trabajador</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+        <ul class="row">
+          <% @workers.each do |worker| %>
+          <li class="list-group-item text-capitalize col-12 col-md-6 col-lg-4 col-xl-3 mx-auto rounded border shadow my-2">
+            <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
+            <p class=""><%= "#{worker.mail}" %></p>
+            <p class=""><%= "#{worker.telephone}" %></p>
+            <p class="">Role: <%= worker.role %></p>
+            <!-- Button trigger modal -->
+            <% if current_worker.role == "Admin" %>
+            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
+              Editar Trabajador
+            </button>
+            <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" %>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal<%= worker.id %>Label">Editar trabajador</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
                   <div class="modal-body">
-                    <%= form_for :worker, url: worker_edit_path(worker.id) do |f| %>
+                    <div class="modal-body">
+                      <%= form_for :worker, url: worker_edit_path(worker.id) do |f| %>
 
-                    <div class="form-group">
-                      <%= f.label :nombre %><br/>
-                      <%= f.text_field :name, placeholder: "#{worker.name}", value: "#{worker.name}", class: "form-control" %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.label :Apellidos %><br/>
-                      <%= f.text_field :last_name, placeholder: "#{worker.last_name}", value: "#{worker.last_name}", class: "form-control" %>
-                    </div>
-                    <div class="form-group d-none">
-                      <%= f.label "Asignar Roles" %><br/>
-                      <div class="checkboxes">
-                        <%= f.collection_check_boxes :role_ids, Role.all, :id, :name %>
+                      <div class="form-group">
+                        <%= f.label :nombre %><br/>
+                        <%= f.text_field :name, placeholder: "#{worker.name}", value: "#{worker.name}", class: "form-control" %>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <%= f.label :teléfono %><br/>
-                      <%= f.telephone_field :telephone, placeholder: "#{worker.telephone}", value: "#{worker.telephone}", class: "form-control" %>
-                    </div>
-                    <div class="form-froup">
-                      <%= f.label "Selecciona el Rol del Trabajador" %>
-                      <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"]%>
-                    </div>
-                    <div class="form-group">
-                      <%= f.label :email %><br/>
-                      <%= f.email_field :mail, placeholder: "#{worker.mail}", value: "#{worker.mail}", class: "form-control" %>
-                    </div>
+                      <div class="form-group">
+                        <%= f.label :Apellidos %><br/>
+                        <%= f.text_field :last_name, placeholder: "#{worker.last_name}", value: "#{worker.last_name}", class: "form-control" %>
+                      </div>
+                      <div class="form-group d-none">
+                        <%= f.label "Asignar Roles" %><br/>
+                        <div class="checkboxes">
+                          <%= f.collection_check_boxes :role_ids, Role.all, :id, :name %>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label :teléfono %><br/>
+                        <%= f.telephone_field :telephone, placeholder: "#{worker.telephone}", value: "#{worker.telephone}", class: "form-control" %>
+                      </div>
+                      <div class="form-froup">
+                        <%= f.label "Selecciona el Rol del Trabajador" %>
+                        <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"]%>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label :email %><br/>
+                        <%= f.email_field :mail, placeholder: "#{worker.mail}", value: "#{worker.mail}", class: "form-control" %>
+                      </div>
 
-                    <div class="form-group">
-                      <%= f.label :password %><br/>
-                      <%= f.password_field :password, class: "form-control", required: true %>
-                    </div>
-                    <div class="form-group">
-                      <%= f.label :password_confirmation %><br/>
-                      <%= f.password_field :password_confirmation, class: "form-control", required: true %>
-                    </div>
+                      <div class="form-group">
+                        <%= f.label :password %><br/>
+                        <%= f.password_field :password, class: "form-control", required: true %>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label :password_confirmation %><br/>
+                        <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+                      </div>
 
-                    <div class="form-group">
-                      <%= f.submit "Editar Trabajador", class: "btn btn-green mt-3" %>
-                    </div>
+                      <div class="form-group">
+                        <%= f.submit "Editar Trabajador", class: "btn btn-green mt-3" %>
+                      </div>
 
-                    <% end %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
-        <% end %>
-      </ul>
-    </div>
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
