@@ -16,14 +16,21 @@
               Menú
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Trabajadores", workers_index_path, class: "dropdown-item" %>
-              <%= link_to "Estudiantes", students_index_path, class: "dropdown-item" %>
-              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
-              <%= link_to "Salones", classrooms_index_path, class: "dropdown-item" %>
-              <%= link_to "Insumos", warehouses_index_path, class: "dropdown-item" %>
-              <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
-              <%= link_to "Cursos", students_index_path, class: "dropdown-item" %>
-              <%= link_to "Cursos", warehouses_index_path, class: "dropdown-item" %>
+              <%= link_to workers_index_path, class: "dropdown-item", data: { aos: "fade-up" } do %>
+              <p class="m-0"><%= bootstrap_icon "person-fill", class: "text-center" %> Mostrar todos los colaboradores</p>
+              <% end %>
+              <%= link_to students_index_path, class: "dropdown-item",  data: { aos: "fade-up" } do %>
+              <p class="m-0"><%= bootstrap_icon "book", class: "text-center" %> Mostrar todos los estudiantes</p>
+              <% end %>
+              <%= link_to courses_index_path, class: "dropdown-item",  data: { aos: "fade-up" } do %>
+              <p class="m-0"><%= bootstrap_icon "journal-text", class: "text-center" %> Mostrar todos los cursos</p>
+              <% end %>
+              <%= link_to classrooms_index_path, class: "dropdown-item",  data: { aos: "fade-up" } do %>
+              <p class="m-0"><%= bootstrap_icon "building", class: "text-center" %> Mostrar todos los salones</p>
+              <% end %>
+              <%= link_to warehouses_index_path, class: "dropdown-item",  data: { aos: "fade-up" } do %>
+              <p class="m-0"><%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos</p>
+              <% end %>
             </ul>
           </li>
           <% end %>

@@ -10,7 +10,7 @@
               <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
               <!-- Button trigger modal new classroom -->
               <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Agregar nuevo salón
+                <%= bootstrap_icon "plus-circle", class: "text-center" %> Agregar nuevo salón
               </button>
               <% end %>
 
@@ -75,10 +75,10 @@
           <div class="col-10 mx-auto my-4 text-center">
             <p>
               <a class="btn btn-green" data-bs-toggle="collapse" href="#collapseCapacity" role="button" aria-expanded="false" aria-controls="collapseCapacity">
-                Gráfica de capacidad de salones
+                <%= bootstrap_icon "bar-chart-line", class: "text-center" %> Gráfica de capacidad de salones
               </a>
               <button class="btn btn-green" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobiliary" aria-expanded="false" aria-controls="collapseMobiliary">
-                Gráfica de salones con mobiliario
+                <%= bootstrap_icon "bar-chart-line", class: "text-center" %> Gráfica de salones con mobiliario
               </button>
             </p>
             <div class="collapse text-center" id="collapseCapacity">
@@ -147,7 +147,7 @@
             <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
             <td class="text-center"><!-- Button trigger modal edit classroom -->
               <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%=classroom.id%>">
-                Editar
+                <%= bootstrap_icon "pencil", class: "text-center" %> Editar
               </button>
 
               <!-- Modal edit classroom -->
@@ -206,7 +206,11 @@
                   </div>
                 </div>
               </div></td>
-              <td class="text-center"><%= button_to "Borrar", classroom_delete_path(classroom.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este salón?" } }, class: "btn btn-danger" %></td>
+              <td class="text-center">
+                <%= button_to classroom_delete_path(classroom.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este salón?" } }, class: "btn btn-danger" do %>
+                <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                <% end %>
+              </td>
               <% end %>
             </tr>
             <% end %>

@@ -7,7 +7,7 @@
       <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
       <button type="button" class="btn btn-green d-block mx-auto px-5 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Agregar Curso
+        <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
       </button>
       <% end %>
       <%# Que el formulario de editar ya tenga los valores por default %>
@@ -138,7 +138,7 @@
               <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
               <td><!-- Button trigger modal edit course -->
                 <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
-                  Editar
+                  <%= bootstrap_icon "pencil", class: "text-center" %> Editar
                 </button>
 
                 <!-- Modal edit course -->
@@ -211,7 +211,11 @@
                     </div>
                   </div>
                 </div></td>
-                <td><%= button_to "Borrar", course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" %></td>
+                <td>
+                  <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
+                  <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                  <% end %>
+                </td>
                 <% end %>
               </tr>
               <% end %>

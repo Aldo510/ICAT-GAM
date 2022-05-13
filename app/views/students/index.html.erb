@@ -5,11 +5,11 @@
       <!-- Button New user modal -->
       <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
       <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Agregar nuevo Usuario
+        <%= bootstrap_icon "person-plus", class: "text-center" %> Agregar nuevo Usuario
       </button>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Agregar Usuarios por Archivo
+        <%= bootstrap_icon "file-earmark-person", class: "text-center" %> Agregar Usuarios por Archivo
       </button>
       <h1 class="d-none">Agregar Todos los campos del csv de prueba a el modelo Estudiante y mostrar los que ya estan y alcadía y teléfono</h1>
       <!-- Modal -->
@@ -140,7 +140,7 @@
             <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
             <td><!-- Button trigger modal Edit Student -->
               <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
-                Editar
+                <%= bootstrap_icon "pencil", class: "text-center" %> Editar
               </button>
 
               <!-- Modal edit student -->
@@ -213,7 +213,9 @@
                 </div>
               </div></td>
               <td>
-                <%= button_to 'Borrar estudiante', student_delete_path(student.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este estudiante?" } }, class: "btn btn-danger" %>
+                <%= button_to student_delete_path(student.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este estudiante?" } }, class: "btn btn-danger" do %>
+                  <%= bootstrap_icon "trash", class: "text-center" %> Borrar estudiante
+                <% end %>
               </td>
               <% end %>
             </tr>

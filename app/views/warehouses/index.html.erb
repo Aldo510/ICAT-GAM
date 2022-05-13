@@ -6,7 +6,9 @@
         <div class="row">
           <% @warehouses.each do |warehouse| %>
           <div class="col-12 col-md-6 mx-auto">
-            <%= link_to warehouse.name, warehouse_show_path(warehouse.id), class: "btn btn-green w-100 p-2" %>
+            <%= link_to warehouse_show_path(warehouse.id), class: "btn btn-green w-100 p-2" do %>
+            <%= bootstrap_icon "archive", class: "text-center" %> <%= warehouse.name %>
+            <% end %>
           </div>
           <% end %>
         </div>
@@ -21,12 +23,15 @@
       <h1 class="text-center">Buscar Producto</h1>
       <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
       <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
-      <%= link_to "Crear nuevo insumo", products_index_path, class: "btn btn-green my-3" %>
+      <%= link_to products_index_path, class: "btn btn-green my-3" do %>
+      <%= bootstrap_icon "plus-circle", class: "text-center" %> Crear nuevo insumo
+      <% end %>
       <% end %>
       <%= form_with(url: warehouses_index_path, method: "GET", data: {controller: "form-submission-supply", turbo_frame: "supplies", turbo_action: "advance" }, class: "my-5 w-100") do |form| %>
       <%= form.label :query, "Buscar Insumo:" %>
       <%= form.text_field :query, data: { action: "input->form-submission-supply#search" }, class: "w-100 mb-3 shadow rounded border" %>
-      <%= form.submit 'Search', class: "btn btn-green" %>
+      <%= bootstrap_icon "search", class: "text-center" %> <%= form.submit 'Buscar insumo', class: "btn btn-green" do %>
+      <% end %>
       <% end %>
       <!-- Render the supplies -->
       <%= render "warehouses/supplies", supplies: @supplies %>

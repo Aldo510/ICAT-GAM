@@ -1,13 +1,22 @@
-
-<%= link_to "Mostrar todos los Colaboradores", workers_index_path, class: "btn btn-green text-white gap-2", data: { aos: "fade-up" } %>
-<%= link_to "Mostrar todos los Estudiantes", students_index_path, class: "btn btn-brown my-2 gap-2",  data: { aos: "fade-up" } %>
-<%= link_to "mostrar todos los cursos", courses_index_path, class: "text-capitalize btn btn-green text-white my-2",  data: { aos: "fade-up" } %>
-<%= link_to "Mostrar los salones", classrooms_index_path, class: "text-capitalize btn btn-brown my-2",  data: { aos: "fade-up" } %>
-<%= link_to "Ver Insumos", warehouses_index_path, class: "btn btn-green my-2",  data: { aos: "fade-up" } %>
+<%= link_to workers_index_path, class: "btn btn-green text-white gap-2 me-2", data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Mostrar todos los colaboradores</p>
+<% end %>
+<%= link_to students_index_path, class: "btn btn-brown my-2 me-2 gap-2",  data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "book", class: "text-center" %> Mostrar todos los estudiantes</p>
+<% end %>
+<%= link_to courses_index_path, class: "text-capitalize btn btn-green text-white my-2 me-2",  data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "journal-text", fill: "white", class: "text-center" %> Mostrar todos los cursos</p>
+<% end %>
+<%= link_to classrooms_index_path, class: "text-capitalize btn btn-brown my-2 me-2",  data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "building", class: "text-center" %> Mostrar todos los salones</p>
+<% end %>
+<%= link_to warehouses_index_path, class: "btn btn-green my-2 me-2",  data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos</p>
+<% end %>
 <!-- Button trigger modal -->
 <% if current_worker.role == "Admin" %>
 <button type="button" class="btn btn-cherry" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
-  Agregar nuevo Colaborador
+  <%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Agregar nuevo Colaborador
 </button>
 
 <!-- Modal -->

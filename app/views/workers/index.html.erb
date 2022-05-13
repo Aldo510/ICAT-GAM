@@ -7,15 +7,17 @@
           <% @workers.each do |worker| %>
           <li class="list-group-item text-capitalize col-12 col-md-6 col-lg-4 col-xl-3 mx-auto rounded border shadow my-2">
             <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
-            <p class=""><%= "#{worker.mail}" %></p>
-            <p class=""><%= "#{worker.telephone}" %></p>
+            <a href="mailto:<%= worker.mail %>" class="d-block text-black my-2"><%= "#{worker.mail}" %></a>
+            <a href="tel:<%= worker.telephone %>" class="d-block text-black my-2"><%= "#{worker.telephone}" %></a>
             <p class="">Role: <%= worker.role %></p>
             <!-- Button trigger modal -->
             <% if current_worker.role == "Admin" %>
             <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
-              Editar Trabajador
+              <%= bootstrap_icon "pencil", class: "text-center" %> Editar Trabajador
             </button>
-            <%= button_to 'Borrar Trabajador', worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" %>
+            <%= button_to worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" do %>
+            <%= bootstrap_icon "trash", class: "text-center" %> Borrar Trabajador
+            <% end %>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
               <div class="modal-dialog">
