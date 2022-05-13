@@ -6,11 +6,13 @@
         <div class="row">
           <div class="col-10 mx-auto">
             <div class="col-3 mx-auto align-self-center text-center">
-
+              <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
+              <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
               <!-- Button trigger modal new classroom -->
               <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Agregar nuevo salón
               </button>
+              <% end %>
 
               <!-- Modal new classroom -->
               <div class="modal fade text-start" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -106,8 +108,10 @@
             <th scope="col" class="text-center">Pizarrón</th>
             <th scope="col" class="text-center">Mobiliario especial</th>
             <th scope="col" class="text-center">Cantidad de sillas</th>
+            <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
             <th scope="col" class="text-center">Editar</th>
             <th scope="col" class="text-center">Borrar</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -139,6 +143,8 @@
               <%end%>
             </td>
             <td class="text-center"><%= classroom.chairs_quantity %></td>
+            <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
+            <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
             <td class="text-center"><!-- Button trigger modal edit classroom -->
               <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%=classroom.id%>">
                 Editar
@@ -201,6 +207,7 @@
                 </div>
               </div></td>
               <td class="text-center"><%= button_to "Borrar", classroom_delete_path(classroom.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este salón?" } }, class: "btn btn-danger" %></td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>
@@ -259,8 +266,5 @@
     };
 
     Plotly.newPlot('mobiliary-quantity', data, layout);
-
-
-
 
   </script>

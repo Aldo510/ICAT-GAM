@@ -19,7 +19,10 @@
     <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
       <p style="color: green"><%= notice %></p>
       <h1 class="text-center">Buscar Producto</h1>
+      <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
+      <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
       <%= link_to "Crear nuevo insumo", products_index_path, class: "btn btn-green my-3" %>
+      <% end %>
       <%= form_with(url: warehouses_index_path, method: "GET", data: {controller: "form-submission-supply", turbo_frame: "supplies", turbo_action: "advance" }, class: "my-5 w-100") do |form| %>
       <%= form.label :query, "Buscar Insumo:" %>
       <%= form.text_field :query, data: { action: "input->form-submission-supply#search" }, class: "w-100 mb-3 shadow rounded border" %>

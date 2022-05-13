@@ -16,19 +16,14 @@
               Menú
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <% if current_worker.role == "Admin" %>
               <%= link_to "Trabajadores", workers_index_path, class: "dropdown-item" %>
               <%= link_to "Estudiantes", students_index_path, class: "dropdown-item" %>
               <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
               <%= link_to "Salones", classrooms_index_path, class: "dropdown-item" %>
               <%= link_to "Insumos", warehouses_index_path, class: "dropdown-item" %>
-              <% elsif current_worker.role == "Cursos" %>
               <%= link_to "Cursos", courses_index_path, class: "dropdown-item" %>
-              <% elsif current_worker.role == "Inscripciones" %>
               <%= link_to "Cursos", students_index_path, class: "dropdown-item" %>
-              <% elsif current_worker.role == "Administración" %>
               <%= link_to "Cursos", warehouses_index_path, class: "dropdown-item" %>
-              <% end %>
             </ul>
           </li>
           <% end %>

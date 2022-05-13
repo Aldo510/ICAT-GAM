@@ -1,7 +1,9 @@
 <section class="container-fluiw" id="students_index">
   <div class="row">
     <div class="col-10 mx-auto py-5">
+      <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
       <!-- Button New user modal -->
+      <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
       <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Agregar nuevo Usuario
       </button>
@@ -36,6 +38,7 @@
           </div>
         </div>
       </div>
+      <% end %>
 
       <!-- New user Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -119,8 +122,10 @@
             <th scope="col">Género</th>
             <th scope="col">escolaridad</th>
             <th scope="col">CURP</th>
+            <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
             <th scope="col">Editar</th>
             <th scope="col">Borrar</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -132,6 +137,7 @@
             <td><%= student.gender %></td>
             <td><%= student.scholarity %></td>
             <td><%= student.curp.upcase %></td>
+            <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
             <td><!-- Button trigger modal Edit Student -->
               <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
                 Editar
@@ -209,6 +215,7 @@
               <td>
                 <%= button_to 'Borrar estudiante', student_delete_path(student.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este estudiante?" } }, class: "btn btn-danger" %>
               </td>
+              <% end %>
             </tr>
             <% end %>
           </tbody>
