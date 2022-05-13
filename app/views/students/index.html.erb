@@ -1,6 +1,7 @@
-<section class="container-fluiw" id="students_index">
+<section class="container-fluid" id="students_index">
   <div class="row">
     <div class="col-10 mx-auto py-5">
+      <h1 class="display-3 text-center mb-5 text-uppercase">Lista de Estudiantes</h1>
       <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
       <!-- Button New user modal -->
       <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
@@ -113,115 +114,118 @@
         </div>
       </div>
       <% if @students %>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellidos</th>
-            <th scope="col">Email</th>
-            <th scope="col">Género</th>
-            <th scope="col">escolaridad</th>
-            <th scope="col">CURP</th>
-            <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
-            <th scope="col">Editar</th>
-            <th scope="col">Borrar</th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <% @students.each do |student | %>
-          <tr>
-            <td class="text-capitalize"><%= student.name.capitalize %></td>
-            <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
-            <td><a href="mailto:<%= student.email %>" class="text-black link-email-student"><%= student.email %></a></td>
-            <td><%= student.gender %></td>
-            <td><%= student.scholarity %></td>
-            <td><%= student.curp.upcase %></td>
-            <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
-            <td><!-- Button trigger modal Edit Student -->
-              <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
-                <%= bootstrap_icon "pencil", class: "text-center" %> Editar
-              </button>
-
-              <!-- Modal edit student -->
-              <div class="modal fade" id="exampleModal<%= student.id %>" tabindex="-1" aria-labelledby="exampleModal<%= student.id %>Label" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModal<%= student.id %>Label">Editar estudiante</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <%= form_for :studen, url: student_edit_path(student.id) do |f| %>
-                      <div class="form-group">
-                        <%= f.label :id_ddc %><br/>
-                        <%= f.text_field :id_ddc, class: "form-control", placeholder: "#{student.id_ddc}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :nombre %><br/>
-                        <%= f.text_field :name, class: "form-control", placeholder: "#{student.name}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label "Apellido Paterno" %><br/>
-                        <%= f.text_field :last_name, class: "form-control",  placeholder: "#{student.last_name}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label "Apellido Materno" %><br/>
-                        <%= f.text_field :second_last_name, class: "form-control", placeholder: "#{student.second_last_name}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label "Teléfono" %><br/>
-                        <%= f.text_field :telephone, class: "form-control" %>
-                      </div>
-
-                      <div class="form-group">
-                        <%= f.label :email %><br/>
-                        <%= f.email_field :email, class: "form-control",  placeholder: "#{student.email}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :curso %><br/>
-                        <%= f.collection_select :course_id, Course.order(:name),:id,:name, include_blank: false %>
-                      </div>
-
-                      <div class="form-group">
-                        <%= f.label :curp %><br/>
-                        <%= f.text_field :curp, class: "form-control",  placeholder: "#{student.curp}" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.label :género %><br>
-                        <%= f.radio_button :gender, "Hombre", class: "" %>
-                        <%= f.label :genero, "Hombre" %>
-                        <%= f.radio_button :gender, "Mujer", class: "" %>
-                        <%= f.label :genero, "Mujer" %>
-                        <%= f.radio_button :gender, "Prefiero no especificar", class: "" %>
-                        <%= f.label :genero, "Prefiero no especificar" %>
-                      </div>
-
-                      <div class="form-group dropdown">
-                        <%= f.label :escolaridad %><br>
-                        <%= f.select :scholarity, ['Primaria', 'Secundaria', 'Preparatoria', "Licenciatura", "Maestría", "Doctorado"], class: "dropdown-item" %>
-                      </div>
-                      <div class="form-group">
-                        <%= f.submit "Editar estudiante", class: "btn btn-green mt-3" %>
-                      </div>
-                      <% end %>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div></td>
-              <td>
-                <%= button_to student_delete_path(student.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este estudiante?" } }, class: "btn btn-danger" do %>
-                  <%= bootstrap_icon "trash", class: "text-center" %> Borrar estudiante
-                <% end %>
-              </td>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellidos</th>
+              <th scope="col">Email</th>
+              <th scope="col">Género</th>
+              <th scope="col">escolaridad</th>
+              <th scope="col">CURP</th>
+              <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+              <th scope="col">Editar</th>
+              <th scope="col">Borrar</th>
               <% end %>
             </tr>
-            <% end %>
-          </tbody>
-        </table>
+          </thead>
+          <tbody>
+            <% @students.each do |student | %>
+            <tr>
+              <td class="text-capitalize"><%= student.name.capitalize %></td>
+              <td><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+              <td><a href="mailto:<%= student.email %>" class="text-black link-email-student"><%= student.email %></a></td>
+              <td><%= student.gender %></td>
+              <td><%= student.scholarity %></td>
+              <td><%= student.curp.upcase %></td>
+              <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+              <td><!-- Button trigger modal Edit Student -->
+                <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
+                  <%= bootstrap_icon "pencil", class: "text-center" %> Editar
+                </button>
+
+                <!-- Modal edit student -->
+                <div class="modal fade" id="exampleModal<%= student.id %>" tabindex="-1" aria-labelledby="exampleModal<%= student.id %>Label" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModal<%= student.id %>Label">Editar estudiante</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <%= form_for :studen, url: student_edit_path(student.id) do |f| %>
+                        <div class="form-group">
+                          <%= f.label :id_ddc %><br/>
+                          <%= f.text_field :id_ddc, class: "form-control", placeholder: "#{student.id_ddc}", value: student.id_ddc %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :nombre %><br/>
+                          <%= f.text_field :name, class: "form-control", placeholder: "#{student.name}", value: student.name %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label "Apellido Paterno" %><br/>
+                          <%= f.text_field :last_name, class: "form-control",  placeholder: "#{student.last_name}", value: student.last_name %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label "Apellido Materno" %><br/>
+                          <%= f.text_field :second_last_name, class: "form-control", placeholder: "#{student.second_last_name}", value: student.second_last_name %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label "Teléfono" %><br/>
+                          <%= f.text_field :telephone, class: "form-control" %>
+                        </div>
+
+                        <div class="form-group">
+                          <%= f.label :email %><br/>
+                          <%= f.email_field :email, class: "form-control",  placeholder: "#{student.email}", value: student.email %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :curso %><br/>
+                          <%= f.collection_select :course_id, Course.order(:name),:id,:name, include_blank: false %>
+                        </div>
+
+                        <div class="form-group">
+                          <%= f.label :curp %><br/>
+                          <%= f.text_field :curp, class: "form-control",  placeholder: "#{student.curp}", value: student.curp %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.label :género %><br>
+                          <%= f.radio_button :gender, "Hombre", class: "" %>
+                          <%= f.label :genero, "Hombre" %>
+                          <%= f.radio_button :gender, "Mujer", class: "" %>
+                          <%= f.label :genero, "Mujer" %>
+                          <%= f.radio_button :gender, "Prefiero no especificar", class: "" %>
+                          <%= f.label :genero, "Prefiero no especificar" %>
+                        </div>
+
+                        <div class="form-group dropdown">
+                          <%= f.label :escolaridad %><br>
+                          <%= f.select :scholarity, ['Primaria', 'Secundaria', 'Preparatoria', "Licenciatura", "Maestría", "Doctorado"], class: "dropdown-item" %>
+                        </div>
+                        <div class="form-group">
+                          <%= f.submit "Editar estudiante", class: "btn btn-green mt-3" %>
+                        </div>
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div></td>
+                <td>
+                  <%= button_to student_delete_path(student.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este estudiante?" } }, class: "btn btn-danger" do %>
+                    <%= bootstrap_icon "trash", class: "text-center" %> Borrar estudiante
+                  <% end %>
+                </td>
+                <% end %>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+      </div>
         <% else %>
         <h3 class="text-center">Aún no hay estudiantes agregados</h3>
         <% end %>

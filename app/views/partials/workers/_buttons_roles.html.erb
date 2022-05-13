@@ -31,32 +31,32 @@
         <%= form_for :worker, url: signup_path do |f| %>
 
         <div class="form-group">
-          <%= f.label :nombre %><br/>
+          <%= f.label :nombre, class: "form-label" %><br/>
           <%= f.text_field :name, class: "form-control", required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :Apellidos %><br/>
+          <%= f.label :Apellidos, class: "form-label" %><br/>
           <%= f.text_field :last_name, class: "form-control", required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :teléfono %><br/>
+          <%= f.label :teléfono, class: "form-label" %><br/>
           <%= f.telephone_field :telephone, class: "form-control", required: true %>
         </div>
         <div class="form-group">
-          <%= f.label "Selecciona el Rol del Colaborador" %>
-          <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], required: true%>
+          <%= f.label "Selecciona el Rol del Colaborador", class: "form-label" %>
+          <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], {},  {required: true, class: "form-select",  autofocus: true} %>
         </div>
         <div class="form-group">
-          <%= f.label :email %><br/>
+          <%= f.label :email, class: "form-label" %><br/>
           <%= f.email_field :mail, class: "form-control" %>
         </div>
 
         <div class="form-group">
-          <%= f.label :password %><br/>
+          <%= f.label :password, class: "form-label" %><br/>
           <%= f.password_field :password, class: "form-control", required: true %>
         </div>
         <div class="form-group">
-          <%= f.label :password_confirmation %><br/>
+          <%= f.label :password_confirmation, class: "form-label" %><br/>
           <%= f.password_field :password_confirmation, class: "form-control", required: true %>
         </div>
 

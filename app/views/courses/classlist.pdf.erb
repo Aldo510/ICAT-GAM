@@ -57,9 +57,9 @@
     }
     #location{
       position: absolute;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
+      bottom: 0;
+      left: 0;
+      /* width: 100%; */
     }
   </style>
 </head>
@@ -155,11 +155,16 @@
       <tbody>
         <% @students.each_with_index do |student, index| %>
         <tr class=>
-          <td class="text-center bg-wine text-white"><%= index + 1 %></td>
-          <td class="border border-dark" ><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
+          <td class="text-center bg-wine text-white" style="max-width: 20px;"><%= index + 1 %></td>
+          <td class="border border-dark" style="max-width: 200px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
           <% 1..@course.sessions_number.times do |session| %>
           <td class="border border-dark"></td>
           <% end %>
+          <td class="border border-dark"></td>
+          <td class="border border-dark"></td>
+          <td class="border border-dark"></td>
+          <td class="border border-dark"></td>
+          <td class="border border-dark"></td>
           <td class="border border-dark"></td>
           <td class="border border-dark"></td>
           <td class="border border-dark"></td>
