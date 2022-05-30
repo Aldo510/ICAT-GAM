@@ -32,6 +32,17 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @students = @course.students
+    if @course.data_sheet
+      @items = @course.data_sheet
+      @supplies = []
+      @items.supply_data_sheets.each do |supply|
+        if Supply.where(name: supply.name) != []
+          @supplies.append(Supply.where(name: supply.name).first.quantity)
+        else
+          @supplies.append("No se encontró este insumo")
+        end
+      end
+    end
     @man = Student.where(gender: "HOMBRE").count
     @women = Student.where(gender: "MUJER").count
     @other = Student.where(gender: "Prefiero no especificar").count
@@ -39,7 +50,6 @@ class CoursesController < ApplicationController
       format.html
       format.pdf do
         render pdf: "Lista curso #{@course.name}", template: "courses/classlist", orientation: "Landscape", viewport_size: '1280x1024'
-
       end
     end
   end

@@ -133,23 +133,31 @@
         </div>
       </div>
       <% if @students.any? %>
-      <h3 class="text-center">Alumnos inscritos al curso:</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellidos</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @students.each do |student| %>
-          <tr>
-            <td class="text-capitalize"><%= student.name.capitalize %></td>
-            <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <p>
+        <button class="btn btn-green my-3 ms-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Alumnos Inscritos al curso
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @students.each do |student| %>
+              <tr>
+                <td class="text-capitalize"><%= student.name.capitalize %></td>
+                <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <% else %>
       <h3 class="text-center my-3">Aún no hay estudiantes agregados a este curso</h3>
       <% end %>

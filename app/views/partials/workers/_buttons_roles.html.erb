@@ -13,6 +13,10 @@
 <%= link_to warehouses_index_path, class: "btn btn-green my-2 me-2",  data: { aos: "fade-up" } do %>
 <p class="m-0"><%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos</p>
 <% end %>
+<%= link_to workers_calendar_path, class: "btn btn-green my-2 me-2",  data: { aos: "fade-up" } do %>
+<p class="m-0"><%= bootstrap_icon "calendar", class: "text-center" %> Ver calendario de cursos</p>
+<% end %>
+
 <!-- Button trigger modal -->
 <% if current_worker.role == "Admin" %>
 <button type="button" class="btn btn-cherry" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">

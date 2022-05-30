@@ -9,9 +9,13 @@ class WorkersController < ApplicationController
       flash[:success] = "Trabajador creado."
       redirect_to worker_profile_path(@worker.id)
     else
-      flash[:alert] = "no se pudo crear el trabajador"
+      flash[:alert] = "no se pudo crear el Colaborador"
       render "new"
     end
+  end
+
+  def calendar
+    @courses = Course.all
   end
 
   def show
@@ -30,7 +34,7 @@ class WorkersController < ApplicationController
     if current_worker.roles.any?
       @roles = current_worker.roles.first.name
     else
-      @roles = "No se han agregado roles a este Trabajador"
+      @roles = "No se han agregado roles a este Colaborador"
     end
 
   end
@@ -48,10 +52,10 @@ class WorkersController < ApplicationController
   def delete
     @worker = Worker.find(params[:id])
     if @worker.destroy!
-      flash[:success] = "Se ha eliminado el Trabajador"
+      flash[:success] = "Se ha eliminado el Colaborador"
       redirect_to workers_index_path
     else
-      flash[:alert] = "No se ha podido eliminar el Trabajador"
+      flash[:alert] = "No se ha podido eliminar el Colaborador"
       render "index"
     end
   end

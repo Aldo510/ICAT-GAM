@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #DataSheets
   get 'data_sheets/show/:id', to: "data_sheets#show", as: "data_sheet_show"
   post 'data_sheets/create', to: "data_sheets#create", as: "data_sheet_create"
+  delete 'data_sheets/delete/:data_sheet_id', to: 'data_sheets#delete', as: "data_sheet_delete"
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show/:id', to: 'products#show', as: "product_show"
@@ -46,6 +47,7 @@ Rails.application.routes.draw do
   post "signup", to: "workers#create"
   get "worker/:id", to: "workers#show", as: "worker_profile"
   get "workers/all", to: "workers#index", as: "workers_index"
+  get "calendar", to: 'workers#calendar', as: "workers_calendar"
   post "workers/edit/:id", to: "workers#edit", as: "worker_edit"
   delete "workers/delete/:id", to: "workers#delete", as: "worker_delete"
   # Sessions

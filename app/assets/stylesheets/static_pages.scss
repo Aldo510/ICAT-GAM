@@ -13,10 +13,20 @@ $gray_dark: #6F7271;
 .bg-wine{
   background-color: $cherry;
 }
+.green{
+  color: $green;
+}
+.red{
+  color: #ff0000;
+}
 //  ==================== End Colors ==============
 //  ==================== Body ==============
+
 body{
   position: relative;
+}
+p{
+  max-width: 75ch;
 }
 //  ==================== End body ==============
 

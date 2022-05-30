@@ -2,6 +2,9 @@
 <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
   Ver la ficha de materiales
 </button>
+<%= button_to data_sheet_delete_path(@course.data_sheet.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar esta ficha de materiales? \n Esta acción no pude deshacerse" } }, class: "btn btn-danger my-2" do %>
+Borrar ficha de materiales
+<% end %>
 
 <!-- Modal -->
 <div class="modal fade" id="datasheetShowModal" tabindex="-1" aria-labelledby="datasheetShowModalLabel" aria-hidden="true">
@@ -23,7 +26,7 @@
             <div class="col-4">
               <p class="h4 text-center">Cantidad en almacen</p>
             </div>
-            <% @course.data_sheet.supply_data_sheets.each do |data| %>
+            <% @course.data_sheet.supply_data_sheets.each_with_index do |data, index| %>
             <div class="col-4">
               <p class="text-center"><%= data.name %></p>
             </div>
@@ -31,7 +34,17 @@
               <p class="text-center"><%= data.quantity %></p>
             </div>
             <div class="col-4">
-              <p class="text-center"><%= rand(20..100) %></p>
+              <p class="text-center">
+                <% if @supplies[index].class != String %>
+                <% if data.quantity <= @supplies[index] %>
+                <span class="green"><%= @supplies[index] %></span>
+                <% else %>
+                <span class="red"><%= @supplies[index] %></span>
+                <% end %>
+                <% else %>
+                <span class="red"><%= @supplies[index] %></span>
+                <% end %>
+                </p>
             </div>
             <% end %>
           </div>

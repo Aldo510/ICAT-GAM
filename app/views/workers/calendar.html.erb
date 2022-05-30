@@ -1,0 +1,21 @@
+<section id="calendar-view" class="container-fluid">
+	<div class="row">
+		<div class="col-10 col-sm-9 mx-auto">
+			<h1 class="text-center display-1 my-2">Calendario De Cursos</h1>
+			<%= link_to "Regresar", worker_profile_path(session[:worker_id]), class: "btn btn-green my-2" %>
+			
+			<div id='calendar'></div>
+		</div>
+	</div>
+</section>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		var calendarEl = document.getElementById('calendar');
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView: 'dayGridMonth',
+			start: 'Calendario de cursos',
+			year: 'numeric', month: 'short', day: 'numeric'
+		});
+		calendar.render();
+	});
+</script>
