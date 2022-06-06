@@ -42,27 +42,27 @@ class WorkersController < ApplicationController
   def edit
     @worker = Worker.find(params[:id])
     if @worker.update(worker_params)
-      flash[:success] = "Se ha actualizado correctamente"
+      flash[:success] = "Se ha actualizado el colaborador #{@worker.name} correctamente"
       redirect_to workers_index_path
     else
-      flash[:alert] = "No se ha podido actualizar"
+      flash[:alert] = "No se ha podido actualizar el colaborador"
     end
   end
 
   def delete
     @worker = Worker.find(params[:id])
     if @worker.destroy!
-      flash[:success] = "Se ha eliminado el Colaborador"
+      flash[:success] = "Se ha eliminado el Colaborado correctamente"
       redirect_to workers_index_path
     else
       flash[:alert] = "No se ha podido eliminar el Colaborador"
-      render "index"
+      redirect_to workers_index_path
     end
   end
 
   private
   def worker_params
-    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :role, :password, :position, :password_confirmation, {role_ids: []})
+    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :role, :password, :position, :password_confirmation)
   end
 
 end
