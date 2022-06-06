@@ -62,7 +62,7 @@ class WorkersController < ApplicationController
 
   private
   def worker_params
-    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :role, :password, :password_confirmation, {role_ids: []})
+    params.require(:worker).permit(:name, :last_name, :mail, :telephone, :role, :password, :position, :password_confirmation, {role_ids: []})
   end
 
 end

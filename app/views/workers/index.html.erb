@@ -9,6 +9,7 @@
             <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
             <a href="mailto:<%= worker.mail %>" class="d-block text-black my-2"><%= "#{worker.mail}" %></a>
             <a href="tel:<%= worker.telephone %>" class="d-block text-black my-2"><%= "#{worker.telephone}" %></a>
+            <p class="">Cargo: <%= worker.position %></p>
             <p class="">Role: <%= worker.role %></p>
             <!-- Button trigger modal -->
             <% if current_worker.role == "Admin" %>
@@ -43,6 +44,10 @@
                         <div class="checkboxes">
                           <%= f.collection_check_boxes :role_ids, Role.all, :id, :name %>
                         </div>
+                      </div>
+                      <div class="form-group">
+                        <%= f.label "Cargo", class: "form-label" %><br/>
+                        <%= f.text_field :position, placeholder: "#{worker.position}", value: "#{worker.position}", class: "form-control", required: true %>
                       </div>
                       <div class="form-group">
                         <%= f.label :teléfono %><br/>
