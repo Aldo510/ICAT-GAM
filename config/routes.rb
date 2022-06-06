@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show/:id', to: 'products#show', as: "product_show"
+  get 'products/download_file', to: 'products#download_csv', as: "products_csv"
   post 'products/create', to: 'products#create', as: "product_create"
   post 'products/edit/:id', to: "products#update", as: "product_update"
   post 'products/create_multiple', to: "products#create_multiple", as: "products_multiple"
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   # Courses
   get 'courses/index'
   get 'courses/new'
+  get 'courses/download_file', to: 'courses#download_csv', as: 'courses_csv'
   get 'courses/show/:id', to: "courses#show", as: "course_show"
   #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
   post 'courses/create', to: "courses#create", as: "course_create"
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
   get 'students/index', to: "students#index", as: "students_index"
   get 'students/show/:id', to: "students#show", as: "student_profile"
   get 'students/new', to: "students#new", as: "student_new"
+  get 'students/download_file', to: "students#download_csv", as: 'students_csv'
   post 'students/create'
   post 'students/create_multiple', to: 'students#create_multiple', as: "students_multiple"
   post 'students/update/:id', to: "students#edit", as: "student_edit"

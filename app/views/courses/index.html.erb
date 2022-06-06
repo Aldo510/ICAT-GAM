@@ -9,21 +9,17 @@
       <button type="button" class="btn btn-green d-block mx-auto px-5 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
       </button>
+
+      <%= link_to  courses_csv_path, class: "btn btn-green d-block mx-auto px-5 mb-3 w-50 mx-auto" do %>
+      <%= bootstrap_icon "file-earmark", class: "text-center" %> Descargar esquema de ficha técnica de insumos
       <% end %>
-      <%# Agregar el cargo al modelo worker %>
-      <%# Mostrar los salones por status de uso  %>
+      <% end %>
+
       <%# Poner un calendario para la disponibilidad del curso y el salón %>
       <%# Revisar lo de los periodos %>
-      <%# En los esquemas ponerle con que se debe llenar cada campo %>
       <%# Reportes para anaqueles por anaquel, tipo de producto %>
       <%# Agregar el show del estudiante %>
       <%# Nivel de eficiencia en los cursos al momento de finalizarlo %>
-      <%# al momento de crear el curso poner los salones disponibles según su status %>
-      <%# Revisar imagen de page error en prod  %>
-      <%# Agregar mensaje completo al momento de borrar %>
-      <%# hacer que todas las tablas sean responsivas %>
-
-
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -55,30 +51,34 @@
                 <%= f.date_field :end_date, class: "form-control", required: true %>
               </div>
               <div class="form-group">
+                <%= f.label "Salones disponibles", class: "form-label" %>
+                <%= f.collection_select :classroom, Classroom.where(status: true), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+              </div>
+              <div class="form-group">
                 <%= f.label :start_date, "Hora de inicio" %> <br/>
-                <%= f.select :start_hour, (9..17).to_a %>:00
+                <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
               </div>
               <div class="form-group">
                 <%= f.label :end_date, "Hora de finalización" %> <br/>
-                <%= f.select :end_hour, (10..17).to_a %>:00
+                <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
               </div>
 
-              <div class="form-group py-2">
+              <div class="form-check py-2">
                 <%= f.label :dias_del_curso %><br/>
-                <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes']], :first, :first do |b| %>
+                <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
                 <li>
-                  <%= b.label %>
-                  <%= b.check_box %>
+                  <%= day.label(class: "form-check-label") %>
+                  <%= day.check_box(class: "form-check-input") %>
                 </li>
                 <% end %>
               </div>
               <div class="form-group">
                 <%= f.label :número_de_sesiones %><br/>
-                <%= f.select :sessions_number, (1..30).to_a, class: "form-control" %>
+                <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select'} %>
               </div>
               <div class="form-group dropdown ">
                 <%= f.label :modalidad %><br>
-                <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], class: "dropdown-item" %>
+                <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"] , { include_blank: false }, {class: 'form-select'} %>
               </div>
               <div class="form-group d-none">
                 <%= f.label :Costo_curso %><br/>
@@ -127,8 +127,8 @@
               <td><%= course.id_ddc %></td>
               <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
               <td><%= course.modality %></td>
-              <td><%= course.start_date.strftime("%m / %d / %Y") %></td>
-              <td><%= course.end_date.strftime("%m / %d / %Y") %></td>
+              <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
+              <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
               <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
               <td><%= course.status %></td>
               <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
@@ -156,41 +156,45 @@
                           <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
                         </div>
                         <div class="form-group">
+                          <%= f.label "Salones disponibles", class: "form-label" %>
+                          <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                        </div>
+                        <div class="form-group">
                           <%= f.label :fecha_inicio %><br/>
-                          <%= f.date_field :start_date, class: "form-control", required: true, value: course.start_date %>
+                          <%= f.date_field :start_date, class: "form-control", value: course.start_date, required: true %>
                         </div>
                         <div class="form-group">
                           <%= f.label :fecha_terminación %><br/>
-                          <%= f.date_field :end_date, class: "form-control", required: true, value: course.end_date %>
+                          <%= f.date_field :end_date, class: "form-control", value: course.end_date, required: true %>
                         </div>
                         <div class="form-group">
                           <%= f.label :start_date, "Hora de inicio" %> <br/>
-                          <%= f.select :start_hour, (9..17).to_a %>:00
+                          <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
                         </div>
                         <div class="form-group">
                           <%= f.label :end_date, "Hora de finalización" %> <br/>
-                          <%= f.select :end_hour, (10..17).to_a %>:00
+                          <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
                         </div>
                         <div class="form-group">
                           <%= f.label "Estatus del curso" %>
-                          <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], class: "dropdown-item" %>
+                          <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
                         </div>
-                        <div class="form-group py-2">
+                        <div class="form-check py-2">
                           <%= f.label :dias_del_curso %><br/>
-                          <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes']], :first, :first do |b| %>
+                          <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
                           <li>
-                            <%= b.label %>
-                            <%= b.check_box %>
+                            <%= day.label(class: "form-check-label") %>
+                            <%= day.check_box(class: "form-check-input") %>
                           </li>
                           <% end %>
                         </div>
                         <div class="form-group">
                           <%= f.label :número_de_sesiones %><br/>
-                          <%= f.select :sessions_number, (1..30).to_a, class: "form-control", value: course.sessions_number %>
+                          <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
                         </div>
                         <div class="form-group dropdown ">
                           <%= f.label :modalidad %><br>
-                          <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], class: "dropdown-item" %>
+                          <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
                         </div>
                         <div class="form-group d-none">
                           <%= f.label :Costo_curso %><br/>

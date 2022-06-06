@@ -9,21 +9,21 @@
           <div class="col-12 col-sm-10 col-lg-6 mx-auto">
             <p>Ubicación: <%= @course.site %></p>
             <p>Modalidad: <%= @course.modality %></p>
-            <p>Fecha de inicio: <%= @course.start_date.strftime("%m / %d / %Y") %></p>
-            <p>Fecha de finalización: <%= @course.end_date.strftime("%m / %d / %Y") %></p>
+            <p>Fecha de inicio: <%= @course.start_date.strftime("%d / %B / %Y") %></p>
+            <p>Fecha de finalización: <%= @course.end_date.strftime("%d / %B / %Y") %></p>
             <p>Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></p>
             <p>Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></p>
             <p>Estatus del curso: <%= @course.status %></p>
-            <% if current_worker.role == "Admin" || current_worker.role == "Cursos" || current_worker.role == "Administración" %>
-            <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
-            <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], class: "dropdown-item" %>
-            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2" %>
-            <% end %>
-            <% end %>
             <p>Días del curso: <% @course.days.each do |course| %>
               <%= course %>,
               <% end %>
             </p>
+            <% if current_worker.role == "Admin" || current_worker.role == "Cursos" || current_worker.role == "Administración" %>
+            <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
+            <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], {include_blank: false}, {class: "form-select"} %>
+            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2" %>
+            <% end %>
+            <% end %>
             <% if @course.professor && @course.students.any? %>
             <%= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3" %>
             <% else %>
@@ -133,11 +133,9 @@
         </div>
       </div>
       <% if @students.any? %>
-      <p>
         <button class="btn btn-green my-3 ms-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           Alumnos Inscritos al curso
         </button>
-      </p>
       <div class="collapse" id="collapseExample">
         <div class="card card-body table-responsive">
           <table class="table">

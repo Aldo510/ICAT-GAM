@@ -102,7 +102,7 @@
           <thead>
             <tr>
               <th scope="col" class="text-center">Nombre</th>
-              <th scope="col" class="text-center">Descripción</th>
+              <th scope="col" class="text-center">Estatus</th>
               <th scope="col" class="text-center">Capacidad de alumnos</th>
               <th scope="col" class="text-center">Tamaño m<sup>2</sup></th>
               <th scope="col" class="text-center">Equipo de computo</th>
@@ -119,7 +119,13 @@
             <% @classrooms.each do |classroom| %>
             <tr>
               <td class="text-center"><%= link_to classroom.name, classroom_show_path(classroom.id), class: "btn btn-cherry w-100" %></td>
-              <td class="text-center"><%= classroom.description %></td>
+              <td class="text-center">
+                <% if classroom.status %>
+                <p class="green m-0">Salón disponible</p>
+                <% else %>
+                <p class="red m-0">Salón no disponible</p>
+                <% end %>
+              </td>
               <td class="text-center"><%= classroom.capacity %></td>
               <td><%= classroom.size%></td>
               <td class="text-center">

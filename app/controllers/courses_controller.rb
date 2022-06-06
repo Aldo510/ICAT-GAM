@@ -11,6 +11,7 @@ class CoursesController < ApplicationController
     @course = Course.create(course_params)
     days_week = params[:course][:days].drop(1)
     @course.update(days: days_week)
+    Classroom.find(params[:course][:classroom]).update(status: false)
     if @course.save
       flash[:success] = "Curso agregado exitosamente!"
       redirect_to courses_index_path
@@ -59,7 +60,7 @@ class CoursesController < ApplicationController
     if @course.update(course_params)
       flash[:success] = "El curso se actualizo correctamente"
       redirect_to courses_index_path
-    else 
+    else
       flash[:alert] = "Hubó un problema al editar el curso"
       render "index"
     end
@@ -87,9 +88,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  def download_csv
+    send_file "#{Rails.root}/public/docs/esquema_ficha_tecnica_curso.csv", type: "application/csv", x_sendfile: true
+  end
+
   private
   def course_params
-    params.require(:course).permit(:id_ddc, :site, :name, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
+    params.require(:course).permit(:id_ddc, :site, :name, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
   end
 
 end

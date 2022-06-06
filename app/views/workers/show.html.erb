@@ -1,11 +1,12 @@
 <section id="workers_profile" class="container-fluid">
   <div class="row">
     <div class="col-10 mx-auto p-5">
-      <h1 class="text-center" data-aos="fade-up">Perfil del Colaborador</h1>
+      <h1 class="text-center display-3" data-aos="fade-up">Perfil del Colaborador</h1>
       <% if logged_in? %>
       <p class=" text-capitalize">Nombre: <%= current_worker.name %> <%= current_worker.last_name.capitalize %></p>
       <p class="">Email: <%= current_worker.mail %></p>
       <p class=" text-capitalize">Teléfono: <%= current_worker.telephone %></p>
+      <p class="text-capitalize">Cargo: <%= current_worker.position %></p>
       <p class="mb-3">Role: <%= current_worker.role %></p>
       <%= render "partials/workers/buttons_roles" %>
       <% else %>

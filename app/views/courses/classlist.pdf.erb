@@ -9,6 +9,7 @@
     body{
       position: relative;
     }
+    .page-break { display:block; clear:both; page-break-after:always; }
     .bg-wine{
       background-color: #9F2241;
     }
@@ -55,83 +56,98 @@
     .fs-12{
       font-size:12px;
     }
+    .fs-10{
+      font-size:11px;
+    }
     #location{
-      position: absolute;
+      position: sticky;
       bottom: 0;
+      width: 100%;
       left: 0;
+      margin-top: 25px;
       /* width: 100%; */
+    }
+    .line-signature{
+      position: absolute;
+      display: none;
+      width: 50%;
+      margin:0 auto;
+      left: 0;
+      right: 0;
+      border-top: 1px solid black;
+      bottom: 15px;
     }
   </style>
 </head>
 <body onload='number_pages'>
   <div id="header" class="container-fluid">
-   <div class="row">
-    <div class="col-6">
-      <%#= image_tag image_url("logos/logo_icat_color_extend.png"), class: "w-50 img-fluid" %>
-    </div>
-    <div class="col-12 mx-auto bg-wine">
-      <p class="text-center text-uppercase text-white m-0">Lista de asistencia y registro de evaluaciones</p>
-    </div>
-    <div class="">
-      <div class="flexrow">
-        <div class="w-50">
-          <div class="flexrow">
-            <div class="flexrow">
-            <div class="w-25 p-3 border-bottom-0"><span class="fw-bold">ID_Curso:</span></div>
-            <div class="w-25 p-3 border-bottom-0"><%= @course.id_ddc %></div>
-            <div class="w-25 p-3 border-bottom-0"><span class="fw-bold">Curso:</span></div>
-            <div class="w-25 p-3 border-bottom-0"><%= @course.name %></div>
-          </div>
-          </div>
-        </div>
-        <div class="w-50 p-1 fs-12"><span class="fw-bold">Sede:</span> <span class="text-uppercase">OFICINAS CENTRALES ICAT CDMX DR. LUCIO 220 COL. DOCTORES ALCALDÍA. CUAUHTÉMOC 06720 ( <%= @course.modality %> )</span></div>
+    <div class="row">
+      <div class="col-6">
+        <%#= image_tag image_url("logos/logo_icat_color_extend.png"), class: "w-50 img-fluid" %>
       </div>
-      <div class="flexrow">
-        <div class="w-50">
-          <div class="flexrow">
-            <div class="w-25 p-1"><span class="fw-bold">Fecha de inicio:</span></div>
-            <div class="w-25 p-1"><%= @course.start_date.strftime("%m / %d / %Y") %></div>
-            <div class="w-25 p-1"><span class="fw-bold">Fecha de término:</span></div>
-            <div class="w-25 p-1"><%= @course.end_date.strftime("%m / %d / %Y") %></div>
-          </div>
-        </div>
-        <div class="w-50 fw-bold text-center">
-          <div class="flexrow">
-            <div class="w-25 p-1"><span class="fw-bold">Instructor:</span></div>
-            <div class="w-75 p-1"><%= @course.professor.name %></div>
-          </div>
-        </div>
+      <div class="col-12 mx-auto bg-wine">
+        <p class="text-center text-uppercase text-white m-0">Lista de asistencia y registro de evaluaciones</p>
       </div>
-      <div class="w-100">
+      <div class="">
         <div class="flexrow">
-          <div class="w-25">
+          <div class="w-50">
             <div class="flexrow">
-              <div class="w-50 p-1"><span class="fw-bold">Modalidad:</span></div>
-              <div class="w-50 p-1"><%= @course.modality%></div>
+              <div class="flexrow">
+                <div class="w-25 p-1 border-bottom-0"><span class="fw-bold">ID_Curso:</span></div>
+                <div class="w-25 p-1 border-bottom-0"><%= @course.id_ddc %></div>
+                <div class="w-25 p-1 border-bottom-0"><span class="fw-bold">Curso:</span></div>
+                <div class="w-25 p-1 border-bottom-0"><%= @course.name %></div>
+              </div>
             </div>
-            <div class="w-100 p-1 fs-12">
-              <% @course.days.each do |day| %>
-              <%= "#{day} " %>
-              <% end %>
-              <%= @course.start_hour.strftime('%H:%M') %> - <%= @course.end_hour.strftime('%H:%M') %> hrs
-            </div>
-
           </div>
-          <div class="w-75">
+          <div class="w-50 p-1 fs-12"><span class="fw-bold">Sede:</span> <span class="text-uppercase">OFICINAS CENTRALES ICAT CDMX DR. LUCIO 220 COL. DOCTORES ALCALDÍA. CUAUHTÉMOC 06720 ( <%= @course.modality %> )</span></div>
+        </div>
+        <div class="flexrow">
+          <div class="w-50">
             <div class="flexrow">
-              <div class="w-25 p-1 border-0"><span class="fw-bold">Observaciones:</span></div>
-              <div class="w-75 p-1 border-0"></div>
+              <div class="w-25 p-1"><span class="fw-bold">Fecha de inicio:</span></div>
+              <div class="w-25 p-1"><%= @course.start_date.strftime("%m / %d / %Y") %></div>
+              <div class="w-25 p-1"><span class="fw-bold">Fecha de término:</span></div>
+              <div class="w-25 p-1"><%= @course.end_date.strftime("%m / %d / %Y") %></div>
+            </div>
+          </div>
+          <div class="w-50 fw-bold text-center">
+            <div class="flexrow">
+              <div class="w-25 p-1"><span class="fw-bold">Instructor:</span></div>
+              <div class="w-75 p-1"><%= @course.professor.name %></div>
             </div>
           </div>
         </div>
+        <div class="w-100">
+          <div class="flexrow">
+            <div class="w-25">
+              <div class="flexrow">
+                <div class="w-50 p-1"><span class="fw-bold">Modalidad:</span></div>
+                <div class="w-50 p-1"><%= @course.modality%></div>
+              </div>
+              <div class="w-100 p-1 fs-12">
+                <% @course.days.each do |day| %>
+                <%= "#{day} " %>
+                <% end %>
+                <%= @course.start_hour.strftime('%H:%M') %> - <%= @course.end_hour.strftime('%H:%M') %> hrs
+              </div>
 
+            </div>
+            <div class="w-75">
+              <div class="flexrow">
+                <div class="w-25 p-1 border-0"><span class="fw-bold">Observaciones:</span></div>
+                <div class="w-75 p-1 border-0"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div id="content">
-  <section class="" id="classlist">
-
+  <div id="content" class="classlist">
+    <% student_index = 1 %>
+    <% @students.each_slice(10).to_a.each do |group_ten| %>
     <table class="table w-100 m-0 fs-12">
       <thead>
         <tr class="bg-wine text-white" style="background-color: #9F2241;">
@@ -153,38 +169,40 @@
         </tr>
       </thead>
       <tbody>
-        <% @students.each_with_index do |student, index| %>
-        <tr class=>
-          <td class="text-center bg-wine text-white" style="max-width: 20px;"><%= index + 1 %></td>
-          <td class="border border-dark" style="max-width: 200px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
+        <% group_ten.each_with_index do |student, index| %>
+        <tr class="">
+          <td class="text-center bg-wine text-white" style="max-width: 20px;"><%= student_index %></td>
+          <% student_index +=1 %>
+          <td class="border border-dark" style="max-width: 150px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
           <% 1..@course.sessions_number.times do |session| %>
-          <td class="border border-dark"></td>
+          <td class="border border-dark" style="max-width: 20px;"></td>
           <% end %>
           <td class="border border-dark"></td>
           <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
         </tr>
+
         <% end %>
       </tbody>
     </table>
     <div class="bg-wine text-white text-center fw-bold">Favor de no anotar a ninguna persona adicional a esta lista. En caso de duda, contacte al personal del ICAT CDMX</div>
     <div class="mt-3">
-      <p class="fs-12">Los datos personales recabados serán protegidos , incorporados y tratados en el Sistema de Datos Personales para el Registro de personas capacitadas, con fundamento en los artículos 7, 8, 9, 13, 14, y 15 de la Ley de Protección de Datos Personales para el Distrito Federal; 24 Fracciones VI, VIII, 92 fracción XI y 186 de la Ley de Transparencia, Acceso a la Información Pública y Rendición de Cuentas de la Ciudad de México. El responsable del Sistema de Datos Personales es el Mtro. Adrián Escamilla Palafox, Director General del Instituto de Capacitación para el Trabajo de la Ciudad de México y el domicilio donde podrá ejercer los derechos de acceso, rectificación, cancelación y oposición, así como la revocación del consentimiento es en la Oficina de Información Pública (Unidad de Transparencia) del Instituto, sito en Calzada San Antonio Abad 32, Piso 2, colonia Tránsito, Alcaldía Cuauhtémoc, C.P. 06820, planta baja correo electrónico icatcdmxut@gmail.com y oip.icatcdmx@gmail.com. El interesado podrá dirigirse al Instituto de Transparencia, Acceso a la Información Pública, Protección de Datos Personales y Rendición de Cuentas de la Ciudad de México, donde recibirá asesoría sobre los derechos que tutela la Ley de Protección de Datos Personales en Posesión de Sujetos Obligados de la Ciudad de México, a los teléfonos: 5636 4636 o 5636 2120; correo electrónico: <a href="mailto:datos.personales@infodf.org.mx">datos.personales@infodf.org.mx</a> o <a target="_blank" href="www.infodf.org.mx.">www.infodf.org.mx.</a></p>
+      <p class="fs-10">Los datos personales recabados serán protegidos , incorporados y tratados en el Sistema de Datos Personales para el Registro de personas capacitadas, con fundamento en los artículos 7, 8, 9, 13, 14, y 15 de la Ley de Protección de Datos Personales para el Distrito Federal; 24 Fracciones VI, VIII, 92 fracción XI y 186 de la Ley de Transparencia, Acceso a la Información Pública y Rendición de Cuentas de la Ciudad de México. El responsable del Sistema de Datos Personales es el Mtro. Adrián Escamilla Palafox, Director General del Instituto de Capacitación para el Trabajo de la Ciudad de México y el domicilio donde podrá ejercer los derechos de acceso, rectificación, cancelación y oposición, así como la revocación del consentimiento es en la Oficina de Información Pública (Unidad de Transparencia) del Instituto, sito en Calzada San Antonio Abad 32, Piso 2, colonia Tránsito, Alcaldía Cuauhtémoc, C.P. 06820, planta baja correo electrónico icatcdmxut@gmail.com y oip.icatcdmx@gmail.com. El interesado podrá dirigirse al Instituto de Transparencia, Acceso a la Información Pública, Protección de Datos Personales y Rendición de Cuentas de la Ciudad de México, donde recibirá asesoría sobre los derechos que tutela la Ley de Protección de Datos Personales en Posesión de Sujetos Obligados de la Ciudad de México, a los teléfonos: 5636 4636 o 5636 2120; correo electrónico: <a href="mailto:datos.personales@infodf.org.mx">datos.personales@infodf.org.mx</a> o <a target="_blank" href="www.infodf.org.mx.">www.infodf.org.mx.</a></p>
+    </div>
+    <div class="line-signature">
+
     </div>
     <div class="flexrow">
       <div class="w-33 col-4 border-0"><p class="d-none">a</p></div>
-      <div class="w-33 col-4" style="border-bottom: 1px solid black; margin-top:125px"><p class="d-none">a</p></div>
+      <div class="w-33 col-4" style="border-bottom: 1px solid black; margin-top:50px"><p class="d-none">a</p></div>
       <div class="w-33 col-4 border-0"><p class="d-none">a</p></div>
     </div>
-  </section>
-</div>
-<div id="location">
-  Calzada San Antonio Abad 32, Piso 4, colonia Tránsito, Alcaldía Cuauhtémoc, CDMX.
-</div>
+    <div id="location">
+      Calzada San Antonio Abad 32, Piso 4, colonia Tránsito, Alcaldía Cuauhtémoc, CDMX.
+    </div>
+
+    <div class="page-break"></div>
+    <% end %>
+  </div>
+
 </body>
 </html>

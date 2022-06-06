@@ -5,26 +5,29 @@
       <div class="container-fluid">
         <ul class="row">
           <% @workers.each do |worker| %>
-          <li class="list-group-item text-capitalize col-12 col-md-6 col-lg-4 col-xl-3 mx-auto rounded border shadow my-2">
-            <p class=""><%= "#{worker.name} #{worker.last_name}" %></p>
-            <a href="mailto:<%= worker.mail %>" class="d-block text-black my-2"><%= "#{worker.mail}" %></a>
-            <a href="tel:<%= worker.telephone %>" class="d-block text-black my-2"><%= "#{worker.telephone}" %></a>
-            <p class="">Cargo: <%= worker.position %></p>
-            <p class="">Role: <%= worker.role %></p>
-            <!-- Button trigger modal -->
-            <% if current_worker.role == "Admin" %>
-            <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
-              <%= bootstrap_icon "pencil", class: "text-center" %> Editar Trabajador
-            </button>
-            <%= button_to worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" do %>
-            <%= bootstrap_icon "trash", class: "text-center" %> Borrar Trabajador
-            <% end %>
+          <li class="list-group-item text-capitalize col-12 col-sm-6 col-md-4 col-xl-3 mx-auto p-0 my-2 card">
+            <p class="card-header w-100 d-block h5 text-center mb-3"><%= worker.position %></p>
+            <div class="card-body">
+              <p class="m-0 card-text"><%= "#{worker.name} #{worker.last_name}" %></p>
+              <a href="mailto:<%= worker.mail %>" class="d-block text-black card-text my-2"><%= "#{worker.mail}" %></a>
+              <a href="tel:<%= worker.telephone %>" class="d-block text-black card-text my-2"><%= "#{worker.telephone}" %></a>
+
+              <p class="card-text">Role: <%= worker.role %></p>
+              <!-- Button trigger modal -->
+              <% if current_worker.role == "Admin" %>
+              <button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#exampleModal<%= worker.id %>">
+                <%= bootstrap_icon "pencil", class: "text-center" %> Editar Colaborador
+              </button>
+              <%= button_to worker_delete_path(worker.id), method: :delete, form: { data: { turbo_confirm: "¿Estas seguro de eliminar este trabajador?" } }, class: "btn btn-cherry my-2" do %>
+              <%= bootstrap_icon "trash", class: "text-center" %> Borrar Colaborador
+              <% end %>
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal<%=worker.id%>" tabindex="-1" aria-labelledby="exampleModal<%= worker.id %>Label" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModal<%= worker.id %>Label">Editar trabajador</h5>
+                    <h5 class="modal-title" id="exampleModal<%= worker.id %>Label">Editar Colaborador</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -46,7 +49,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <%= f.label "Cargo", class: "form-label" %><br/>
+                        <%= f.label "Cargo del colaborador", class: "form-label" %><br/>
                         <%= f.text_field :position, placeholder: "#{worker.position}", value: "#{worker.position}", class: "form-control", required: true %>
                       </div>
                       <div class="form-group">
@@ -54,8 +57,8 @@
                         <%= f.telephone_field :telephone, placeholder: "#{worker.telephone}", value: "#{worker.telephone}", class: "form-control" %>
                       </div>
                       <div class="form-froup">
-                        <%= f.label "Selecciona el Rol del Trabajador" %>
-                        <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"]%>
+                        <%= f.label "Selecciona el Rol del colaborador" %>
+                        <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], {include_blank: false}, {class: "form-select"}%>
                       </div>
                       <div class="form-group">
                         <%= f.label :email %><br/>
@@ -72,7 +75,7 @@
                       </div>
 
                       <div class="form-group">
-                        <%= f.submit "Editar Trabajador", class: "btn btn-green mt-3" %>
+                        <%= f.submit "Editar Colaborador", class: "btn btn-green mt-3" %>
                       </div>
 
                       <% end %>

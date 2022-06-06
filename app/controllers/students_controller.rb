@@ -60,6 +60,10 @@ class StudentsController < ApplicationController
     end
   end
 
+  def download_csv
+    send_file "#{Rails.root}/public/docs/esquema_alumnos.csv", type: "application/csv", x_sendfile: true
+  end
+
   private
   def student_params
     params.require(:student).permit(:id_ddc, :name, :last_name, :second_last_name, :gender, :curp, :scholarity, :email, :course_id)

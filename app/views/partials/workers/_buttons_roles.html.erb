@@ -1,84 +1,105 @@
-<%= link_to workers_index_path, class: "btn btn-green text-white gap-2 me-2", data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Mostrar todos los colaboradores</p>
-<% end %>
-<%= link_to students_index_path, class: "btn btn-brown my-2 me-2 gap-2",  data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "book", class: "text-center" %> Mostrar todos los estudiantes</p>
-<% end %>
-<%= link_to courses_index_path, class: "text-capitalize btn btn-green text-white my-2 me-2",  data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "journal-text", fill: "white", class: "text-center" %> Mostrar todos los cursos</p>
-<% end %>
-<%= link_to classrooms_index_path, class: "text-capitalize btn btn-brown my-2 me-2",  data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "building", class: "text-center" %> Mostrar todos los salones</p>
-<% end %>
-<%= link_to warehouses_index_path, class: "btn btn-green my-2 me-2",  data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos</p>
-<% end %>
-<%= link_to workers_calendar_path, class: "btn btn-green my-2 me-2",  data: { aos: "fade-up" } do %>
-<p class="m-0"><%= bootstrap_icon "calendar", class: "text-center" %> Ver calendario de cursos</p>
-<% end %>
-
-<!-- Button trigger modal -->
-<% if current_worker.role == "Admin" %>
-<button type="button" class="btn btn-cherry" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
-  <%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Agregar nuevo Colaborador
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Datos Colaborador</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" data-aos="fade-up">
-        <%= form_for :worker, url: signup_path do |f| %>
-
-        <div class="form-group">
-          <%= f.label :nombre, class: "form-label" %><br/>
-          <%= f.text_field :name, class: "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label :Apellidos, class: "form-label" %><br/>
-          <%= f.text_field :last_name, class: "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label :teléfono, class: "form-label" %><br/>
-          <%= f.telephone_field :telephone, class: "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label "Selecciona el Rol del Colaborador", class: "form-label" %>
-          <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], {},  {required: true, class: "form-select",  autofocus: true} %>
-        </div>
-        <div class="form-group">
-          <%= f.label "Cargo", class: "form-label" %>
-          <%= f.text_field :position, class: "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label :email, class: "form-label" %><br/>
-          <%= f.email_field :mail, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :password, class: "form-label" %><br/>
-          <%= f.password_field :password, class: "form-control", required: true %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation, class: "form-label" %><br/>
-          <%= f.password_field :password_confirmation, class: "form-control", required: true %>
-        </div>
-
-        <div class="form-group">
-          <%= f.submit "Crear Colaborador", class: "btn btn-green mt-3" %>
-        </div>
-
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-cherry" data-bs-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Understood</button> -->
-      </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <%= link_to workers_index_path, class: "btn btn-green text-white d-block w-100", data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Mostrar todos los colaboradores
+      <% end %>
     </div>
+
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+
+      <%= link_to students_index_path, class: "btn btn-brown my-2 d-block w-100",  data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "book", class: "text-center" %> Mostrar todos los estudiantes
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <%= link_to courses_index_path, class: "text-capitalize btn btn-green text-white my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "journal-text", fill: "white", class: "text-center" %> Mostrar todos los cursos
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <%= link_to classrooms_index_path, class: "text-capitalize btn btn-brown my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "building", class: "text-center" %> Mostrar todos los salones
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <%= link_to warehouses_index_path, class: "btn btn-green my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center d-none">
+      <%= link_to workers_calendar_path, class: "btn btn-green my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= bootstrap_icon "calendar", class: "text-center" %> Ver calendario de cursos
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <% if current_worker.role == "Admin" %>
+      <button type="button" class="btn btn-cherry d-block w-100 my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  data-aos="fade-up">
+        <%= bootstrap_icon "person-fill", fill: "white", class: "text-center" %> Agregar nuevo Colaborador
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Datos Colaborador</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" data-aos="fade-up">
+              <%= form_for :worker, url: signup_path do |f| %>
+
+              <div class="form-group">
+                <%= f.label :nombre, class: "form-label" %><br/>
+                <%= f.text_field :name, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :Apellidos, class: "form-label" %><br/>
+                <%= f.text_field :last_name, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :teléfono, class: "form-label" %><br/>
+                <%= f.telephone_field :telephone, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Selecciona el Rol del Colaborador", class: "form-label" %>
+                <%= f.select :role, ['Admin', 'Inscripciones', "Administración", "Cursos"], {include_blank: false},  { class: "form-select",  autofocus: true} %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Cargo del colaborador", class: "form-label" %>
+                <%= f.text_field :position, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :email, class: "form-label" %><br/>
+                <%= f.email_field :mail, class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :password, class: "form-label" %><br/>
+                <%= f.password_field :password, class: "form-control", required: true %>
+              </div>
+              <div class="form-group">
+                <%= f.label :password_confirmation, class: "form-label" %><br/>
+                <%= f.password_field :password_confirmation, class: "form-control", required: true %>
+              </div>
+
+              <div class="form-group">
+                <%= f.submit "Crear Colaborador", class: "btn btn-green mt-3" %>
+              </div>
+
+              <% end %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-cherry" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
+
   </div>
+
 </div>
-<% end %>

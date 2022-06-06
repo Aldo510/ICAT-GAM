@@ -5,6 +5,9 @@
       <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
       <!-- Button New user modal -->
       <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+      <%= link_to  students_csv_path, class: "btn btn-green d-block mb-4 w-25" do %>
+        <%#= bootstrap_icon "bi-filetype-csv", class: "text-center" %> Descargar formato
+      <% end %>
       <button type="button" class="btn btn-green mb-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <%= bootstrap_icon "person-plus", class: "text-center" %> Agregar nuevo Usuario
       </button>

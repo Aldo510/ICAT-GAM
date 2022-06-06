@@ -1,13 +1,13 @@
 class ClassroomsController < ApplicationController
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.order(status: :desc)
     @classrooms_name = []
     @classrooms_capacity = []
     @classrooms_computing = Classroom.where(computing_equipment: true).count
     @classrooms_board = Classroom.where(board: true).count
     @classrooms_mobiliary = Classroom.where(moobiliary: true).count
-    @classrooms.each do |classroom| 
-      @classrooms_name << classroom.name 
+    @classrooms.each do |classroom|
+      @classrooms_name << classroom.name
       @classrooms_capacity << classroom.capacity
     end
   end
@@ -36,7 +36,7 @@ class ClassroomsController < ApplicationController
   end
 
   def update
-    @classroom = Classroom.find(params[:id])  
+    @classroom = Classroom.find(params[:id])
     if @classroom.update(classroom_params)
       flash[:success] = "Se ha actualizado correctamente el salón"
       redirect_to classrooms_index_path

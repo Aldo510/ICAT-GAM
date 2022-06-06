@@ -13,6 +13,7 @@
 				Agregar insumos por archivo
 			</button>
 			<% end %>
+			<%= link_to "Descargar esquema de insumos", products_csv_path, class: "btn btn-green d-block w-50 mx-auto my-2" %>
 
 			<!-- Modal multiple supplies -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,8 +27,8 @@
 							<%= form_for :supplies_file, url: products_multiple_path do |f| %>
 							<div class="form-group">
 								<%= f.label :file, "Sube el archivo CSV" %>
-								<%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %><br/>
-								<%= f.label :warehouse_id, "Selecciona el Almacen" %><br/>
+								<%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %>
+								<%= f.label :warehouse_id, "Selecciona el Almacen" %>
 								<%= f.collection_select :warehouse_id, Warehouse.order(:name),:id,:name, include_blank: false %>
 							</div>
 							<%= f.submit "Agregar insumos", class: "btn btn-green mt-3" %>
@@ -50,41 +51,41 @@
 						<div class="modal-body">
 							<%= form_for :supply, url: product_create_path do |f| %>
 							<div class="form-group">
-								<%= f.label "Almacen" %><br/>
+								<%= f.label "Almacen", class: "form-label" %>
 								<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
 							</div>
 							<div class="form-group">
-								<%= f.label "Anaquel" %><br/>
+								<%= f.label "Anaquel", class: "form-label"  %>
 								<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
 							</div>
 							<div class="form-group">
-								<%= f.label "Sección " %><br/>
+								<%= f.label "Sección", class: "form-label"  %>
 								<%= f.select :shelf_section_id, (1..10).to_a ,class: "dropdown-item" %>
 								<%#= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
 							</div>
 
 
 							<div class="form-group">
-								<%= f.label "Nombre del insumo" %><br/>
+								<%= f.label "Nombre del insumo", class: "form-label" %>
 								<%= f.text_field :name, class: "form-control", required: true %>
 							</div>
 
 							<div class="form-group">
-								<%= f.label "Descripción" %><br/>
+								<%= f.label "Descripción", class: "form-label"  %>
 								<%= f.text_field :description, class: "form-control", required: true %>
 							</div>
 
 							<div class="form-group">
-								<%= f.label "Cantidad" %><br/>
+								<%= f.label "Cantidad", class: "form-label"  %>
 								<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
 							</div>
 
 							<div class="form-group">
-								<%= f.label "Código de identificación" %><br/>
+								<%= f.label "Código de identificación", class: "form-label"  %>
 								<%= f.text_field :identification_code, class: "form-control", required: true %>
 							</div>
 							<div class="form-group">
-								<%= f.label "Es de un solo uso?" %> <br/>
+								<%= f.label "Es de un solo uso?", class: "form-label"  %>
 								<%= f.label "Sí" %>
 								<%= f.radio_button :perishable, true%>
 								<%= f.label "No" %>
@@ -140,41 +141,41 @@
 										<div class="modal-body">
 											<%= form_for :supply, url: product_update_path(supply.id) do |f| %>
 											<div class="form-group">
-												<%= f.label "Almacen" %><br/>
+												<%= f.label "Almacen" %>
 												<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
 											</div>
 											<div class="form-group">
-												<%= f.label "Anaquel" %><br/>
+												<%= f.label "Anaquel" %>
 												<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
 											</div>
 											<div class="form-group">
-												<%= f.label "Sección " %><br/>
+												<%= f.label "Sección " %>
 												<%#= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
 												<%= f.select :quantity, (1..10).to_a ,class: "dropdown-item" %>
 											</div>
 
 
 											<div class="form-group">
-												<%= f.label "Nombre del insumo" %><br/>
+												<%= f.label "Nombre del insumo" %>
 												<%= f.text_field :name, class: "form-control", required: true, placeholder: "#{supply.name}", value: supply.name %>
 											</div>
 
 											<div class="form-group">
-												<%= f.label "Descripción" %><br/>
+												<%= f.label "Descripción" %>
 												<%= f.text_field :description, class: "form-control", required: true, placeholder: "#{supply.description}", value: supply.description %>
 											</div>
 
 											<div class="form-group">
-												<%= f.label "Cantidad" %><br/>
+												<%= f.label "Cantidad" %>
 												<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
 											</div>
 
 											<div class="form-group">
-												<%= f.label "Código de identificación" %><br/>
+												<%= f.label "Código de identificación" %>
 												<%= f.text_field :identification_code, class: "form-control", required: true, placeholder: "#{supply.identification_code}", value: supply.identification_code %>
 											</div>
 											<div class="form-group">
-												<%= f.label "Es de un solo uso?" %> <br/>
+												<%= f.label "Es de un solo uso?" %>
 												<%= f.label "Sí" %>
 												<%= f.radio_button :perishable, true%>
 												<%= f.label "No" %>
@@ -200,6 +201,7 @@
 					<% end %>
 				</div>
 			</div>
+			<%= will_paginate @supplies %>
 			<% else %>
 			<p>No se han agregado insumos aún</p>
 			<% end %>

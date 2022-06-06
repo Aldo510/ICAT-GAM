@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @supplies = Supply.all.order(created_at: :desc)
+    @supplies = Supply.paginate(page: params[:page], per_page: 15)
   end
 
   def show
@@ -13,13 +13,14 @@ class ProductsController < ApplicationController
 
   def create
     @product = Supply.create(supply_params)
+    debugger
     if @product.save
       flash[:success] = "Insumo creado correctamente"
       redirect_to products_index_path
     else
       flash[:alert] = "No se pudó crear el insumo"
-      render "new"
-    end    
+      redirect_to products_index_path
+    end
   end
 
   def create_multiple
@@ -39,7 +40,7 @@ class ProductsController < ApplicationController
       redirect_to products_index_path
     else
       flash[:danger] = "No se pudo actualizar el insumo"
-      render "index"
+      redirect_to products_index_path
     end
   end
 
@@ -52,6 +53,10 @@ class ProductsController < ApplicationController
       flash[:alert] = "No se pudó eliminar el producto"
       redirect_to products_index_path
     end
+  end
+
+  def download_csv
+    send_file "#{Rails.root}/public/docs/esquema_insumos.csv", type: "application/csv", x_sendfile: true
   end
 
   private
