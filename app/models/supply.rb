@@ -9,7 +9,7 @@ class Supply < ApplicationRecord
 			supply.warehouse_id = warehouse
 			supply.shelf_id = row[0]
 			supply.shelf_section_id = row[1]
-			supply.name = row[2]
+			supply.name = row[2].downcase
 			supply.description = row[3]
 			supply.identification_code = row[4]
 			supply.quantity = row[5]
@@ -24,7 +24,7 @@ class Supply < ApplicationRecord
 	end
 
 	def self.multi_like(search_string)
-    my_attributes = [:name] 
+    my_attributes = [:name]
     queries = my_attributes.map { |attr| "#{attr} LIKE '%#{search_string}%'" }
     where(queries.join(" OR "))
   end
