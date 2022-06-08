@@ -6,7 +6,7 @@ class WorkersController < ApplicationController
   def create
     @worker = Worker.create(worker_params)
     if @worker.save
-      flash[:success] = "Trabajador creado."
+      flash[:success] = "Colaborador #{@worker.name + @worker.last_name}  creado."
       redirect_to worker_profile_path(@worker.id)
     else
       flash[:alert] = "no se pudo crear el Colaborador"

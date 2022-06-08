@@ -2,6 +2,13 @@
 	<div class="row">
 		<div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
 			<h1 class="display-3 text-center">Anaqueles</h1>
+			<nav aria-label="breadcrumb" class=" bg-transparent">
+			  <ol class="breadcrumb">
+			    <li class="breadcrumb-item"><%= link_to "Almacenes", warehouses_index_path%></li>
+			    <li class="breadcrumb-item"><%= link_to "Anaquel " + Shelf.find(params[:id]).code, warehouse_show_path(Shelf.find(params[:id]).warehouse_id) %></li>
+			    <li class="breadcrumb-item active" aria-current="page">Secciones del Anaquel</li>
+			  </ol>
+			</nav>
 			<div class="accordion accordion-flush" id="accordionFlushExample">
 				<% unless @shelf_sections %>
 				<p>No se han agregado secciones</p>
@@ -18,7 +25,7 @@
 							<% if section.supplies.any? %>
 							<p class="h4">Productos</p>
 								<% section.supplies.each do |supply| %>
-								<p><%= supply.name %>: <%= supply.quantity %></p>
+								<p><%= supply.name.capitalize %>: <%= supply.quantity %></p>
 								<% end %>
 							<% else %>
 								<p>No se han agregado Insumos a este anaquel</p>

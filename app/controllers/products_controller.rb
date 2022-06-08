@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Supply.create(supply_params)
-    debugger
     if @product.save
       flash[:success] = "Insumo creado correctamente"
       redirect_to products_index_path
@@ -28,8 +27,8 @@ class ProductsController < ApplicationController
       flash[:success] = "Se han agregado los insumos correctamente"
       redirect_to products_index_path
     else
-      flash[:alert] = "Hubó un problema al agregar los insumos"
-      rredirect_to products_index_path
+      flash[:danger] = "Hubó un problema al agregar los insumos"
+      redirect_to products_index_path
     end
   end
 
