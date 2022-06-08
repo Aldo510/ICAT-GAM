@@ -208,7 +208,12 @@
 					<% end %>
 				</div>
 			</div>
-			<%= will_paginate @supplies %>
+			<div class="apple_pagination">
+			  <div class="page_info">
+			    <%= page_entries_info @supplies %>
+			  </div>
+			  <%= will_paginate @supplies, :container => false %>
+			</div>
 			<% else %>
 			<p>No se han agregado insumos aún</p>
 			<% end %>

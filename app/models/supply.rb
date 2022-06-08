@@ -19,7 +19,14 @@ class Supply < ApplicationRecord
 				supply.perishable = true
 			end
 			supply.save
-			# Add fields since the csv files 
+			# Add fields since the csv files
 		end
 	end
+
+	def self.multi_like(search_string)
+    my_attributes = [:name] 
+    queries = my_attributes.map { |attr| "#{attr} LIKE '%#{search_string}%'" }
+    where(queries.join(" OR "))
+  end
+
 end
