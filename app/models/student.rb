@@ -29,7 +29,6 @@ class Student < ApplicationRecord
           student.speak_indigenous = "Ninguna"
         end
         student.save
-      end
     end
   end
 
