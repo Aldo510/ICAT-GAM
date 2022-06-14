@@ -5,7 +5,7 @@ class Student < ApplicationRecord
     ::CSV.foreach(file.path, headers:true) do |row|
       if Student.where(curp: row[7])
         student = Student.where(curp: row[7]).first
-        if student.taken_courses >= 0
+        if student.taken_courses 
           student.taken_courses += 1
         else
           student.taken_courses = 0
