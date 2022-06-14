@@ -18,6 +18,7 @@
       <button type="button" class="btn btn-green d-block mx-auto px-5 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
       </button>
+      <% end %>
 
       <%= link_to  courses_csv_path, class: "btn btn-green d-block mx-auto px-5 mb-3 w-50 mx-auto" do %>
       <%= bootstrap_icon "file-earmark", class: "text-center" %> Descargar esquema de ficha técnica de insumos
@@ -422,7 +423,7 @@
       </div>
       <!-- Button trigger modal -->
 
-      <% end %>
+      
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
