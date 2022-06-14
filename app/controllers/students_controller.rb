@@ -23,17 +23,18 @@ class StudentsController < ApplicationController
       flash[:success] = "Estudiante creado"
       redirect_to students_index_path
     else
-      flash[:alert] = "no se pudo crear el Estudiante"
+      flash[:danger] = "no se pudo crear el Estudiante"
       render "new"
     end
   end
 
   def create_multiple
+    @students = Student.paginate(page: params[:page], per_page: 15)
     if Student.import(params[:student][:file], params[:student][:course_id])
       flash[:success] = "Se han agregado los estudiantes"
       redirect_to students_index_path
     else
-      flash[:alert] = "hubó un problema al crear los usuarios"
+      flash[:danger] = "Hubó un problema al crear los estudiantes"
       render "index"
     end
   end
@@ -44,7 +45,7 @@ class StudentsController < ApplicationController
       flash[:success] = "Se ha actualizado correctamente"
       redirect_to students_index_path
     else
-      flash[:alert] = "No se ha podido actualizar"
+      flash[:danger] = "No se ha podido actualizar"
       redirect_to students_index_path
     end
   end
@@ -55,7 +56,7 @@ class StudentsController < ApplicationController
       flash[:success] = "Estudiante borrado exitosamente"
       redirect_to students_index_path
     else
-      flash[:alert] = "No se ha eliminar el estudiante"
+      flash[:danger] = "No se ha eliminar el estudiante"
       redirect_to students_index_path
     end
   end

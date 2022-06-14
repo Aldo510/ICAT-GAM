@@ -3,15 +3,6 @@ class Student < ApplicationRecord
   belongs_to :course
   def self.import(file, course)
     ::CSV.foreach(file.path, headers:true) do |row|
-      if Student.where(curp: row[7])
-        student = Student.where(curp: row[7]).first
-        if student.taken_courses 
-          student.taken_courses += 1
-        else
-          student.taken_courses = 0
-        end
-        student.save
-      else
         student = Student.new
         student.course_id = course
         student.id_ddc = ""
@@ -32,8 +23,11 @@ class Student < ApplicationRecord
         student.priority_group = row[16]
         student.disability = row[17]
         student.indigenous = row[18]
-        student.speak_indigenous = row[20]
-
+        if row[20]
+          student.speak_indigenous = row[20]
+        else
+          student.speak_indigenous = "Ninguna"
+        end
         student.save
       end
     end
