@@ -30,9 +30,9 @@ class StudentsController < ApplicationController
 
   def create_multiple
     @students = Student.paginate(page: params[:page], per_page: 15)
-    if Student.import(params[:student][:file], params[:student][:course_id])
+    if Student.import_from_csv(params[:student][:file], params[:student][:course_id])
       flash[:success] = "Se han agregado los estudiantes"
-      redirect_to students_index_path
+      redirect_to course_show_path(params[:student][:course_id])
     else
       flash[:danger] = "Hubó un problema al crear los estudiantes"
       render "index"
