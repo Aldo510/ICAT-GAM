@@ -59,6 +59,8 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'bootstrap-icons-helper'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+# postgresql full text search
+gem "pg_search", "~> 2.3"
 
 #Use rolify to give rolers to workers
 gem 'rolify', '~> 6.0'

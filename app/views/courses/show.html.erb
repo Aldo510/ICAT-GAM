@@ -1,6 +1,7 @@
 <section class="container-fluid py-5" id="courses_show">
   <div class="row">
     <div class="col-10 mx-auto">
+      <p>Hacer que se pueda crear la lista de materiales desde 0 usando turbo para buscarlos y para crear el array y crear el DAtaSheet en el controller</p>
       <h4 class="text-center gray">Curso</h4>
       <h1 class="display-3 text-center"><%= @course.name.upcase %></h1>
       <%= link_to "Ver todos los cursos", courses_index_path, class: "btn btn-green mb-5 d-block w-50 m-auto text-center" %>
@@ -21,7 +22,11 @@
             <% if current_worker.role == "Admin" || current_worker.role == "Cursos" || current_worker.role == "Administración" %>
             <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
             <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], {include_blank: false}, {class: "form-select"} %>
+            <% if @validate_course %>
             <%= f.submit "Cambiar estatus", class: "btn btn-green my-2" %>
+            <% else %>
+            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2 disabled" %>
+            <% end %>
             <% end %>
             <% end %>
             <% if @course.professor && @course.students.any? %>
@@ -143,6 +148,10 @@
               <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
+                <% if current_worker.role = "Inscripciones" or current_worker.role == "Admin" %>
+                <th scope="col"># Celular</th>
+                <th scope="col">Email</th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
@@ -150,6 +159,10 @@
               <tr>
                 <td class="text-capitalize"><%= student.name.capitalize %></td>
                 <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+                <% if current_worker.role = "Inscripciones" or current_worker.role = "Admin" %>
+                <th scope="col"><a href="tel:<%=student.telephone%>"><%=student.telephone%></a></th>
+                <th scope="col"><a href="mailto<%=student.email%>"><%=student.email%></a></th>
+                <% end %>
               </tr>
               <% end %>
             </tbody>

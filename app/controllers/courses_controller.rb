@@ -1,6 +1,9 @@
 class CoursesController < ApplicationController
   def index
     @courses = Course.all
+    @courses_preparing = Course.where(status: "En preparación")
+    @courses_process = Course.where(status: "En proceso")
+    @courses_finished = Course.where(status: "Finalizado")
   end
 
   def new
@@ -36,12 +39,20 @@ class CoursesController < ApplicationController
     if @course.data_sheet
       @items = @course.data_sheet
       @supplies = []
+      SupplyDataSheet.update_all('name = lower(name)')
       @items.supply_data_sheets.each do |supply|
-        if Supply.where(name: supply.name) != []
-          @supplies.append(Supply.where(name: supply.name).first.quantity)
+        if Supply.search_full_text(supply.name).count > 0
+        # if Supply.where("name like ?", "%#{supply.name}%") != []
+          # @supplies.append(Supply.where("name like ?", "%#{supply.name}%").first.quantity)
+          @supplies.append(Supply.search_full_text(supply.name).first.quantity)
         else
           @supplies.append("No se encontró este insumo")
         end
+      end
+      if @supplies.include? 'No se encontró este insumo'
+        @validate_course = false
+      else
+        @validate_course = true
       end
     end
     @man = Student.where(gender: "HOMBRE").count

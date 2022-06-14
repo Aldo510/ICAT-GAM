@@ -1,5 +1,10 @@
 require 'csv'
 class Supply < ApplicationRecord
+	include PgSearch::Model
+	pg_search_scope :search_full_text, against: {
+    name: 'A',
+    description: 'B'
+  }, ignoring: :accents
 	belongs_to :shelf_section
 	belongs_to :shelf
 	belongs_to :warehouse

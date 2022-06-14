@@ -1,10 +1,19 @@
 <section id="courses" class="container-fluid py-5">
+  <%# Poner un calendario para la disponibilidad del curso y el salón %>
+  <%# Revisar lo de los periodos %>
+  <%# Reportes para anaqueles por anaquel, tipo de producto %>
+  <%# Agregar el show del estudiante %>
+  <%# Nivel de eficiencia en los cursos al momento de finalizarlo %>
+  <!-- poder descargar la vista de el show del curso -->
+  <%# Vista de cursos tiene bug y ordenarlos desde el primero al último %>
+  <%# Reporte de cursos, cuantos cursos se han dado de cierta fecha, por los datos que se pidan en el formulario,  %>
+  <%# Poner todos los links de la lista %>
+  <%# Mostrar cuantos alumnos hay inscritos en el curso %>
+  <%# Cuando el curso pase a finalizado aparezca cuandos son aprobados, reprobados y el porcentaje de eficiencia %>
   <div class="row">
     <div class="col-11 col-md-10 mx-auto">
       <h1 class="text-center display-6">Todos los Cursos</h1>
-      <br/>
-      <!-- Button trigger modal -->
-      <%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
+      <p class="text-center h3">Cursos totales: <%= @courses.count %></p>
       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
       <button type="button" class="btn btn-green d-block mx-auto px-5 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
@@ -13,19 +22,407 @@
       <%= link_to  courses_csv_path, class: "btn btn-green d-block mx-auto px-5 mb-3 w-50 mx-auto" do %>
       <%= bootstrap_icon "file-earmark", class: "text-center" %> Descargar esquema de ficha técnica de insumos
       <% end %>
-      <% end %>
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              Cursos en Preparación: <%= @courses_preparing.count %>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body">
+              <% if @courses_preparing.any? %>
+              <div class="table-responsive">
+                <table class="table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">id_ddc</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Modalidad</th>
+                      <th scope="col">Inicio</th>
+                      <th scope="col">Final</th>
+                      <th scope="col">Horario</th>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Borrar</th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @courses_preparing.each do |course| %>
+                    <tr>
+                      <!-- <th scope="row"><%#= course.id%></th> -->
+                      <td><%= course.id_ddc %></td>
+                      <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= course.modality %></td>
+                      <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <td><!-- Button trigger modal edit course -->
+                        <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
+                          <%= bootstrap_icon "pencil", class: "text-center" %> Editar
+                        </button>
 
-      <%# Poner un calendario para la disponibilidad del curso y el salón %>
-      <%# Revisar lo de los periodos %>
-      <%# Reportes para anaqueles por anaquel, tipo de producto %>
-      <%# Agregar el show del estudiante %>
-      <%# Nivel de eficiencia en los cursos al momento de finalizarlo %>
-      <!-- poder descargar la vista de el show del curso -->
-      <%# Vista de cursos tiene bug y ordenarlos desde el primero al último %>
-      <%# Reporte de cursos, cuantos cursos se han dado de cierta fecha, por los datos que se pidan en el formulario,  %>
-      <%# Poner todos los links de la lista %>
-      <%# Mostrar cuantos alumnos hay inscritos en el curso %>
-      <%# Cuando el curso pase a finalizado aparezca cuandos son aprobados, reprobados y el porcentaje de eficiencia %>
+                        <!-- Modal edit course -->
+                        <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">
+                                <%= form_for :course, url: edit_course_path(course.id) do |f| %>
+                                <div class="form-group">
+                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :nombre_curso %><br/>
+                                  <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Salones disponibles", class: "form-label" %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_inicio %><br/>
+                                  <%= f.date_field :start_date, class: "form-control", value: course.start_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_terminación %><br/>
+                                  <%= f.date_field :end_date, class: "form-control", value: course.end_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :start_date, "Hora de inicio" %> <br/>
+                                  <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :end_date, "Hora de finalización" %> <br/>
+                                  <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Estatus del curso" %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-check py-2">
+                                  <%= f.label :dias_del_curso %><br/>
+                                  <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
+                                  <li>
+                                    <%= day.label(class: "form-check-label") %>
+                                    <%= day.check_box(class: "form-check-input") %>
+                                  </li>
+                                  <% end %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :número_de_sesiones %><br/>
+                                  <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
+                                </div>
+                                <div class="form-group dropdown ">
+                                  <%= f.label :modalidad %><br>
+                                  <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group d-none">
+                                  <%= f.label :Costo_curso %><br/>
+                                  <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}", value: course.cost %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
+                                </div>
+                                <% end %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div></td>
+                        <td>
+                          <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
+                          <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                          <% end %>
+                        </td>
+                        <% end %>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <% else %>
+                <p class="text-center">Aún no hay cursos en preparación</p>
+                <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              Cursos en Proceso: <%= @courses_process.count %>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+            <div class="accordion-body">
+              <% if @courses_process.any? %>
+              <div class="table-responsive">
+                <table class="table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">id_ddc</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Modalidad</th>
+                      <th scope="col">Inicio</th>
+                      <th scope="col">Final</th>
+                      <th scope="col">Horario</th>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Borrar</th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @courses_process.each do |course| %>
+                    <tr>
+                      <!-- <th scope="row"><%#= course.id%></th> -->
+                      <td><%= course.id_ddc %></td>
+                      <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= course.modality %></td>
+                      <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <td><!-- Button trigger modal edit course -->
+                        <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
+                          <%= bootstrap_icon "pencil", class: "text-center" %> Editar
+                        </button>
+
+                        <!-- Modal edit course -->
+                        <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">
+                                <%= form_for :course, url: edit_course_path(course.id) do |f| %>
+                                <div class="form-group">
+                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :nombre_curso %><br/>
+                                  <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Salones disponibles", class: "form-label" %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_inicio %><br/>
+                                  <%= f.date_field :start_date, class: "form-control", value: course.start_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_terminación %><br/>
+                                  <%= f.date_field :end_date, class: "form-control", value: course.end_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :start_date, "Hora de inicio" %> <br/>
+                                  <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :end_date, "Hora de finalización" %> <br/>
+                                  <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Estatus del curso" %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-check py-2">
+                                  <%= f.label :dias_del_curso %><br/>
+                                  <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
+                                  <li>
+                                    <%= day.label(class: "form-check-label") %>
+                                    <%= day.check_box(class: "form-check-input") %>
+                                  </li>
+                                  <% end %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :número_de_sesiones %><br/>
+                                  <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
+                                </div>
+                                <div class="form-group dropdown ">
+                                  <%= f.label :modalidad %><br>
+                                  <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group d-none">
+                                  <%= f.label :Costo_curso %><br/>
+                                  <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}", value: course.cost %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
+                                </div>
+                                <% end %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div></td>
+                        <td>
+                          <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
+                          <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                          <% end %>
+                        </td>
+                        <% end %>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <% else %>
+                <p class="text-center">Aún no hay cursos En proceso</p>
+                <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              Cursos finalizados <%= @courses_finished.count %>
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+            <div class="accordion-body">
+              <% if @courses_finished.any? %>
+              <div class="table-responsive">
+                <table class="table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">id_ddc</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Modalidad</th>
+                      <th scope="col">Inicio</th>
+                      <th scope="col">Final</th>
+                      <th scope="col">Horario</th>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Borrar</th>
+                      <% end %>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @courses_finished.each do |course| %>
+                    <tr>
+                      <!-- <th scope="row"><%#= course.id%></th> -->
+                      <td><%= course.id_ddc %></td>
+                      <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= course.modality %></td>
+                      <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
+                      <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+                      <td><!-- Button trigger modal edit course -->
+                        <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
+                          <%= bootstrap_icon "pencil", class: "text-center" %> Editar
+                        </button>
+
+                        <!-- Modal edit course -->
+                        <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body text-start">
+                                <%= form_for :course, url: edit_course_path(course.id) do |f| %>
+                                <div class="form-group">
+                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :nombre_curso %><br/>
+                                  <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Salones disponibles", class: "form-label" %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_inicio %><br/>
+                                  <%= f.date_field :start_date, class: "form-control", value: course.start_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :fecha_terminación %><br/>
+                                  <%= f.date_field :end_date, class: "form-control", value: course.end_date, required: true %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :start_date, "Hora de inicio" %> <br/>
+                                  <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :end_date, "Hora de finalización" %> <br/>
+                                  <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Estatus del curso" %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-check py-2">
+                                  <%= f.label :dias_del_curso %><br/>
+                                  <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
+                                  <li>
+                                    <%= day.label(class: "form-check-label") %>
+                                    <%= day.check_box(class: "form-check-input") %>
+                                  </li>
+                                  <% end %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label :número_de_sesiones %><br/>
+                                  <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
+                                </div>
+                                <div class="form-group dropdown ">
+                                  <%= f.label :modalidad %><br>
+                                  <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group d-none">
+                                  <%= f.label :Costo_curso %><br/>
+                                  <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}", value: course.cost %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
+                                </div>
+                                <% end %>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div></td>
+                        <td>
+                          <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
+                          <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                          <% end %>
+                        </td>
+                        <% end %>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <% else %>
+                <p class="text-center">Aún no hay cursos finalizados</p>
+                <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Button trigger modal -->
+
+      <% end %>
       <!-- Modal -->
       <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -47,6 +444,10 @@
               <div class="form-group d-none">
                 <%#= f.label :sitio_o_ubicación %><br/>
                 <%#= f.select :site, ["ICAT GAM", "Oficinas centrales", "Otro"], class: "dropdown-item" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Estatus del curso" %>
+                <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
               </div>
               <div class="form-group">
                 <%= f.label :fecha_inicio %><br/>
@@ -108,129 +509,6 @@
           </div>
         </div>
       </div>
-      <% if @courses.any? %>
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead>
-            <tr>
-              <th scope="col">id_ddc</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Modalidad</th>
-              <th scope="col">Inicio</th>
-              <th scope="col">Final</th>
-              <th scope="col">Horario</th>
-              <th scope="col">Status</th>
-              <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
-              <th scope="col">Editar</th>
-              <th scope="col">Borrar</th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% @courses.each do |course| %>
-            <tr>
-              <!-- <th scope="row"><%#= course.id%></th> -->
-              <td><%= course.id_ddc %></td>
-              <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
-              <td><%= course.modality %></td>
-              <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
-              <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
-              <td><%= course.start_hour.strftime('%H:%M') %> - <%= course.end_hour.strftime('%H:%M') %></td>
-              <td><%= course.status %></td>
-              <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
-              <td><!-- Button trigger modal edit course -->
-                <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= course.id %>">
-                  <%= bootstrap_icon "pencil", class: "text-center" %> Editar
-                </button>
-
-                <!-- Modal edit course -->
-                <div class="modal fade" id="exampleModal<%= course.id %>" tabindex="-1" aria-labelledby="exampleModal<%= course.id %>Label" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModal<%= course.id %>Label">Editar curso</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body text-start">
-                        <%= form_for :course, url: edit_course_path(course.id) do |f| %>
-                        <div class="form-group">
-                          <%= f.label :id_ddc %><br/>
-                          <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :nombre_curso %><br/>
-                          <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label "Salones disponibles", class: "form-label" %>
-                          <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :fecha_inicio %><br/>
-                          <%= f.date_field :start_date, class: "form-control", value: course.start_date, required: true %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :fecha_terminación %><br/>
-                          <%= f.date_field :end_date, class: "form-control", value: course.end_date, required: true %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :start_date, "Hora de inicio" %> <br/>
-                          <%= f.select :start_hour, (9..17).to_a, { include_blank: false }, {class: 'form-select'} %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :end_date, "Hora de finalización" %> <br/>
-                          <%= f.select :end_hour, (10..17).to_a, { include_blank: false }, {class: 'form-select'} %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label "Estatus del curso" %>
-                          <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
-                        </div>
-                        <div class="form-check py-2">
-                          <%= f.label :dias_del_curso %><br/>
-                          <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
-                          <li>
-                            <%= day.label(class: "form-check-label") %>
-                            <%= day.check_box(class: "form-check-input") %>
-                          </li>
-                          <% end %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.label :número_de_sesiones %><br/>
-                          <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
-                        </div>
-                        <div class="form-group dropdown ">
-                          <%= f.label :modalidad %><br>
-                          <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
-                        </div>
-                        <div class="form-group d-none">
-                          <%= f.label :Costo_curso %><br/>
-                          <%= f.text_field :cost, class: "form-control", placeholder: "#{course.cost}", value: course.cost %>
-                        </div>
-                        <div class="form-group">
-                          <%= f.submit "Editar curso", class: "btn btn-green mt-3" %>
-                        </div>
-                        <% end %>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div></td>
-                <td>
-                  <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
-                  <%= bootstrap_icon "trash", class: "text-center" %> Borrar
-                  <% end %>
-                </td>
-                <% end %>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-        <% else %>
-        <p class="text-center">Aún no hay curso agregados</p>
-        <% end %>
       </div>
     </div>
   </section>

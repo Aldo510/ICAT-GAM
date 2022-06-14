@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get 'shelves/show/:id', to: "shelves#show", as: "shelf_show"
   # Students
   get 'students/index', to: "students#index", as: "students_index"
-  get 'students/show/:id', to: "students#show", as: "student_profile"
+  get 'students/show/:id', to: "students#show", as: "student_show"
   get 'students/new', to: "students#new", as: "student_new"
   get 'students/download_file', to: "students#download_csv", as: 'students_csv'
   post 'students/create'
