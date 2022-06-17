@@ -1,6 +1,11 @@
 class ProductsController < ApplicationController
   def index
     @supplies = Supply.paginate(page: params[:page], per_page: 15)
+    @supplies_instrumental = Supply.where(category: "instrumental").count
+    @supplies_comsumption = Supply.where(category: "consumo").count
+    @supplies_immediate = Supply.where(sub_category: "inmediato").count
+    @supplies_intermediate = Supply.where(sub_category: "intermedio").count
+    @supplies_durable = Supply.where(sub_category: "duradero").count
   end
 
   def show
@@ -60,6 +65,6 @@ class ProductsController < ApplicationController
 
   private
   def supply_params
-    params.require(:supply).permit(:shelf_section_id, :name,:warehouse_id, :shelf_id, :identification_code, :description, :quantity, :perishable)
+    params.require(:supply).permit(:shelf_section_id, :name,:warehouse_id, :shelf_id, :identification_code, :expiry_date, :category, :sub_category, :description, :quantity, :perishable)
   end
 end

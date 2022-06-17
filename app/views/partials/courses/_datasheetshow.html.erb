@@ -1,9 +1,9 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-green" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
-  Ver la ficha de materiales
+<button type="button" class="btn btn-green w-100" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
+  <%= bootstrap_icon "file-earmark-spreadsheet", class: "text-center" %> Ver la ficha de materiales
 </button>
-<%= button_to data_sheet_delete_path(@course.data_sheet.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar esta ficha de materiales? \n Esta acción no pude deshacerse" } }, class: "btn btn-danger my-2" do %>
-Borrar ficha de materiales
+<%= button_to data_sheet_delete_path(@course.data_sheet.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar esta ficha de materiales? \n Esta acción no pude deshacerse" } }, class: "btn btn-cherry w-100 my-2" do %>
+  <%= bootstrap_icon "trash", class: "text-center" %> Borrar ficha de materiales
 <% end %>
 
 <!-- Modal -->

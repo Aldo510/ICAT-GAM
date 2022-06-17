@@ -24,11 +24,16 @@ class CoursesController < ApplicationController
     end
   end
 
-  def show_list
+  def show_description
+    @course = Course.find(params[:id])
+    @students = @course.students
+    @man = @students.where(gender: "HOMBRE").count
+    @women = @students.where(gender: "MUJER").count
+    @other = @students.where(gender: "Prefiero no especificar").count
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "Lista curso", template: "courses/show"
+        render pdf: "Ficha técnica curso #{@course.name}", template: "courses/show_description", orientation: "Portrait"
       end
     end
   end
@@ -55,9 +60,9 @@ class CoursesController < ApplicationController
         @validate_course = true
       end
     end
-    @man = Student.where(gender: "HOMBRE").count
-    @women = Student.where(gender: "MUJER").count
-    @other = Student.where(gender: "Prefiero no especificar").count
+    @man = @students.where(gender: "HOMBRE").count
+    @women = @students.where(gender: "MUJER").count
+    @other = @students.where(gender: "Prefiero no especificar").count
     respond_to do |format|
       format.html
       format.pdf do

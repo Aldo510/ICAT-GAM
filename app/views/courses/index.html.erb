@@ -37,7 +37,7 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">id_ddc</th>
+                      <th scope="col">ID DDC</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Modalidad</th>
                       <th scope="col">Inicio</th>
@@ -76,7 +76,7 @@
                               <div class="modal-body text-start">
                                 <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                                 <div class="form-group">
-                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.label "ID DDC", class: "text-uppercase" %><br/>
                                   <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                                 </div>
                                 <div class="form-group">
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
-                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label :fecha_inicio %><br/>
@@ -169,7 +169,7 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">id_ddc</th>
+                      <th scope="col">ID DDC</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Modalidad</th>
                       <th scope="col">Inicio</th>
@@ -208,7 +208,7 @@
                               <div class="modal-body text-start">
                                 <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                                 <div class="form-group">
-                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.label "ID DDC" %><br/>
                                   <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                                 </div>
                                 <div class="form-group">
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
-                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label :fecha_inicio %><br/>
@@ -301,7 +301,7 @@
                 <table class="table text-center">
                   <thead>
                     <tr>
-                      <th scope="col">id_ddc</th>
+                      <th scope="col">ID DDC</th>
                       <th scope="col">Nombre</th>
                       <th scope="col">Modalidad</th>
                       <th scope="col">Inicio</th>
@@ -340,7 +340,7 @@
                               <div class="modal-body text-start">
                                 <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                                 <div class="form-group">
-                                  <%= f.label :id_ddc %><br/>
+                                  <%= f.label "ID DDC" %><br/>
                                   <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                                 </div>
                                 <div class="form-group">
@@ -349,7 +349,7 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
-                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.collection_select :classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label :fecha_inicio %><br/>
@@ -435,7 +435,7 @@
             <div class="modal-body">
               <%= form_for :course, url: course_create_path do |f| %>
               <div class="form-group">
-                <%= f.label :id_ddc %><br/>
+                <%= f.label "ID DDC", class: "text-uppercase" %><br/>
                 <%= f.text_field :id_ddc, class: "form-control", required: true %>
               </div>
               <div class="form-group">
@@ -460,7 +460,7 @@
               </div>
               <div class="form-group">
                 <%= f.label "Salones disponibles", class: "form-label" %>
-                <%= f.collection_select :classroom, Classroom.where(status: true), :id, :name, { include_blank: false }, {class: 'form-select'} %>
+                <%= f.collection_select :classroom, Classroom.where(status: true), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
               </div>
               <div class="form-group">
                 <%= f.label :start_date, "Hora de inicio" %> <br/>

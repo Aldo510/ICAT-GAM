@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'courses/new'
   get 'courses/download_file', to: 'courses#download_csv', as: 'courses_csv'
   get 'courses/show/:id', to: "courses#show", as: "course_show"
-  #get "course/:id/classlist", to: "courses#classlist", format: "pdf", as: "classlist"
+  get "course/show_description/:id", to: "courses#show_description", as: "course_description"
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   post 'courses/edit_status/:id', to: "courses#update_status", as: "edit_course_status"

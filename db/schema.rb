@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_13_151739) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_17_142902) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -132,6 +132,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_151739) do
     t.datetime "updated_at", null: false
     t.integer "shelf_id"
     t.integer "warehouse_id"
+    t.string "expiry_date", default: ""
+    t.string "category", default: ""
+    t.string "sub_category", default: ""
   end
 
   create_table "supply_data_sheets", force: :cascade do |t|
