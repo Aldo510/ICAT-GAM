@@ -107,6 +107,10 @@
                                   <%= f.label "Estatus del curso" %>
                                   <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
                                 </div>
+                                <div class="form-group">
+                                  <%= f.label "Ficha de contenido" %>
+                                  <%= f.text_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true, value: course.content_tab %>
+                                </div>
                                 <div class="form-check py-2">
                                   <%= f.label :dias_del_curso %><br/>
                                   <%= f.collection_check_boxes :days, [['Lunes'], ['Martes'], ['Miércoles'], ['Jueves'], ['Viernes'], ['Sábado'], ['Domingo']], :first, :first do |day| %>
@@ -445,6 +449,10 @@
               <div class="form-group d-none">
                 <%#= f.label :sitio_o_ubicación %><br/>
                 <%#= f.select :site, ["ICAT GAM", "Oficinas centrales", "Otro"], class: "dropdown-item" %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Ficha de contenido" %>
+                <%= f.text_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true %>
               </div>
               <div class="form-group">
                 <%= f.label "Estatus del curso" %>

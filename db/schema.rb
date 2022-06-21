@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_17_142902) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_21_183638) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -52,6 +52,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_17_142902) do
     t.datetime "updated_at", null: false
     t.time "start_hour"
     t.time "end_hour"
+    t.string "pedagocical_package", default: ""
+    t.string "accreditation_notices"
+    t.string "content_tab"
   end
 
   create_table "data_sheets", force: :cascade do |t|

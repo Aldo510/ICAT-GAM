@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   post 'courses/edit_status/:id', to: "courses#update_status", as: "edit_course_status"
+  post 'course/add_data_sheet', to: "courses#add_product_to_data_sheet", as: "course_add_data_sheet"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   #Professors
   get 'professors/show/:id', to: "professors#show", as: "professor_show"

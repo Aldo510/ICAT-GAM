@@ -149,12 +149,14 @@
 							<li class="list-group-item">Almacen: <%= Warehouse.find(supply.warehouse_id).name %></li>
 							<li class="list-group-item">Anaquel: <%= Shelf.find(ShelfSection.find(supply.shelf_section_id).id).code %></li>
 							<li class="list-group-item">Sección: <%= ShelfSection.find(supply.shelf_section_id).number %></li>
+							<li class="list-group-item text-capitalize">Categoría: <%= supply.category %></li>
+							<li class="list-group-item text-capitalize">Sub categoría: <%= supply.sub_category %></li>
 						</ul>
 						<div class="card-body">
 							<!-- Button trigger modal Edit supply -->
               				<% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
 							<button type="button" class="btn btn-green w-100 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal<%= supply.id %>">
-								Editar insumo
+								<%= bootstrap_icon "pencil", class: "text-center" %> Editar insumo
 							</button>
 
 							<!-- Modal edit supply -->
@@ -237,7 +239,9 @@
 							</div>
 							<%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-danger my-3 w-100" %>
 							<% end %>
-							<%= link_to "Ver Insumo", product_show_path(supply.id), class: "card-link btn btn-green w-100" %>
+							<%= link_to  product_show_path(supply.id), class: "card-link btn btn-green w-100" do %>
+								<%= bootstrap_icon "eye", class: "text-center" %> Ver Insumo
+							<% end %>
 						</div>
 					</div>
 					<% end %>

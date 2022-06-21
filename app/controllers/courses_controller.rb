@@ -38,27 +38,32 @@ class CoursesController < ApplicationController
     end
   end
 
+  def add_product_to_data_sheet
+    if SupplyDataSheet.create(data_sheet_id: params[:data_sheet_id], name: params[:product_name], quantity:params[:quantity_product])
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend("products_data_sheet", partial: "courses/products", locals: { data_sheet_products: Course.find(params[:id]).data_sheet.data_sheet_products})
+          ]
+        end
+      end
+    else
+      flash[:alert] = "no se pudó agregar"
+    end
+  end
+
   def show
     @course = Course.find(params[:id])
     @students = @course.students
-    if @course.data_sheet
-      @items = @course.data_sheet
-      @supplies = []
-      SupplyDataSheet.update_all('name = lower(name)')
-      @items.supply_data_sheets.each do |supply|
-        if Supply.search_full_text(supply.name).count > 0
-        # if Supply.where("name like ?", "%#{supply.name}%") != []
-          # @supplies.append(Supply.where("name like ?", "%#{supply.name}%").first.quantity)
-          @supplies.append(Supply.search_full_text(supply.name).first.quantity)
-        else
-          @supplies.append("No se encontró este insumo")
-        end
-      end
-      if @supplies.include? 'No se encontró este insumo'
-        @validate_course = false
-      else
-        @validate_course = true
-      end
+    if params[:query].present?
+      @products = Supply.where("name like ?", "%#{params[:query]}%")
+    else
+      @products = []
+    end 
+    unless @course.data_sheet
+      DataSheet.create(course_id: @course.id)
+    else
+      @products_data_sheet = @course.data_sheet.supply_data_sheets
     end
     @man = @students.where(gender: "HOMBRE").count
     @women = @students.where(gender: "MUJER").count
@@ -110,7 +115,7 @@ class CoursesController < ApplicationController
 
   private
   def course_params
-    params.require(:course).permit(:id_ddc, :site, :name, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
+    params.require(:course).permit(:id_ddc, :site, :name, :content_tab, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
   end
 
 end

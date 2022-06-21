@@ -1,0 +1,23 @@
+ <% @products_data_sheet.each_with_index do |data, index| %>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 border p-2">
+                <p class="text-center m-0 text-capitalize"><%= Supply.find(data.name).name %></p>
+            </div>
+            <div class="col-4 border p-2">
+                <p class="text-center m-0">
+                    <% if data.quantity <= Supply.find(data.name).quantity %>
+                        <span class="green"><%= data.quantity %></span>
+                    <% else %>
+                        <span class="red"><%= data.quantity %></span>
+                    <% end %>
+                </p>
+            </div>
+            <div class="col-4 border p-2">
+                <p class="text-center m-0">
+                    <%= Supply.find(data.name).quantity %>
+                </p>
+            </div>
+        </div>
+    </div>
+<% end %>

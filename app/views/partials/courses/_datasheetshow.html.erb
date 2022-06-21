@@ -1,9 +1,11 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-green w-100" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
-  <%= bootstrap_icon "file-earmark-spreadsheet", class: "text-center" %> Ver la ficha de materiales
+<button type="button" class="btn btn-green w-100 my-3" data-bs-toggle="modal" data-bs-target="#datasheetShowModal">
+  <%= bootstrap_icon "file-earmark-spreadsheet", class: "text-center " %> Ver la ficha de materiales
 </button>
+<% if @course.data_sheet %>
 <%= button_to data_sheet_delete_path(@course.data_sheet.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar esta ficha de materiales? \n Esta acción no pude deshacerse" } }, class: "btn btn-cherry w-100 my-2" do %>
   <%= bootstrap_icon "trash", class: "text-center" %> Borrar ficha de materiales
+<% end %>
 <% end %>
 
 <!-- Modal -->
@@ -17,6 +19,20 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
+            <div class="col-12">
+            <p>Productos</p>
+            <%= form_with(url: course_show_path(@course.id), method: "GET", data: { controller: "form-search-product" ,turbo_frame: "products-results", turbo_action: "advance" }) do |form| %>
+              <!-- Snip the form content -->
+              <%= form.label :query, "Buscar por nombre:", class: "form-label" %>
+              <%= form.text_field :query, class: "form-control", data: {action: "input->form-search-product#search" } %>
+              <%= form.submit 'Search', name: nil, class: "btn btn-green" %>
+            <% end %>
+            
+            <%= turbo_frame_tag "products-results" do %>
+            <%= render partial: "products", locals: {products: @products } %>
+            <% end %>
+            </div>
+            <% if @course.data_sheet %>
             <div class="col-4">
               <p class="h4 text-center">Nombre del insumo</p>
             </div>
@@ -26,27 +42,12 @@
             <div class="col-4">
               <p class="h4 text-center">Cantidad en almacen</p>
             </div>
-            <% @course.data_sheet.supply_data_sheets.each_with_index do |data, index| %>
-            <div class="col-4">
-              <p class="text-center"><%= data.name %></p>
-            </div>
-            <div class="col-4">
-              <p class="text-center"><%= data.quantity %></p>
-            </div>
-            <div class="col-4">
-              <p class="text-center">
-                <% if @supplies[index].class != String %>
-                <% if data.quantity <= @supplies[index] %>
-                <span class="green"><%= @supplies[index] %></span>
-                <% else %>
-                <span class="red"><%= @supplies[index] %></span>
-                <% end %>
-                <% else %>
-                <span class="red"><%= @supplies[index] %></span>
-                <% end %>
-                </p>
-            </div>
+            <div id="products_data_sheet">
+              <%= turbo_frame_tag "products_data_sheet" do %>
+                <%= render "courses/products_data_sheet", locals: { products_data_sheet: @course.data_sheet.supply_data_sheets } %>
+              <% end %>
             <% end %>
+            </div>
           </div>
         </div>
       </div>
