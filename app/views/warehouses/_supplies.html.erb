@@ -1,8 +1,13 @@
 <%= turbo_frame_tag "supplies" do %>
 <%#= render supplies %>
-
-<% supplies.each do |supply| %>
-<p><%= supply.name %>: <%= supply.quantity %></p>
-<% end %>
-
+    <% supplies.each do |supply| %>
+        <div class="border p-3">
+        <%= link_to product_show_path(supply.id), class: "btn btn-green my-2 d-block", data: { turbo: false } do %>
+            <p class="m-0 text-center"><%= supply.name %>: <%= supply.quantity %></p>
+        <% end %>
+        <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
+            <%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-danger my-3 w-100" %>
+        <% end %>
+        </div>
+    <% end %>
 <% end %>

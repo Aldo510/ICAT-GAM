@@ -41,10 +41,10 @@ class ProductsController < ApplicationController
     @supply = Supply.find(params[:id])
     if @supply.update(supply_params)
       flash[:success] = "Insumo actualizado correctamente"
-      redirect_to products_index_path
+      redirect_to product_show_path(@supply.id)
     else
-      flash[:danger] = "No se pudo actualizar el insumo"
-      redirect_to products_index_path
+      flash[:alert] = "No se pudo actualizar el insumo"
+      redirect_to product_show_path(@supply.id)
     end
   end
 
@@ -52,10 +52,10 @@ class ProductsController < ApplicationController
     @product = Supply.find(params[:id])
     if @product.destroy
       flash[:success] = "El insumo ha sido eliminado correctamente"
-      redirect_to products_index_path
+      redirect_to warehouses_index_path
     else
       flash[:alert] = "No se pudó eliminar el producto"
-      redirect_to products_index_path
+      redirect_to product_show_path(@product.id)
     end
   end
 

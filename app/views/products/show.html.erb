@@ -1,2 +1,91 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<section class="container-fluid" id="product-show">
+    <div class="row">
+        <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+            <h2 class="text-center gray">Insumo</h2>
+            <h2 class="display-6 text-center text-uppercase"><%= @product.name %></h2>
+            <ul class="list-group list-group-flush">
+				<li class="list-group-item">Cantidad: <%= @product.quantity %></li>
+				<li class="list-group-item">Almacen: <%= Warehouse.find(@product.warehouse_id).name %></li>
+				<li class="list-group-item">Anaquel: <%= Shelf.find(ShelfSection.find(@product.shelf_section_id).id).code %></li>
+				<li class="list-group-item">Sección: <%= ShelfSection.find(@product.shelf_section_id).number %></li>
+				<li class="list-group-item text-capitalize">Categoría: <%= @product.category %></li>
+				<li class="list-group-item text-capitalize">Sub categoría: <%= @product.sub_category %></li>
+			</ul>
+            <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
+				<button type="button" class="btn btn-green w-100 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal<%= @product.id %>">
+                    <%= bootstrap_icon "pencil", class: "text-center" %> Editar insumo
+				</button>
+				<!-- Modal edit @product -->
+				<div class="modal fade" id="exampleModal<%= @product.id %>" tabindex="-1" aria-labelledby="exampleModal<%= @product.id %>Label" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModal<%= @product.id %>Label">Editar insumo</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<%= form_for :supply, url: product_update_path(@product.id) do |f| %>
+									<div class="form-group">
+										<%= f.label "Almacen" %>
+										<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Anaquel" %>
+										<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Sección " %>
+										<%#= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
+										<%= f.select :quantity, (1..10).to_a ,class: "dropdown-item" %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Nombre del insumo" %>
+										<%= f.text_field :name, class: "form-control", required: true, placeholder: "#{@product.name}", value: @product.name %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Descripción" %>
+										<%= f.text_field :description, class: "form-control", required: true, placeholder: "#{@product.description}", value: @product.description %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Fecha de caducidad (Dejar en blanco si no aplica)", class: "form-label"  %>
+										<%= f.date_field :expiry_date, class: "form-control" %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Categoría", class: "form-label"  %>
+										<%= f.select :category, ['instrumental', 'consumo'], {include_blank: false},  { class: "form-select text-capitalize",  autofocus: true} %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Sub Categoría", class: "form-label"  %>
+										<%= f.select :sub_category, ["inmediato", "intermedio", "duradero"], {include_blank: false},  { class: "form-select text-capitalize",  autofocus: true} %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Cantidad" %>
+										<%= f.select :quantity, (1..30).to_a ,class: "dropdown-item" %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Código de identificación" %>
+										<%= f.text_field :identification_code, class: "form-control", required: true, placeholder: "#{@product.identification_code}", value: @product.identification_code %>
+									</div>
+									<div class="form-group">
+										<%= f.label "Es de un solo uso?" %>
+										<%= f.label "Sí" %>
+										<%= f.radio_button :perishable, true%>
+										<%= f.label "No" %>
+										<%= f.radio_button :perishable, false %>
+									</div>
+									<div class="form-group">
+										<%= f.submit "Editar Insumo", class: "btn btn-green mt-3" %>
+									</div>
+									<% end %>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%= button_to "Borrar insumo", product_delete_path(@product.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{@product.name} de los insumos?" } }, class: "btn btn-danger my-3 w-100" %>
+				<% end %>
+        </div>
+    </div>
+</section>

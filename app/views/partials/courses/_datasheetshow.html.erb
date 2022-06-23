@@ -13,19 +13,18 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="datasheetShowModalLabel">Lista de materiales</h5>
+        <h5 class="modal-title display-6" id="datasheetShowModalLabel">Lista de materiales</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-            <p>Productos</p>
             <%= form_with(url: course_show_path(@course.id), method: "GET", data: { controller: "form-search-product" ,turbo_frame: "products-results", turbo_action: "advance" }) do |form| %>
               <!-- Snip the form content -->
               <%= form.label :query, "Buscar por nombre:", class: "form-label" %>
               <%= form.text_field :query, class: "form-control", data: {action: "input->form-search-product#search" } %>
-              <%= form.submit 'Search', name: nil, class: "btn btn-green" %>
+              <%= form.submit 'Buscar', name: nil, class: "btn btn-green my-2" %>
             <% end %>
             
             <%= turbo_frame_tag "products-results" do %>
