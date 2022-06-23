@@ -34,7 +34,7 @@
               <% end %>
             <% end %>
             <% if @course.content_tab %>
-              <a href="<%= @course.content_tab %>" target="_blank" class="btn btn-green w-100 my-3">Ver ficha de contenido</a>
+              <a href="<%= @course.content_tab %>" target="_blank" class="btn btn-green w-100 my-3"><%= bootstrap_icon "list-task", class: "text-center" %> Ver ficha de contenido</a>
             <% end %>
             <% if @course.professor && @course.students.any? %>
             <%= link_to course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn w-100 my-3" do %>
