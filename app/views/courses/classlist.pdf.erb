@@ -85,10 +85,17 @@
       <div class="col-6">
         <%#= image_tag image_url("logos/logo_icat_color_extend.png"), class: "w-50 img-fluid" %>
       </div>
-      <div class="col-12 mx-auto bg-wine">
-        <p class="text-center text-uppercase text-white m-0">Lista de asistencia y registro de evaluaciones</p>
-      </div>
-      <div class="">
+     
+     
+    </div>
+  </div>
+  <div id="content" class="classlist">
+    <% student_index = 1 %>
+    <% @students.each_slice(10).to_a.each do |group_ten| %>
+    <div class="col-12 mx-auto bg-wine">
+      <p class="text-center text-uppercase text-white m-0">Lista de asistencia y registro de evaluaciones</p>
+    </div>
+     <div class="">
         <div class="flexrow">
           <div class="w-50">
             <div class="flexrow">
@@ -143,11 +150,6 @@
 
         </div>
       </div>
-    </div>
-  </div>
-  <div id="content" class="classlist">
-    <% student_index = 1 %>
-    <% @students.each_slice(10).to_a.each do |group_ten| %>
     <table class="table w-100 m-0 fs-12">
       <thead>
         <tr class="bg-wine text-white" style="background-color: #9F2241;">
@@ -174,11 +176,9 @@
           <td class="text-center bg-wine text-white" style="max-width: 20px;"><%= student_index %></td>
           <% student_index +=1 %>
           <td class="border border-dark" style="max-width: 150px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
-          <% 1..@course.sessions_number.times do |session| %>
+          <% 1..9.times do |session| %>
           <td class="border border-dark" style="max-width: 20px;"></td>
           <% end %>
-          <td class="border border-dark"></td>
-          <td class="border border-dark"></td>
         </tr>
 
         <% end %>

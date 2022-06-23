@@ -1,7 +1,6 @@
 <section class="container-fluid py-5" id="courses_show">
   <div class="row">
     <div class="col-10 mx-auto">
-      <p>Hacer que se pueda crear la lista de materiales desde 0 usando turbo para buscarlos y para crear el array y crear el DAtaSheet en el controller</p>
       <h4 class="text-center gray">Curso</h4>
       <h1 class="display-3 text-center"><%= @course.name.upcase %></h1>
       <%= link_to  courses_index_path, class: "btn btn-green mb-5 d-block w-50 m-auto text-center" do %>
@@ -25,24 +24,26 @@
             </li>
           </ul>
             <% if current_worker.role == "Admin" || current_worker.role == "Cursos" || current_worker.role == "Administración" %>
-            <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
-            <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], {include_blank: false}, {class: "form-select"} %>
-            <% if @validate_course %>
-            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2 w-100" %>
-            <% else %>
-            <%= f.submit "Cambiar estatus", class: "btn btn-green my-2 w-100 disabled" %>
-            <% end %>
-            <% end %>
+              <%= form_for :course_status, url: edit_course_status_path(@course.id) do |f| %>
+                <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], {include_blank: false}, {class: "form-select"} %>
+                <% if @course.students && @course.professor && @course.data_sheet %>
+                  <%= f.submit "Cambiar estatus", class: "btn btn-green my-2 w-100" %>
+                <% else %>
+                  <%= f.submit "Cambiar estatus", class: "btn btn-green my-2 w-100 disabled" %>
+                <% end %>
+              <% end %>
             <% end %>
             <% if @course.content_tab %>
-            <a href="<%= @course.content_tab %>" target="_blank" class="btn btn-green w-100 my-3">Ver ficha de contenido</a>
+              <a href="<%= @course.content_tab %>" target="_blank" class="btn btn-green w-100 my-3">Ver ficha de contenido</a>
             <% end %>
             <% if @course.professor && @course.students.any? %>
             <%= link_to course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn w-100 my-3" do %>
               <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar lista en PDF
             <% end %>
-            <%= link_to course_description_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn w-100 my-3" do %>
-              <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar reporte del curso
+            <% if @course.status == "Finalizado" && @course.approved %>
+              <%= link_to course_description_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn w-100 my-3" do %>
+                <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar reporte del curso
+              <% end %>
             <% end %>
             <% else %>
             <%#= link_to "Descargar lista en PDF", course_show_path(@course.id, format: :pdf), target: "_blank", class: "btn-green btn my-3 disabled" %>
@@ -66,7 +67,10 @@
             <button type="button" class="btn btn-green w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <%= bootstrap_icon "pencil", class: "text-center" %> Editar Profesor
             </button>
-             
+            <% if @course.status == "Finalizado" %>
+              <%= render "partials/courses/approbated" %>
+            <% end %>
+            
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -103,9 +107,11 @@
             </div>
             <% else %>
             <!-- Button trigger modal -->
+            <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
             <button type="button" class="btn btn-green d-block mt-3 w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Agregar profesor
             </button>
+            <% end %>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -43,9 +43,7 @@
               <p class="h4 text-center">Cantidad en almacen</p>
             </div>
             <div id="products_data_sheet">
-              <%= turbo_frame_tag "products_data_sheet" do %>
-                <%= render "courses/products_data_sheet", locals: { products_data_sheet: @course.data_sheet.supply_data_sheets } %>
-              <% end %>
+                <%= render "courses/products_data_sheet", products_data_sheet: @course.data_sheet.supply_data_sheets %>
             <% end %>
             </div>
           </div>

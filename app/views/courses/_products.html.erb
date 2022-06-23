@@ -24,12 +24,12 @@
             
         </div>
         <div class="col-4">
-            <%= form_with(url: course_add_data_sheet_path, method: "POST", data: {turbo_frame: "products_data_sheet", turbo_action: "advance"}) do |f| %>
+            <%= form_with(url: course_add_data_sheet_path(@course.id), method: "POST", data: {turbo_frame: "products_data_sheet", turbo_action: "advance"}) do |f| %>
             <%= f.text_field :data_sheet_id, value: @course.data_sheet.id, class: "d-none" %>
             <%= f.text_field :product_name, value: product.id, class: "d-none" %>
             <%= f.label "Cantidad de este insumo para el curso", class: "form-label" %>
             <%= f.text_field :quantity_product, class: "form-control" %>
-            <%= f.submit "Agregar a la ficha técnica", class: "btn btn-green", data: {action: "input->form-search-product#active"} %>
+            <%= f.submit "Agregar a la ficha técnica", class: "btn btn-green", data: {action: "input->form-search-product#active"}, locals: { query: "" } %>
             <% end %>
         </div>
     </div>

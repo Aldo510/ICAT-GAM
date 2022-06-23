@@ -43,7 +43,7 @@ class CoursesController < ApplicationController
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.prepend("products_data_sheet", partial: "courses/products", locals: { data_sheet_products: Course.find(params[:id]).data_sheet.data_sheet_products})
+            turbo_stream.prepend("products_data_sheet", partial: "courses/products_data_sheet", locals: { products_data_sheet: Course.find(params[:id]).data_sheet.supply_data_sheets, query: "" })
           ]
         end
       end
@@ -90,10 +90,23 @@ class CoursesController < ApplicationController
   def update_status
     @course = Course.find(params[:id])
     if @course.update_attribute(:status, params[:course_status][:status])
+      # Agregar aquí que si el status es en progreso los materiales se descuenten en la cantidad
+      # Y cuando sea finalizado la cantidad se regrese al inventario si no son consumibles
       flash[:success] = "Se ha cambiado el estatus del curso"
       redirect_to course_show_path(@course.id)
     else
       flash[:alert] = "No se pudó cambiar el status del curso"
+      redirect_to course_show_path(@course.id)
+    end
+  end
+
+  def update_approved
+    @course = Course.find(params[:id])
+    if @course.update(approved: params[:course][:approved], reprobated: params[:course][:approved], downs: params[:course][:downs])
+      flash[:success] = "Se han agregado los aprobados y no aprobados al curso"
+      redirect_to course_show_path(@course.id)
+    else
+      flash[:alert] = "No se han podido agregar los aprobados y no aprobados al curso"
       redirect_to course_show_path(@course.id)
     end
   end

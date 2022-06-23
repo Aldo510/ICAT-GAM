@@ -1,4 +1,5 @@
- <% @products_data_sheet.each_with_index do |data, index| %>
+ <%= turbo_frame_tag "products_data_sheet" do %>
+ <% products_data_sheet.each_with_index do |data, index| %>
     <div class="container-fluid">
         <div class="row">
             <div class="col-4 border p-2">
@@ -20,4 +21,5 @@
             </div>
         </div>
     </div>
+<% end %>
 <% end %>

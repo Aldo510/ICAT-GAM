@@ -26,8 +26,9 @@ Rails.application.routes.draw do
   get "course/show_description/:id", to: "courses#show_description", as: "course_description"
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
+  post 'courses/edit_approved/:id', to: 'courses#update_approved', as: "course_approved"
   post 'courses/edit_status/:id', to: "courses#update_status", as: "edit_course_status"
-  post 'course/add_data_sheet', to: "courses#add_product_to_data_sheet", as: "course_add_data_sheet"
+  post 'course/:id/add_data_sheet', to: "courses#add_product_to_data_sheet", as: "course_add_data_sheet"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   #Professors
   get 'professors/show/:id', to: "professors#show", as: "professor_show"
