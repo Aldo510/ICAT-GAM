@@ -3,11 +3,11 @@
     <div class="container-fluid">
         <div class="row border">
             <div class="col-4 border p-2">
-                <p class="text-center m-0 text-capitalize"><%= Supply.find(data.name).name %></p>
+                <p class="text-center m-0 text-capitalize"><%= Supply.find(data.id).name %></p>
             </div>
             <div class="col-4 border p-2">
                 <p class="text-center m-0">
-                    <% if data.quantity <= Supply.find(data.name).quantity %>
+                    <% if data.quantity <= Supply.find(data.id).quantity %>
                         <span class="green"><%= data.quantity %></span>
                     <% else %>
                         <span class="red"><%= data.quantity %></span>
@@ -16,7 +16,7 @@
             </div>
             <div class="col-4 border p-2">
                 <p class="text-center m-0">
-                    <%= Supply.find(data.name).quantity %>
+                    <%= Supply.find(data.id).quantity %>
                 </p>
             </div>
         </div>

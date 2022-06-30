@@ -158,15 +158,16 @@
       </div>
       <% if @students.any? %>
         <button class="btn btn-green my-3 ms-4 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          <%= bootstrap_icon "people", class: "text-center" %> Alumnos Inscritos al curso
+          <%= bootstrap_icon "people", class: "text-center" %> Alumnos Inscritos al curso: <%= @course.students.length %>
         </button>
       <div class="collapse" id="collapseExample">
         <div class="card card-body table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Nombre</th>
+                <th scope="col">#</th>
                 <th scope="col">Apellidos</th>
+                <th scope="col">Nombre (s)</th>
                 <% if current_worker.role = "Inscripciones" or current_worker.role == "Admin" %>
                 <th scope="col"># Celular</th>
                 <th scope="col">Email</th>
@@ -174,10 +175,11 @@
               </tr>
             </thead>
             <tbody>
-              <% @students.each do |student| %>
+              <% @students.each_with_index do |student, index| %>
               <tr>
-                <td class="text-capitalize"><%= student.name.capitalize %></td>
+                <td><%= index + 1 %></td>
                 <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
+                <td class="text-capitalize"><%= student.name.capitalize %></td>
                 <% if current_worker.role = "Inscripciones" or current_worker.role = "Admin" %>
                 <th scope="col"><a href="tel:<%=student.telephone%>"><%=student.telephone%></a></th>
                 <th scope="col"><a href="mailto<%=student.email%>"><%=student.email%></a></th>

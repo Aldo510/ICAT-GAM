@@ -47,6 +47,9 @@
                       <th scope="col">Editar</th>
                       <th scope="col">Borrar</th>
                       <% end %>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                      <th scope="col">Borrar estudiantes del curso</th>
+                      <% end %>
                     </tr>
                   </thead>
                   <tbody>
@@ -149,6 +152,13 @@
                           <% end %>
                         </td>
                         <% end %>
+                        <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                        <td>
+                            <%= button_to course_delete_students_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar los estudiantes de  este curso??\nEsta acción es irreversible" } }, class: "btn btn-danger" do %>
+                              <%= bootstrap_icon "trash2", class: "text-center" %> Borrar Estudiantes
+                            <% end %>
+                        </td>
+                        <% end %>
                       </tr>
                       <% end %>
                     </tbody>
@@ -182,6 +192,9 @@
                       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
                       <th scope="col">Editar</th>
                       <th scope="col">Borrar</th>
+                      <% end %>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                      <th scope="col">Borrar estudiantes del curso</th>
                       <% end %>
                     </tr>
                   </thead>
@@ -276,10 +289,17 @@
                           </div>
                         </div></td>
                         <td>
-                          <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso??" } }, class: "btn btn-danger" do %>
+                          <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este curso?\nEsta acción es irreversible" } }, class: "btn btn-danger" do %>
                           <%= bootstrap_icon "trash", class: "text-center" %> Borrar
                           <% end %>
                         </td>
+                        <% end %>
+                        <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                          <td>
+                            <%= button_to course_delete_students_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar los estudiantes de  este curso??\nEsta acción es irreversible" } }, class: "btn btn-danger" do %>
+                              <%= bootstrap_icon "trash2", class: "text-center" %> Borrar Estudiantes
+                            <% end %>
+                          </td>
                         <% end %>
                       </tr>
                       <% end %>
@@ -314,6 +334,9 @@
                       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
                       <th scope="col">Editar</th>
                       <th scope="col">Borrar</th>
+                      <% end %>
+                      <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                      <th scope="col">Borrar estudiantes del curso</th>
                       <% end %>
                     </tr>
                   </thead>
@@ -413,6 +436,13 @@
                           <% end %>
                         </td>
                         <% end %>
+                         <td>
+                          <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+                            <%= button_to course_delete_students_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar los estudiantes de  este curso??\nEsta acción es irreversible" } }, class: "btn btn-danger" do %>
+                              <%= bootstrap_icon "trash2", class: "text-center" %> Borrar Estudiantes
+                            <% end %>
+                          <% end %>
+                        </td>
                       </tr>
                       <% end %>
                     </tbody>

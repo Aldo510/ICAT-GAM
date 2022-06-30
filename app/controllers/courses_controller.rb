@@ -54,7 +54,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    @students = @course.students
+    @students = @course.students.order('last_name ASC')
     if params[:query].present?
       @products = Supply.where("name like ?", "%#{params[:query]}%")
     else
@@ -119,6 +119,17 @@ class CoursesController < ApplicationController
     else
       flash[:alert] = "No se ha podido eliminar el curso"
       render "index"
+    end
+  end
+
+  def delete_students
+    @course = Course.find(params[:id])
+    if @course.students.destroy_all
+      flash[:success] = "Se han eliminado los estudiante del curso #{@course.name} correctamente"
+      redirect_to courses_index_path
+    else
+      flash[:alert] = "Hubó un problema al eliminar los estudiantes del curso #{@course.name} o no hay estudiantes agregados"
+      redirect_to courses_index_path
     end
   end
 
