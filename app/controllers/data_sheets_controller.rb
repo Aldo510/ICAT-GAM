@@ -1,5 +1,9 @@
 class DataSheetsController < ApplicationController
 
+  def index
+      @data_sheets = DataSheet.all
+  end
+  
   def show
     @datasheet = DataSheet.find(params[:id])
   end

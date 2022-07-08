@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post "classroom/update/:id", to: "classrooms#update", as: "classroom_update"
   delete 'classroom/delete:id', to: "classrooms#delete", as: "classroom_delete"
   #DataSheets
+  get 'data_sheet/all', to: 'data_sheets#index', as: "data_sheets_index"
   get 'data_sheets/show/:id', to: "data_sheets#show", as: "data_sheet_show"
   post 'data_sheets/create', to: "data_sheets#create", as: "data_sheet_create"
   delete 'data_sheets/delete/:data_sheet_id', to: 'data_sheets#delete', as: "data_sheet_delete"
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   post 'courses/edit_approved/:id', to: 'courses#update_approved', as: "course_approved"
   post 'courses/edit_status/:id', to: "courses#update_status", as: "edit_course_status"
+  post 'courses/edit_packges/:id', to: 'courses#update_packages', as: "course_packages"
   post 'course/:id/add_data_sheet', to: "courses#add_product_to_data_sheet", as: "course_add_data_sheet"
   delete 'course/delete/:id', to: "courses#destroy", as: "course_delete"
   delete 'courses/delete_students/:id', to: 'courses#delete_students', as: "course_delete_students"

@@ -34,7 +34,7 @@
                       </div>
                       <div class="form-group">
                         <%= f.label "Capacidad" %>
-                        <%= f.select :capacity, (0..50).to_a, class: "ms-5 d-block w-100 form-control" %>
+                        <%= f.number_field :capacity, class: "form-control", required: true %>
                       </div>
                       <div class="form-group">
                         <%= f.label "Tamaño (metros cuadrados)" %>

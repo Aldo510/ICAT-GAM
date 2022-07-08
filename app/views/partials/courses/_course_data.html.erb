@@ -1,0 +1,18 @@
+<ul class="list-group">
+    <li class="list-group-item">Ubicación: <%= @course.site %></li>
+    <li class="list-group-item">Modalidad: <%= @course.modality %></li>
+    <li class="list-group-item">Fecha de inicio: <%= @course.start_date.strftime("%d / %B / %Y") %></li>
+    <li class="list-group-item">Fecha de finalización: <%= @course.end_date.strftime("%d / %B / %Y") %></li>
+    <li class="list-group-item">Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></li>
+    <li class="list-group-item">Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></li>
+    <li class="list-group-item">Estatus del curso: <%= @course.status %></li>
+    <% if @course.pedagocical_package && @course.accreditation_notices %>
+    <li class="list-group-item">Fecha de envío de paquetes pedagógicos: <%= @course.pedagocical_package.to_date.strftime("%d / %B / %Y") %></li>
+    <li class="list-group-item">Fecha de envío de avisos de acreditación: <%= @course.accreditation_notices.to_date.strftime("%d / %B / %Y") %></li>
+    <% end %>
+    <li class="list-group-item">
+      Días del curso: <% @course.days.each do |course| %>
+      <%= course %>,
+      <% end %>
+    </li>
+</ul>

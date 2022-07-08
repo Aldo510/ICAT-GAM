@@ -4,4 +4,6 @@ import "controllers"
 import "popper"
 import "bootstrap"
 import "ploty"
+import "chartkick"
+import "Chart.bundle"
 

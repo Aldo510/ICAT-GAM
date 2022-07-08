@@ -1,0 +1,68 @@
+<section id="data_sheet_index" class="container-fluid py-5">
+    <div class="row">
+        <div class="col-10 col-sm-9 com-md-8 col-lg-7 col-xl-6 mx-auto">
+            <h1 class="display-1 text-center mb-3">Fichas de materiales</h1>
+            <div class="container-fluid">
+                <div class="row rounded">
+                    <div class="col-12 col-sm-6 border border-dark rounded">
+                        <h2 class="text-capitalize">Nombre del curso</h2>
+                    </div>
+                    <div class="col-12 col-sm-6 border border-dark rounded">
+                        <h2>Ficha técnica</h2>
+                    </div>
+                <% @data_sheets.each_with_index do |data, index| %>
+                    <div class="col-12 col-sm-6 border p-3 rounded">
+                        <p class="text-capitalize"><%= Course.find(data.course_id).name %></p>
+                    </div>
+                    <div class="col-12 col-sm-6  border p-3 rounded">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-green d-block w-100" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index %>">
+                            <%= bootstrap_icon "eye-fill", class: "text-center" %> Ver ficha de materiales
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" aria-labelledby="exampleModal<%= index %>Label" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title d-block" id="exampleModal<%= index %>Label">Ficha de materiales curso: <%= Course.find(data.course_id).name %></h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 border border-dark">
+                                            <h3>Nombre del insumo</h3>
+                                        </div>
+                                        <div class="col-12 col-sm-6 border border-dark">
+                                            <h3>Cantidad requerida del insumo</h3>
+                                        </div>
+                                    <% data.supply_data_sheets.each do |supply| %>
+                                        <div class="col-12 col-sm-6 border border-dark">
+                                            <%= Supply.find(supply.name).name %>
+                                            <%#= supply.name %>
+                                        </div>
+                                        <div class="col-12 col-sm-6 border border-dark">
+                                            <%= supply.quantity %>
+                                        </div>
+                                    <% end %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <%= link_to course_show_path(data.course_id), class: "btn btn-brown" do %>
+                                     <%= bootstrap_icon "book", class: "text-center" %> Ir al curso <%= Course.find(data.course_id).name %>
+                                <% end %>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <% end %> 
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

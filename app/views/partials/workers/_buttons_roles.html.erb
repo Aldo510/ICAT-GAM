@@ -27,6 +27,11 @@
       <%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos
       <% end %>
     </div>
+    <div class="col-12 col-sm-6 col-md-4 align-self-center">
+      <%= link_to data_sheets_index_path, class: "btn btn-brown d-block w-100 my-2" do %>
+        <%= bootstrap_icon "calendar", class: "text-center" %> Ver las fichas de materiales
+      <% end %>
+    </div>
     <div class="col-12 col-sm-6 col-md-4 align-self-center d-none">
       <%= link_to workers_calendar_path, class: "btn btn-green my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
       <%= bootstrap_icon "calendar", class: "text-center" %> Ver calendario de cursos

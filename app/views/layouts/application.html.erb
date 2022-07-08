@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Icat</title>
+  <title>ICAT - CDMX</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
   <%= favicon_link_tag asset_path('logos/favicon.ico') %>
   <%= javascript_importmap_tags(shim: true) %>
-  <script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
 </head>
 
 <body>
   <% if flash.any? %>
   <% flash.each do |type, msg| %>
-  <div data-aos="fade-up" class="alert alert-<%= type %> alert-dismissible fade show fixed-top mt-3" role="alert">
+  <div class="alert alert-<%= type %> alert-dismissible fade show fixed-top mt-3 mx-3" role="alert">
     <%= msg %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>

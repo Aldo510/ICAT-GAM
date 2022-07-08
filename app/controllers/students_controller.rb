@@ -43,10 +43,10 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     if @student.update(student_params)
       flash[:success] = "Se ha actualizado correctamente"
-      redirect_to students_index_path
+      redirect_to course_show_path(@student.course_id)
     else
-      flash[:danger] = "No se ha podido actualizar"
-      redirect_to students_index_path
+      flash[:danger] = "Hubó un problema al actualizar"
+      redirect_to course_show_path(@student.course_id)
     end
   end
 
@@ -54,10 +54,10 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     if @student.destroy
       flash[:success] = "Estudiante borrado exitosamente"
-      redirect_to students_index_path
+      redirect_to course_show_path(@student.course_id)
     else
-      flash[:danger] = "No se ha eliminar el estudiante"
-      redirect_to students_index_path
+      flash[:danger] = "Hubó un problema al eliminar el estudiante"
+      redirect_to course_show_path(@student.course_id)
     end
   end
 

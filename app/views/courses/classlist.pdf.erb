@@ -13,6 +13,11 @@
     .bg-wine{
       background-color: #9F2241;
     }
+    #signature{
+      border: none;
+      border-top: 1px solid black!important;
+      padding-top: 15px;
+    }
     .w-33{
       width: 33%;
       max-width: 33%;
@@ -24,6 +29,9 @@
     .w-25{
       width: 25%;
       max-width: 25%;
+    }
+    .border-dark{
+      border: 1px solid black;
     }
     .w-75{
       width: 75%;
@@ -92,8 +100,9 @@
   <div id="content" class="classlist">
     <% student_index = 1 %>
     <% @students.each_slice(10).to_a.each do |group_ten| %>
+    <%= image_tag image_url("logos/logo_color_extend.png"), class: "w-25 img-fluid", style: "max-width: 200px;", id: "logo-icat" %>
     <div class="col-12 mx-auto bg-wine">
-      <p class="text-center text-uppercase text-white m-0">Lista de asistencia y registro de evaluaciones</p>
+      <p class="text-center text-uppercase text-white m-0">Lista de asistencia</p>
     </div>
      <div class="">
         <div class="flexrow">
@@ -165,19 +174,17 @@
           </th>
           <% end %>
           <th style="max-width: 30px;">Faltas</th>
-          <th style="max-width: 30px;">EV INIC</th>
-          <th style="max-width: 30px;">EV FINAL</th>
           <th style="max-width: 50px;">COMENTARIOS</th>
         </tr>
       </thead>
       <tbody>
         <% group_ten.each_with_index do |student, index| %>
         <tr class="">
-          <td class="text-center bg-wine text-white" style="max-width: 20px;"><%= student_index %></td>
+          <td class="text-center bg-white border-dark" style="max-width: 10px;"><%= student_index %></td>
           <% student_index +=1 %>
-          <td class="border border-dark" style="max-width: 150px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
-          <% 1..9.times do |session| %>
-          <td class="border border-dark" style="max-width: 20px;"></td>
+          <td class="border border-dark text-black" style="max-width: 100px;"><%= student.last_name.upcase %> <%= student.second_last_name.upcase %> <%= student.name.upcase %></td>
+          <% 1..7.times do |session| %>
+          <td class="border border-dark" style="max-width: 10px;"></td>
           <% end %>
         </tr>
 
@@ -192,12 +199,12 @@
 
     </div>
     <div class="flexrow">
-      <div class="w-33 col-4 border-0"><p class="d-none">a</p></div>
-      <div class="w-33 col-4" style="border-bottom: 1px solid black; margin-top:50px"><p class="d-none">a</p></div>
+      <div class="w-33 col-4 border-0 fs-12" style="margin-top:40px">Calzada San Antonio Abad 32, Piso 4, colonia Tránsito,<br> Alcaldía Cuauhtémoc, C.P. 06820, Ciudad de México.</div>
+      <div class="w-33 col-4 border-top border-dark" id="signature" style="border-top: 1px solid black; margin-top:40px;"><p class="text-center fs-12">Nombre y firma del instructor</p></div>
       <div class="w-33 col-4 border-0"><p class="d-none">a</p></div>
     </div>
     <div id="location">
-      Calzada San Antonio Abad 32, Piso 4, colonia Tránsito, Alcaldía Cuauhtémoc, CDMX.
+      
     </div>
 
     <div class="page-break"></div>

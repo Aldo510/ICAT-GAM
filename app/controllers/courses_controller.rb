@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all
     @courses_preparing = Course.where(status: "En preparación")
-    @courses_process = Course.where(status: "En proceso")
+    @courses_process = Course.where(status: "En progeso")
     @courses_finished = Course.where(status: "Finalizado")
   end
 
@@ -27,9 +27,6 @@ class CoursesController < ApplicationController
   def show_description
     @course = Course.find(params[:id])
     @students = @course.students
-    @man = @students.where(gender: "HOMBRE").count
-    @women = @students.where(gender: "MUJER").count
-    @other = @students.where(gender: "Prefiero no especificar").count
     respond_to do |format|
       format.html
       format.pdf do
@@ -107,6 +104,18 @@ class CoursesController < ApplicationController
       redirect_to course_show_path(@course.id)
     else
       flash[:alert] = "No se han podido agregar los aprobados y no aprobados al curso"
+      redirect_to course_show_path(@course.id)
+    end
+  end
+
+  def update_packages
+    @course = Course.find(params[:id])
+    debugger
+    if @course.update(pedagocical_package: params[:course][:pedagocical_package], accreditation_notices: params[:course][:accreditation_notices])
+      flash[:success] = "Se ha editado el paquete pedagógico y el aviso de acreditación"
+      redirect_to course_show_path(@course.id)
+    else
+      flash[:alert] = "Hubó un problema al agregar el paquete pedagógico y el aviso de acreditación"
       redirect_to course_show_path(@course.id)
     end
   end

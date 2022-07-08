@@ -1,0 +1,34 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-green w-100 my-3" data-bs-toggle="modal" data-bs-target="#pedagogical">
+  Agregar Paquete Pedagógico y Avisos de acreditación
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="pedagogical" tabindex="-1" aria-labelledby="pedagogicalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pedagogicalLabel">Paquete Pedagógico y Avisos de acreditación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_for :course, url: course_packages_path(@course.id) do |f| %>
+            <div class="">
+                <%= f.label "Fecha de envío del paquete de pedagógico", class: "form-label" %>
+                <%= f.date_field :pedagocical_package, class: "form-control", required: true, value: DateTime.now %>
+            </div>
+            <div class="">
+                <%= f.label "Fecha de envío del aviso de acreditación", class: "form-label" %>
+                <%= f.date_field :accreditation_notices, class: "form-control", required: true, value: DateTime.now %>
+            </div>
+            <div class="">
+                <%= f.submit "Guardar", class: "form-control btn-green my-5" %>
+            </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
