@@ -39,7 +39,9 @@
             </button>
             <% end %>
             <!-- Button trigger modal -->
+            <% if @course.professor && current_worker.role == "Admin" || current_worker.role == "Cursos" %>
             <%= render "partials/courses/datasheetshow" %>
+            <% end %>
 
             <% if @course.professor && current_worker.role == "Admin" || current_worker.role == "Cursos" %>
             <p class="mt-3"> Profesor: 
@@ -157,7 +159,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Apellidos</th>
                 <th scope="col">Nombre (s)</th>
-                <% if current_worker.role = "Inscripciones" or current_worker.role == "Admin" %>
+                <%# if current_worker.role == "Inscripciones" or current_worker.role == "Admin" %>
+                <% if current_worker.role != "Administración" && current_worker.role != "Cursos" %>
                 <th scope="col"># Celular</th>
                 <th scope="col">Email</th>
                 <th scope="col">Editar</th>
@@ -171,14 +174,12 @@
                 <td><%= index + 1 %></td>
                 <td class="text-capitalize"><%= student.last_name.capitalize %> <%= student.second_last_name.capitalize %></td>
                 <td class="text-capitalize"><%= student.name.capitalize %></td>
-                <% if current_worker.role = "Inscripciones" or current_worker.role = "Admin" %>
+                <% if current_worker.role != "Administración" && current_worker.role != "Cursos" %>
                 <td><a href="tel:<%=student.telephone%>"><%=student.telephone%></a></td>
                 <td><a href="mailto:<%=student.email%>"><%=student.email%></a></td>
-                <% end %>
-                <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
                 <td><!-- Button trigger modal Edit Student -->
                 <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
-                  <%= bootstrap_icon "pencil", class: "text-center" %> Editar
+                  <%= bootstrap_icon "pencil", class: "text-center" %> Editar estudiante
                 </button>
 
                 <!-- Modal edit student -->
