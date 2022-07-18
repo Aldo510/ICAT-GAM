@@ -31,11 +31,6 @@ class WorkersController < ApplicationController
     else
       redirect_to login_path
     end
-    if current_worker.roles.any?
-      @roles = current_worker.roles.first.name
-    else
-      @roles = "No se han agregado roles a este Colaborador"
-    end
 
   end
 
