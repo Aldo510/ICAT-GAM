@@ -173,7 +173,7 @@
                 <td class="text-capitalize"><%= student.name.capitalize %></td>
                 <% if current_worker.role = "Inscripciones" or current_worker.role = "Admin" %>
                 <td><a href="tel:<%=student.telephone%>"><%=student.telephone%></a></td>
-                <td><a href="mailto<%=student.email%>"><%=student.email%></a></td>
+                <td><a href="mailto:<%=student.email%>"><%=student.email%></a></td>
                 <% end %>
                 <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
                 <td><!-- Button trigger modal Edit Student -->

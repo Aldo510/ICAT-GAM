@@ -14,7 +14,6 @@ class CoursesController < ApplicationController
     @course = Course.create(course_params)
     days_week = params[:course][:days].drop(1)
     @course.update(days: days_week)
-    Classroom.find(params[:course][:classroom]).update(status: false)
     if @course.save
       flash[:success] = "Curso agregado exitosamente!"
       redirect_to courses_index_path
@@ -110,7 +109,6 @@ class CoursesController < ApplicationController
 
   def update_packages
     @course = Course.find(params[:id])
-    debugger
     if @course.update(pedagocical_package: params[:course][:pedagocical_package], accreditation_notices: params[:course][:accreditation_notices])
       flash[:success] = "Se ha editado el paquete pedagógico y el aviso de acreditación"
       redirect_to course_show_path(@course.id)

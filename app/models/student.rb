@@ -2,10 +2,10 @@ require 'csv'
 class Student < ApplicationRecord
   belongs_to :course
   def self.import_from_csv(file, course)
-    ::CSV.foreach(file.path, headers:true) do |row|
+    ::CSV.foreach(file.path, headers:true, :encoding => 'UTF-8') do |row|
         student = Student.new
         student.course_id = course
-        student.id_ddc = ""
+        student.id_ddc = "Sin especificar"
         student.last_name = row[2]
         student.second_last_name = row[3]
         student.taken_courses = 0
