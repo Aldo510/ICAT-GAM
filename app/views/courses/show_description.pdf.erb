@@ -136,7 +136,7 @@
             <p class="m-0"><%= @students.count %></p> 
             <p class="m-0">Hombres: <%= @man %></p> 
             <p class="m-0">Mujeres: <%= @women %></p> 
-            <p class="m-0 text-uppercase">lgbtttiq: <%= @other %></p> 
+            <p class="m-0 text-uppercase">lgbtttiq+: <%= @other %></p> 
         </div>
     </div>
     <div class="flexrow">
@@ -171,25 +171,5 @@
             <p class="m-0"><%= @course.downs %></p> 
         </div>
     </div>
-    <div id="tester"></div>
-    <script>
-  var data = [{
-    values: [<%= @man %>, <%= @women %>, <%= @other %>],
-    labels: ["Hombres", "Mujeres", "Prefiero no especificar"],
-    type: 'pie',
-    marker: {
-      colors: 'rgb(56, 75, 126)'
-    }
-  }];
-
-  var layout = {
-    height: 400,
-    width: 500,
-    margin: {"t": 0, "b": 0, "l": 0, "r": 0},
-    colorway : ['#FF69B4', '#109dfa', '#B22222']
-  };
-
-  Plotly.newPlot('tester', data, layout);
-</script>
 </body>
 </html>

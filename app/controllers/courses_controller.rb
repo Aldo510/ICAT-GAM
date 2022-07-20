@@ -36,6 +36,7 @@ class CoursesController < ApplicationController
 
   def add_product_to_data_sheet
     if SupplyDataSheet.create(data_sheet_id: params[:data_sheet_id], name: params[:product_name], quantity:params[:quantity_product])
+      flash[:success] = "Se agregó correctamente el insumo"
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [

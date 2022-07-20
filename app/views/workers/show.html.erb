@@ -35,8 +35,8 @@
       <%= line_chart Course.group_by_day(:start_date).count, colors: ["#235B4E", "#9F2241"] %>
       <h1 class="display-4">Gráfica de Fin de cursos</h1>
       <%= line_chart Course.group_by_day(:end_date).count, colors: ["#235B4E", "#9F2241"] %>
-      <h1>Pendientes</h1>
-      <ul>
+      <h1 class="d-none">Pendientes</h1>
+      <ul class="d-none">
         <li>Saber que curso esta usando cada salón y la fecha de inicio y termino</li>
         <li>Poder mostrar los cursos por tipo de modalidad</li>
         <li>Que se puedan borrar los items de la ficha de materiales de los cursos sin recargar la página</li>
