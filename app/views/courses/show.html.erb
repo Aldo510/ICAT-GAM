@@ -43,6 +43,38 @@
             <%= render "partials/courses/datasheetshow" %>
             <% end %>
 
+            <% if current_worker.role == "Admin" || current_worker.role == "Inscripciones" %>
+              <button type="button" class="btn btn-green my-3 w-100" data-bs-toggle="modal" data-bs-target="#exampleModalStudents">
+                <%= bootstrap_icon "file-earmark-person", class: "text-center" %> Agregar estudiantes por archivo
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalStudents" tabindex="-1" aria-labelledby="exampleModalStudentsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalStudentsLabel">Selecciona el archivo para subir</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <%= form_for :student, url: students_multiple_path, multipart: true do |f| %>
+                      <div class="form-group">
+                        <%= f.label :file, "Sube el archivo CSV" %>
+                        <%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %><br/>
+                        <%= f.label :course_id, "Se agregaran los alumnos a este curso #{@course.name}" %><br/>
+                        <%= f.text_field :course_id, value: @course.id, class: "d-none" %>
+                      </div>
+                      <%= f.submit "Agregar Usuarios", class: "btn btn-green mt-3" %>
+                      <% end %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+    
+
             <% if @course.professor && current_worker.role == "Admin" || current_worker.role == "Cursos" %>
             <p class="mt-3"> Profesor: 
               <%= link_to professor_show_path(@course.professor.id), class: "btn btn-brown w-100" do %>

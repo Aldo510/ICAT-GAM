@@ -10,7 +10,7 @@ class Student < ApplicationRecord
         student.second_last_name = row[3]
         student.taken_courses = 0
         student.name = row[4] ? row[4] : "Sin especificar"
-        student.gender = row[5] ? row[5] : "Sin especificar"
+        student.gender = row[5].upcase ? row[5] : "Sin especificar"
         student.curp = row[7] ? row[7] : "Sin especificar"
         student.state = row[8] ? row[8] : "Sin especificar"
         student.municipality = row[9] ? row[9] : "Sin especificar"

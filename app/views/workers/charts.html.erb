@@ -1,0 +1,38 @@
+<section id="charts" class="container-fluid">
+    <div class="row">
+        <div class="col-10 col-sm-9 col-md-8 mx-auto">
+            <h1 class="display-4">Gráfica de escolaridad</h1>
+            <%= area_chart Student.group(:scholarity).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de género</h1>
+            <%= pie_chart Student.group(:gender).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de Estado</h1>
+            <%= area_chart Student.group(:state).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de Municipio</h1>
+            <%= area_chart Student.group(:municipality).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de situación laboral</h1>
+            <%= pie_chart Student.group(:employment_situation).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de Grupo vulnerable</h1>
+            <%= pie_chart Student.group(:priority_group).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de discapacidad</h1>
+            <%= pie_chart Student.group(:disability).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de grupo indigena</h1>
+            <%= pie_chart Student.group(:indigenous).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de Lengua indigenas parlantes</h1>
+            <%= area_chart Student.group(:speak_indigenous).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de inicio de cursos</h1>
+            <%= line_chart Course.group_by_day(:start_date).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+            <hr>
+            <h1 class="display-4">Gráfica de Fin de cursos</h1>
+            <%= line_chart Course.group_by_day(:end_date).count, colors: ["#235B4E", "#9F2241", "#DDc9A3", "#6F7271", "#98989A", "#10312B"] %>
+        </div>
+    </div>
+</section>

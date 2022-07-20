@@ -3,6 +3,10 @@ class WorkersController < ApplicationController
     @worker = Worker.new
   end
 
+  def charts
+    
+  end
+
   def create
     @worker = Worker.create(worker_params)
     if @worker.save

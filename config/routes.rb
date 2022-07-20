@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get "worker/:id", to: "workers#show", as: "worker_profile"
   get "workers/all", to: "workers#index", as: "workers_index"
   get "calendar", to: 'workers#calendar', as: "workers_calendar"
+  get "charts", to: 'workers#charts', as: "workers_charts"
   post "workers/edit/:id", to: "workers#edit", as: "worker_edit"
   delete "workers/delete/:id", to: "workers#delete", as: "worker_delete"
   # Sessions
