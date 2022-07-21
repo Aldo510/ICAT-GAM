@@ -17,9 +17,17 @@
                 <%= f.label "Fecha de envío del paquete de pedagógico", class: "form-label" %>
                 <%= f.date_field :pedagocical_package, class: "form-control", required: true, value: DateTime.now %>
             </div>
+             <div class="">
+                <%= f.label "# Oficio del paquete pedagógico", class: "form-label" %>
+                <%= f.number_field :trade_number, class: "form-control", required: true %>
+            </div>
             <div class="">
                 <%= f.label "Fecha de envío del aviso de acreditación", class: "form-label" %>
                 <%= f.date_field :accreditation_notices, class: "form-control", required: true, value: DateTime.now %>
+            </div>
+             <div class="">
+                <%= f.label "Fecha de recibído por la DDC", class: "form-label" %>
+                <%= f.date_field :pedagogical_package_read, class: "form-control", required: true, value: DateTime.now %>
             </div>
             <div class="">
                 <%= f.submit "Guardar", class: "form-control btn-green my-5" %>

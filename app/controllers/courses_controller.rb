@@ -99,7 +99,7 @@ class CoursesController < ApplicationController
 
   def update_approved
     @course = Course.find(params[:id])
-    if @course.update(approved: params[:course][:approved], reprobated: params[:course][:approved], downs: params[:course][:downs])
+    if @course.update(trained_params)
       flash[:success] = "Se han agregado los aprobados y no aprobados al curso"
       redirect_to course_show_path(@course.id)
     else
@@ -110,11 +110,11 @@ class CoursesController < ApplicationController
 
   def update_packages
     @course = Course.find(params[:id])
-    if @course.update(pedagocical_package: params[:course][:pedagocical_package], accreditation_notices: params[:course][:accreditation_notices])
-      flash[:success] = "Se ha editado el paquete pedagógico y el aviso de acreditación"
+    if @course.update(package_params)
+      flash[:success] = "Se ha editado el paquete pedagógico"
       redirect_to course_show_path(@course.id)
     else
-      flash[:alert] = "Hubó un problema al agregar el paquete pedagógico y el aviso de acreditación"
+      flash[:alert] = "Hubó un problema al agregar el paquete pedagógico"
       redirect_to course_show_path(@course.id)
     end
   end
@@ -146,8 +146,17 @@ class CoursesController < ApplicationController
   end
 
   private
+  
   def course_params
-    params.require(:course).permit(:id_ddc, :site, :name, :content_tab, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
+    params.require(:course).permit(:id_ddc, :id_classroom, :site, :name, :content_tab, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
+  end
+
+  def package_params
+    params.require(:course).permit(:pedagocical_package, :accreditation_notices, :trade_number, :pedagogical_package_read)
+  end
+
+  def trained_params
+    params.require(:course).permit(:trained_men, :trained_women, :approved, :approved_women, :reprobated, :reprobated_women, :downs, :down_women)
   end
 
 end

@@ -6,9 +6,13 @@
     <li class="list-group-item">Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></li>
     <li class="list-group-item">Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></li>
     <li class="list-group-item">Estatus del curso: <%= @course.status %></li>
-    <% if @course.pedagocical_package && @course.accreditation_notices %>
+    <li class="list-group-item">Salón del curso: <%= Classroom.find(@course.id_classroom).name %></li>
+    <% if @course.pedagocical_package && @course.accreditation_notices &&  @course.trade_number && @course.pedagogical_package_read %>
+    <%# params.require(:course).permit(:pedagocical_package, :accreditation_notices, :trade_number, :pedagogical_package_read) %>
     <li class="list-group-item">Fecha de envío de paquetes pedagógicos: <%= @course.pedagocical_package.to_date.strftime("%d / %B / %Y") %></li>
+    <li class="list-group-item"># de folio del paquete pedagógico: <%= @course.trade_number %></li>
     <li class="list-group-item">Fecha de envío de avisos de acreditación: <%= @course.accreditation_notices.to_date.strftime("%d / %B / %Y") %></li>
+    <li class="list-group-item">Fecha de recibído por la DDC: <%= @course.pedagogical_package_read.to_date.strftime("%d / %B / %Y") %></li>
     <% end %>
     <li class="list-group-item">
       Días del curso: <% @course.days.each do |course| %>

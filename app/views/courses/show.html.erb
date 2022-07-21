@@ -60,7 +60,7 @@
                       <div class="form-group">
                         <%= f.label :file, "Sube el archivo CSV" %>
                         <%= f.file_field :file, accept: 'text/csv', required: true, class: "form-control" %><br/>
-                        <%= f.label :course_id, "Se agregaran los alumnos a este curso #{@course.name}" %><br/>
+                        <%= f.label :course_id, "Se agregaran los alumnos a este curso: #{@course.name}" %><br/>
                         <%= f.text_field :course_id, value: @course.id, class: "d-none" %>
                       </div>
                       <%= f.submit "Agregar Usuarios", class: "btn btn-green mt-3" %>

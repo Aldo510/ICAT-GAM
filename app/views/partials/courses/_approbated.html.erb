@@ -14,21 +14,34 @@
       <div class="modal-body">
         <%= form_for :course, url: course_approved_path(@course.id) do |f| %>
             <div class="">
-                <%= f.label "Aprobados", class: "form-label" %>
+                <%= f.label "Aprobados Hombres", class: "form-label text-capitalize" %>
                 <%= f.number_field :approved, class: "form-control", required: true %>
             </div>
             <div class="">
-                <%= f.label "No aprobados", class: "form-label" %>
+                <%= f.label "Aprobados Mujeres", class: "form-label text-capitalize" %>
+                <%= f.number_field :approved_women, class: "form-control", required: true %>
+            </div>
+            <div class="">
+                <%= f.label "No aprobados Hombres", class: "form-label text-capitalize" %>
                 <%= f.number_field :reprobated, class: "form-control", required: true %>
             </div>
             <div class="">
-                <%= f.label "Bajas", class: "form-label" %>
+                <%= f.label "No aprobados Mujeres", class: "form-label text-capitalize" %>
+                <%= f.number_field :reprobated_women, class: "form-control", required: true %>
+            </div>
+            <div class="">
+                <%= f.label "Bajas hombres", class: "form-label text-capitalize" %>
                 <%= f.number_field :downs, class: "form-control", required: true %>
             </div>
             <div class="">
-                <%= f.submit "Guardar", class: "form-control btn-green my-5" %>
+                <%= f.label "Bajas mujeres", class: "form-label text-capitalize" %>
+                <%= f.number_field :down_women, class: "form-control", required: true %>
+            </div>
+            <div class="">
+                <%= f.submit "Guardar datos", class: "form-control btn-green my-5" %>
             </div>
         <% end %>
+        <%# params.require(:course).permit(:trained_men, :trained_women, :approved, :approved_women, :reprobated, :reprobated_women, :downs, :down_women) %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

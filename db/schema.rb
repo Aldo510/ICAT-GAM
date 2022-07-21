@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_21_183638) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_225314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -55,6 +55,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_21_183638) do
     t.string "pedagocical_package", default: ""
     t.string "accreditation_notices"
     t.string "content_tab"
+    t.string "trade_number", default: ""
+    t.string "pedagogical_package_read", default: ""
+    t.integer "id_classroom"
+    t.integer "trained_men", default: 0
+    t.integer "trained_women", default: 0
+    t.integer "approved_women", default: 0
+    t.integer "reprobated_women", default: 0
+    t.integer "down_women", default: 0
   end
 
   create_table "data_sheets", force: :cascade do |t|
