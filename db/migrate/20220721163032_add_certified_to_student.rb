@@ -1,0 +1,5 @@
+class AddCertifiedToStudent < ActiveRecord::Migration[7.0]
+  def change
+    add_column :students, :certified, :boolean, default: false
+  end
+end

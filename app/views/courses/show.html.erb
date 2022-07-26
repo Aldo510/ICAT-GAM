@@ -189,14 +189,15 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Nombre (s)</th>
+                <th scope="col" class="text-center">Apellidos</th>
+                <th scope="col" class="text-center">Nombre (s)</th>
                 <%# if current_worker.role == "Inscripciones" or current_worker.role == "Admin" %>
                 <% if current_worker.role != "Administración" && current_worker.role != "Cursos" %>
-                <th scope="col"># Celular</th>
-                <th scope="col">Email</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Borrar</th>
+                <th scope="col" class="text-center"># Celular</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Certificado</th>
+                <th scope="col" class="text-center">Editar</th>
+                <th scope="col" class="text-center">Borrar</th>
                 <% end %>
               </tr>
             </thead>
@@ -208,7 +209,16 @@
                 <td class="text-capitalize"><%= student.name.capitalize %></td>
                 <% if current_worker.role != "Administración" && current_worker.role != "Cursos" %>
                 <td><a href="tel:<%=student.telephone%>"><%=student.telephone%></a></td>
-                <td><a href="mailto:<%=student.email%>"><%=student.email%></a></td>
+                <td class="text-center"><a href="mailto:<%=student.email%>"><%=student.email%></a></td>
+                <td class="text-center">
+                <%= button_to student_certified_path(student.id), method: :post, form: { data: { turbo_confirm: "¿Estas seguro de cambiar el estatus de certificacion de este estudiante?" } }, class: "btn btn-brown" do %>
+                    <% if student.certified %>
+                        <%= bootstrap_icon "clipboard-check", class: "text-center green" %> Entregado
+                      <% else %>
+                        <%= bootstrap_icon "clipboard-x", class: "text-center red" %> No entregado
+                      <% end %>
+                  <% end %>
+                  </td>
                 <td><!-- Button trigger modal Edit Student -->
                 <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
                   <%= bootstrap_icon "pencil", class: "text-center" %> Editar estudiante

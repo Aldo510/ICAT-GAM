@@ -1,0 +1,117 @@
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <%#= wicked_pdf_stylesheet_link_tag "pdf" %>
+  <%#= wicked_pdf_javascript_include_tag "number_pages" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://cdn.plot.ly/plotly-2.9.0.min.js"></script>
+  <style>
+    body{
+      position: relative;
+    }
+    .page-break { display:block; clear:both; page-break-after:always; }
+    .bg-wine{
+      background-color: #9F2241;
+    }
+    .bg-green{
+        background-color: #235B4E;
+    }
+    .green{
+        color: #235B4E;
+    }
+    .w-33{
+      width: 33%;
+      max-width: 33%;
+    }
+    .{
+      width: 50%;
+      max-width: 50%;
+    }
+    .w-25{
+      width: 25%;
+      max-width: 25%;
+    }
+    .w-75{
+      width: 75%;
+      max-width: 75%;
+    }
+    .w-66{
+        width: 66%;
+        max-width: 66%;
+    }
+    .fw-bold{
+      font-weight: bold;
+    }
+    * {
+      -webkit-box-sizing: border-box;
+    }
+    .flexrow {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .flexrow > div {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      margin-right: 0;
+      border: 1px solid black;
+    }
+    .flexrow > div:last-child {
+      margin-right: 0;
+    }
+    .fs-14{
+      font-size: 14px;
+    }
+    .fs-12{
+      font-size:12px;
+    }
+    .fs-10{
+      font-size:11px;
+    }
+    #logo-icat{
+        max-height: auto;
+        width: 75%;
+        margin: 0 auto;
+        display: block;
+    }
+  </style>
+</head>
+<body onload='number_pages'>
+    <%= image_tag image_url("logos/logo_color_extend.png"), class: "w-50 img-fluid", id: "logo-icat" %>
+    <h1 class="display-3 text-center">Listado de constancias</h1>
+     <% if params[:start_date] %>
+        <p class="my-4 h3 text-center">Del <%= Date.parse(params[:start_date]).strftime("%d / %B / %Y") %> al <%= Date.parse(params[:end_date]).strftime("%d / %B / %Y") %></p>
+    <% end %>
+    <p class="my-4 text-center">Porcentaje de avance de entrega de constancias : <%= @advance_percent  %>%</p>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="h2">Cursos finalizados <br><%= @courses.count %></th>
+                    <th scope="col" class="h2">Constancias entregadas <br><%= @students_with_certified %></th>
+                    <th scope="col" class="h2">Constancias sin entregar<br><%= @students_without_certified %></th>
+                </tr>
+            </thead>
+        <tbody>
+            <% @courses.each do |course| %>
+                <tr>
+                    <th class="text-center">
+                        <p class="h6"><%= course.name %></p>
+                        <p>Estudiantes: <%= course.students.count %></p>
+                    </th>
+                    <th>
+                        <p class="text-capitalize text-center h4">Constancias entregadas</p>
+                        <p class="text-capitalize text-center"><%= course.students.where(certified: true).count %></p>
+                    </th>
+                    <th>
+                        <p class="text-capitalize text-center h4">Constancias sin entregadar</p>
+                        <p class="text-capitalize text-center"><%= course.students.where(certified: false).count %></p>
+                    </th>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</body>
+</html>

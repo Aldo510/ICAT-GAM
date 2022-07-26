@@ -1,0 +1,69 @@
+<section class="container-fluid" id="certified-index">
+    <div class="row">
+        <div class="col-10 mx-auto col-sm-9 col-md-8 mx-auto">
+            <h2 class="display-3 text-center">Listado de constancias</h2>
+        </div>
+        <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+            <%= form_for(certifieds_index_path, method: :get) do %>
+                <%= label_tag "Fecha de inicio" %>
+                <%= date_field_tag(:start_date, params[:start_date], class: "form-control") %>
+                <%= label_tag "Fecha de termino" %>
+                <%= date_field_tag(:end_date, params[:end_date], class: "form-control") %>
+                <%= submit_tag "Buscar", class: "btn btn-green my-3" %>
+            <% end %>
+            <%= link_to "Limpiar busqueda", certifieds_index_path, class: "btn btn-cherry" %>
+            <% if params[:start_date] %>
+                <p class="my-4 h3">Del <%= Date.parse(params[:start_date]).strftime("%d / %B / %Y") %> al <%= Date.parse(params[:end_date]).strftime("%d / %B / %Y") %></p>
+                <%= link_to certifieds_index_path(format: :pdf, start_date: params[:start_date], end_date: params[:end_date]), target: "_blank", class: "btn-green btn my-3" do %>
+                    <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar listado de constancias
+                <% end %>
+            <% else %>
+                <%= link_to certifieds_index_path(format: :pdf), target: "_blank", class: "btn-green btn my-3" do %>
+                    <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar listado de constancias
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-10 mx-auto my-3">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-4 ">
+                    <p class="text-capitalize text-center h3">Cursos finalizados</p>
+                    <p class="text-capitalize text-center h3"> <%= @courses.count %></p>
+                </div>
+                <div class="col-4 ">
+                    <p class="text-capitalize text-center h3">Constancias entregados</p>
+                    <p class="text-capitalize text-center h3"><%= @students_with_certified %></p>
+                </div>
+                <div class="col-4 ">
+                    <p class="text-capitalize text-center h3">Constancias sin entregar</p>
+                    <p class="text-capitalize text-center h3"><%= @students_without_certified %></p>
+                </div>
+                <div class="col-12">
+
+                    <p class="my-4">Porcentaje de avance de entrega de constancias: <%= @advance_percent  %></p>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-green" role="progressbar" style="width: <%= @advance_percent %>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <% @courses.each do |course| %>                
+                <div class="row border rounded my-1">
+                    <div class="col-4 ">
+                        <p class="text-capitalize text-center h4"><%= course.name %></p>
+                        <p class="text-capitalize text-center">Estudiantes: <%= course.students.count %></p>
+                    </div>
+                    <div class="col-4 border-start border-end rounded">
+                        <p class="text-capitalize text-center h4">Constancias entregadas</p>
+                        <p class="text-capitalize text-center"><%= course.students.where(certified: true).count %></p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-capitalize text-center h4">Constancias sin entregar</p>
+                        <p class="text-capitalize text-center"><%= course.students.where(certified: false).count %></p>
+                    </div>
+                        
+                </div>
+            <% end %>
+            </div>
+        </div>
+    </div>
+</section>

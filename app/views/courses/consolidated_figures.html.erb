@@ -1,0 +1,66 @@
+<section id="consolidated-figures" class="container-fluid">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1 class="display-4 text-center my-4">Consolidado de cifras</h1>
+             <%= form_for(courses_consolidated_figures_path, method: :get) do %>
+                <%= label_tag "Fecha de inicio" %>
+                <%= date_field_tag(:start_date, params[:start_date], class: "form-control") %>
+                <%= label_tag "Fecha de termino" %>
+                <%= date_field_tag(:end_date, params[:end_date], class: "form-control") %>
+                <%= submit_tag "Buscar", class: "btn btn-green my-3" %>
+            <% end %>
+            <%= link_to "Limpiar busqueda", courses_consolidated_figures_path, class: "btn btn-cherry" %>
+            <%= link_to courses_consolidated_figures_path(format: :pdf), target: "_blank", class: "btn-green btn my-3" do %>
+                <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar reporte del curso
+              <% end %>
+            <% if params[:start_date] %>
+                <p class="my-4 h3">Del <%= Date.parse(params[:start_date]).strftime("%d / %B / %Y") %> al <%= Date.parse(params[:end_date]).strftime("%d / %B / %Y") %></p>
+                <%= link_to courses_consolidated_figures_path(format: :pdf, start_date: params[:start_date], end_date: params[:end_date]), target: "_blank", class: "btn-green btn my-3" do %>
+                    <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar reporte del curso
+                <% end %>
+            <% else %>
+                <%= link_to courses_consolidated_figures_path(format: :pdf), target: "_blank", class: "btn-green btn my-3" do %>
+                    <%= bootstrap_icon "file-earmark-pdf", class: "text-center" %> Descargar reporte del curso
+                <% end %>
+            <% end %>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">ID del curso</th>
+                            <th scope="col">Nombre del curso</th>
+                            <th scope="col">Inscritos</th>
+                            <th scope="col">Hombres</th>
+                            <th scope="col">Mujeres</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <% @courses.each_with_index do |course, index| %>
+                        <tr>
+                            <th><%= index + 1 %></th>
+                            <th><%= course.id_ddc %></th>
+                            <th><%= course.name %></th>
+                            <th><%= course.students.count %> <% @inscribed += course.students.count %></th>
+                            <th><%= course.students.where(gender: "HOMBRE").count %> <% @inscribed_men += course.students.where(gender: "HOMBRE").count %></th>
+                            <th><%= course.students.where(gender: "MUJER").count %> <% @inscribed_women += course.students.where(gender: "MUJER").count %></th>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Totales</th>
+                            <th><%= @inscribed %></th>
+                            <th><%= @inscribed_men %></th>
+                            <th><%= @inscribed_women %></th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

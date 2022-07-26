@@ -6,6 +6,23 @@ class CoursesController < ApplicationController
     @courses_finished = Course.where(status: "Finalizado")
   end
 
+  def consolidated_figures
+    @inscribed = 0
+    @inscribed_men = 0
+    @inscribed_women = 0
+    if params[:start_date]
+      @courses = Course.where(end_date: params[:start_date]..params[:end_date])
+    else
+      @courses = Course.where(status: "Finalizado")
+    end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Consolidad de cifras", template: "courses/consolidated_figures", orientation: "Portrait"
+      end
+    end
+  end
+
   def new
     @course = Course.new
   end

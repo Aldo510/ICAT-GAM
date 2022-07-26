@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "static_pages#index"
+  # Certifieds
+  get 'certifieds/index', to: "certifieds#index", as: "certifieds_index"
+  get 'certifieds/show/:course_id', to: "certifiedes#show", as: "certified_show"
   # Classrooms
   get 'classrooms/index', to: "classrooms#index", as: "classrooms_index"
   get 'classrooms/show/:id', to: "classrooms#show", as: "classroom_show"
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
   get 'courses/download_file', to: 'courses#download_csv', as: 'courses_csv'
   get 'courses/show/:id', to: "courses#show", as: "course_show"
   get "course/show_description/:id", to: "courses#show_description", as: "course_description"
+  get "courses/consolidated_figures", to: "courses#consolidated_figures", as: "courses_consolidated_figures"
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   post 'courses/edit_approved/:id', to: 'courses#update_approved', as: "course_approved"
@@ -48,6 +52,7 @@ Rails.application.routes.draw do
   post 'students/create'
   post 'students/create_multiple', to: 'students#create_multiple', as: "students_multiple"
   post 'students/update/:id', to: "students#edit", as: "student_edit"
+  post 'student/certified/:id', to: 'students#edit_certified', as: "student_certified"
   delete 'students/destroy/:id', to: "students#delete", as: "student_delete"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Workers

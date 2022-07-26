@@ -8,29 +8,41 @@
 
     <div class="col-12 col-sm-6 col-md-4 align-self-center">
 
-      <%= link_to students_index_path, class: "btn btn-brown my-2 d-block w-100",  data: { aos: "fade-up" } do %>
+      <%= link_to students_index_path, class: "btn btn-brown my-2 d-block w-100" do %>
       <%= bootstrap_icon "book", class: "text-center" %> Mostrar todos los estudiantes
       <% end %>
     </div>
     <div class="col-12 col-sm-6 col-md-4 align-self-center">
-      <%= link_to courses_index_path, class: "text-capitalize btn btn-green text-white my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= link_to courses_index_path, class: "text-capitalize btn btn-green text-white my-2 d-block w-100 " do %>
       <%= bootstrap_icon "journal-text", fill: "white", class: "text-center" %> Mostrar todos los cursos
       <% end %>
     </div>
     <div class="col-12 col-sm-6 col-md-4 align-self-center">
-      <%= link_to classrooms_index_path, class: "text-capitalize btn btn-brown my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= link_to classrooms_index_path, class: "text-capitalize btn btn-brown my-2 d-block w-100 " do %>
       <%= bootstrap_icon "building", class: "text-center" %> Mostrar todos los salones
       <% end %>
     </div>
      <% if current_worker.role == "Admin" %>
       <div class="col-12 col-sm-6 col-md-4 align-self-center">
-        <%= link_to workers_charts_path, class: "text-capitalize btn btn-cherry my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+        <%= link_to workers_charts_path, class: "text-capitalize btn btn-cherry my-2 d-block w-100 " do %>
           <%= bootstrap_icon "bar-chart", class: "text-center" %> Mostrar Gráficas
         <% end %>
       </div>
       <% end %>
+      <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+      <div class="col-12 col-sm-6 col-md-4 align-self-center">
+        <%= link_to certifieds_index_path, class: "text-capitalize btn btn-green my-2 d-block w-100 " do %>
+          <%= bootstrap_icon "file-earmark-text", class: "text-center" %> Mostrar Constancias
+        <% end %>
+      </div>
+      <div class="col-12 col-sm-6 col-md-4 align-self-center">
+        <%= link_to courses_consolidated_figures_path, class: "text-capitalize btn btn-green my-2 d-block w-100 " do %>
+          <%= bootstrap_icon "clipboard-data", class: "text-center" %> Consolidado de cifras
+        <% end %>
+      </div>
+      <% end %>
     <div class="col-12 col-sm-6 col-md-4 align-self-center">
-      <%= link_to warehouses_index_path, class: "btn btn-green my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= link_to warehouses_index_path, class: "btn btn-green my-2 d-block w-100 " do %>
       <%= bootstrap_icon "gear", class: "text-center" %> Mostrar todos los insumos
       <% end %>
     </div>
@@ -40,7 +52,7 @@
       <% end %>
     </div>
     <div class="col-12 col-sm-6 col-md-4 align-self-center d-none">
-      <%= link_to workers_calendar_path, class: "btn btn-green my-2 d-block w-100 ",  data: { aos: "fade-up" } do %>
+      <%= link_to workers_calendar_path, class: "btn btn-green my-2 d-block w-100 " do %>
       <%= bootstrap_icon "calendar", class: "text-center" %> Ver calendario de cursos
       <% end %>
     </div>

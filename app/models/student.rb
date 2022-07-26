@@ -9,11 +9,12 @@ class Student < ApplicationRecord
         student.last_name = row[2]
         student.second_last_name = row[3]
         student.taken_courses = 0
+        student.certified = false
         student.name = row[4] ? row[4] : "Sin especificar"
         student.gender = row[5].upcase ? row[5] : "Sin especificar"
         student.curp = row[7] ? row[7] : "Sin especificar"
         student.state = row[8] ? row[8] : "Sin especificar"
-        student.municipality = row[9] ? row[9] : "Sin especificar"
+        student.municipality = row[9].downcase ? row[9] : "Sin especificar"
         student.colony = row[10] ? row[10] : "Sin especificar"
         student.telephone = row[11] ? row[11] : "Sin especificar"
         student.cellphone = row[12] ? row[12] : "Sin especificar"
@@ -22,7 +23,7 @@ class Student < ApplicationRecord
         student.employment_situation = row[15] ? row[15] : "Sin especificar"
         student.priority_group = row[16] ? row[16] : "Sin especificar"
         student.disability = row[17] ? row[17] : "Sin especificar"
-        student.indigenous = row[18] ? row[18] : "Sin especificar"
+        student.indigenous = row[18].downcase ? row[18] : "Sin especificar"
         student.study_level = ""
         student.speak_indigenous = row[20] ? row[20]: "Sin especificar"
 

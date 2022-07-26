@@ -123,6 +123,10 @@
                                   <%= f.label :número_de_sesiones %><br/>
                                   <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
                                 </div>
+                                <div class="form-group">
+                                  <%= f.label "Total de horas del curso" %><br/>
+                                  <%= f.number_field :total_hours, class: 'form-control', value: 0, required: true %>
+                                </div>
                                 <div class="form-group dropdown ">
                                   <%= f.label :modalidad %><br>
                                   <%= f.select :modality, ["Presencial", "Semi-Presencial o mixto", "En directo"], { include_blank: false }, {class: 'form-select'} %>
@@ -517,6 +521,10 @@
               <div class="form-group">
                 <%= f.label :número_de_sesiones %><br/>
                 <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select'} %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Total de horas del curso" %><br/>
+                <%= f.number_field :total_hours, class: 'form-control', value: 0, required: true %>
               </div>
               <div class="form-group dropdown ">
                 <%= f.label :modalidad %><br>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_20_225314) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_163032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -130,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_20_225314) do
     t.string "disability", default: "Ninguna"
     t.string "indigenous"
     t.string "speak_indigenous", default: "Ninguna"
+    t.boolean "certified", default: false
   end
 
   create_table "supplies", force: :cascade do |t|
