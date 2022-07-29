@@ -6,6 +6,10 @@ class CoursesController < ApplicationController
     @courses_finished = Course.where(status: "Finalizado")
   end
 
+  def index_external
+    @courses = Course.where(status: "Control de bienes")
+  end
+
   def consolidated_figures
     @inscribed = 0
     @inscribed_men = 0
@@ -106,6 +110,7 @@ class CoursesController < ApplicationController
     if @course.update_attribute(:status, params[:course_status][:status])
       # Agregar aquí que si el status es en progreso los materiales se descuenten en la cantidad
       # Y cuando sea finalizado la cantidad se regrese al inventario si no son consumibles
+      Classroom.find(@course.id_classroom).update(status: false)
       flash[:success] = "Se ha cambiado el estatus del curso"
       redirect_to course_show_path(@course.id)
     else
@@ -165,7 +170,7 @@ class CoursesController < ApplicationController
   private
   
   def course_params
-    params.require(:course).permit(:id_ddc, :id_classroom, :site, :name, :content_tab, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
+    params.require(:course).permit(:id_ddc, :id_classroom, :site, :name, :academy_id, :level, :content_tab, :status, :start_date, :end_date, :total_hours, :days, :sessions_number, :start_hour, :end_hour, :profesor_id, :modality, :academy_id, :cost)
   end
 
   def package_params

@@ -1,0 +1,31 @@
+<section id="index_external" class="container-fluid">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1 class="displa-3 text-center">Cursos de control de bienes</h1>
+            <p class="text-center">Total de cursos: <%= @courses.count %></p>
+            <% if @courses.count > 0 %>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="h4 text-center">Nombre del curso</p>
+                        </div>
+                    </div>
+                    <% @courses.each do |course| %>
+                        <div class="row rounden border my-1">
+                            <div class="col-6">
+                                <%= link_to course.name, course_show_path(course.id), class: "btn btn-green my-2 w-100" %>
+                            </div>
+                            <div class="col-6">
+                                <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar el curso #{course.name}??" } }, class: "btn my-2 w-100 btn-danger" do %>
+                                    <%= bootstrap_icon "trash", class: "text-center" %> Borrar
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            <% else %>
+                <p class="text-center">Aún no hay cursos agregados</p>
+            <% end %>
+        </div>
+    </div>
+</section>

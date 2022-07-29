@@ -1,0 +1,17 @@
+<section id="academies-index" class="container-fluid">
+    <div class="row">
+        <div class="col-10 mx-auto text-center">
+            <h1 class="display-3 text-center my-2">Academias</h1>
+            <%= link_to "Regresar a los cursos", courses_index_path, class: "btn btn-brown mb-4" %>
+        </div>
+        <% @academies.each do |academy| %>
+            <div class="col-10 col-sm-8 col-lg-6 col-xl-4 mx-auto">
+                <%= link_to academy_show_path(academy.id), class: "btn btn-green w-100 my-1" do %>
+                    <h3 class="m-0"><%= academy.name %></h3>
+                    <p class="m-0">Cantidad de cursos:</p> 
+                    <p class="m-0"><%= academy.courses.count %></p>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</section>

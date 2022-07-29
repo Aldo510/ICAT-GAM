@@ -6,7 +6,7 @@
         <div class="row">
           <% @warehouses.each do |warehouse| %>
           <div class="col-12 col-md-6 mx-auto">
-            <%= link_to warehouse_show_path(warehouse.id), class: "btn btn-green w-100 p-2" do %>
+            <%= link_to warehouse_show_path(warehouse.id), class: "btn btn-green w-100 p-2 my-2" do %>
             <%= bootstrap_icon "archive", class: "text-center" %> <%= warehouse.name %>
             <% end %>
           </div>

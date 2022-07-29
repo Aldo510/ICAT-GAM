@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "static_pages#index"
+  # Academies
+  get 'academies/index', to: 'academies#index', as: "academies_index"
+  get 'academies/show/:id', to: 'academies#show', as: "academy_show"
   # Certifieds
   get 'certifieds/index', to: "certifieds#index", as: "certifieds_index"
   get 'certifieds/show/:course_id', to: "certifiedes#show", as: "certified_show"
@@ -24,6 +27,7 @@ Rails.application.routes.draw do
   delete 'products/delete/:id', to: "products#delete", as: "product_delete"
   # Courses
   get 'courses/index'
+  get ' courses/index_external', to: 'courses#index_external', as: "courses_external"
   get 'courses/new'
   get 'courses/download_file', to: 'courses#download_csv', as: 'courses_csv'
   get 'courses/show/:id', to: "courses#show", as: "course_show"

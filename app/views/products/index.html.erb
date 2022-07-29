@@ -1,25 +1,36 @@
 <section id="products-index" class="container-fluid">
 	<div class="row">
 		<div class="col-10 mx-auto">
-			<h1 class="text-center my-3">Insumos</h1>
-			<%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
-			<%= link_to warehouses_index_path, class: "btn btn-green d-block mx-auto w-25 my-3" do %>
-			<%= bootstrap_icon "arrow-left", class: "text-center" %> Volver a los almacenes
-			<% end %>
-			<% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
-			<!-- Button trigger modal new supply -->
-			<button type="button" class="btn btn-green mb-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-				<%= bootstrap_icon "plus-circle", class: "text-center" %> Agregar Insumo
-			</button>
-			<!-- Button trigger modal multuple supplies -->
-			<button type="button" class="btn btn-green mb-3 d-block m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				<%= bootstrap_icon "folder", class: "text-center" %> Agregar insumos por archivo
-			</button>
-			<% end %>
-			<%= link_to  products_csv_path, class: "btn btn-green d-block w-50 mx-auto my-2" do %>
-				<%= bootstrap_icon "cloud-arrow-down", class: "text-center" %> Descargar esquema de insumos
-			<% end %>
-
+			<h1 class="text-center display-3 text-uppercase my-3">Insumos</h1>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 col-sm-6 col-md-4 my-2">
+						<%= link_to warehouses_index_path, class: "btn btn-green d-block mx-auto w-100" do %>
+							<%= bootstrap_icon "arrow-left", class: "text-center" %> Volver a los almacenes
+						<% end %>
+					</div>
+						<%# Roles ['Admin', 'Inscripciones', "Administración", "Cursos"] %>
+					<% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
+					<div class="col-12 col-sm-6 col-md-4 my-2">
+						<!-- Button trigger modal new supply -->
+						<button type="button" class="btn btn-green d-block m-auto w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							<%= bootstrap_icon "plus-circle", class: "text-center" %> Agregar Insumo
+						</button>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 my-2">
+						<!-- Button trigger modal multuple supplies -->
+						<button type="button" class="btn btn-green d-block w-100 m-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							<%= bootstrap_icon "folder", class: "text-center" %> Agregar insumos por archivo
+						</button>
+					</div>
+					<% end %>
+					<div class="col-12 col-sm-6 col-md-4 my-2">
+						<%= link_to  products_csv_path, class: "btn btn-green d-block w-100 mx-auto" do %>
+							<%= bootstrap_icon "cloud-arrow-down", class: "text-center" %> Descargar esquema de insumos
+						<% end %>
+					</div>
+				</div>
+			</div>
 
 			<!-- Modal multiple supplies -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,15 +69,16 @@
 							<%= form_for :supply, url: product_create_path do |f| %>
 							<div class="form-group">
 								<%= f.label "Almacen", class: "form-label" %>
-								<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, include_blank: false, class: "form-control", required: true %>
+								<%= f.collection_select :warehouse_id, Warehouse.order(:name), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
 							</div>
 							<div class="form-group">
 								<%= f.label "Anaquel", class: "form-label"  %>
-								<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :category, include_blank: false, class: "form-control", required: true %>
+								<%= f.collection_select :shelf_id, Shelf.order(:code), :id, :name_with_id, { include_blank: false }, {class: 'form-select text-lowercase'} %>
+								<%#= f.collection_select :course_id, Course.order(:name),:id, :name_with_id, include_blank: false %>
 							</div>
 							<div class="form-group">
 								<%= f.label "Sección", class: "form-label"  %>
-								<%= f.select :shelf_section_id, (1..10).to_a ,class: "dropdown-item" %>
+								<%= f.collection_select :shelf_section_id, ShelfSection.order(:shelf_id), :id, :name_with_id,{ include_blank: false }, {class: 'form-select text-lowercase'} %>
 								<%#= f.collection_select :shelf_section_id, ShelfSection.order(:number), :id, :number, include_blank: false, class: "form-control", required: true %>
 							</div>
 
@@ -128,17 +140,41 @@
 		<div class="col-10 mx-auto">
 			<% if @supplies.any? %>
 			<div class="container-fluid">
+				<div class="row my-2 text-center">
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">Insumos en los almacenes:</h3>
+						<p><%= Supply.count %></p>
+						<h3 class="text-capitalize">Insumos totales:</h3>
+						<p><%= @suplies_quantity %></p>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">insumos instrumentales:</h3>
+						<p><%= @supplies_instrumental %></p>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">insumos de consumo:</h3>
+						<p><%= @supplies_comsumption %></p>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">insumos de consumo inmediato:</h3>
+						<p><%= @supplies_immediate %></p>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">insumos de consumo intermedio:</h3>
+						<p><%= @supplies_intermediate %></p>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3 border rounded p-1">
+						<h3 class="text-capitalize">insumos de consumo duradero:</h3>
+						<p><%= @supplies_durable %></p>
+					</div>
+				</div>
 				<div class="row">
-					<h2>Cantidad de productos en los dos almacenes: <%= Supply.count %></h2>
-					<h2>Cantidad de productos instrumentales:  <%= @supplies_instrumental %></h2>
-					<h2>Cantidad de productos de consumo: <%= @supplies_comsumption %></h2>
-					<h3>Cantidad de productos de consumo inmediato: <%= @supplies_immediate %></h3>
-					<h3>Cantidad de productos de consumo intermedio: <%= @supplies_intermediate %></h3>
-					<h3>Cantidad de productos de consumo duradero: <%= @supplies_durable %></h3>
-
+					<div class="card my-3 col-12 p-3">
+						<h3 class="text-center">Lista de Insumos</h3>
+					</div>
 					<% @supplies.each_with_index do |supply, index| %>
 					<div class="card my-3 col-12 col-sm-6 col-md-4 col-xl-3">
-						<div class="card-header h3">
+						<div class="card-header h3 text-center">
 							<%= supply.name.capitalize %>
 						</div>
 						<div class="card-body">
@@ -237,7 +273,7 @@
 									</div>
 								</div>
 							</div>
-							<%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-danger my-3 w-100" %>
+							<%= button_to "Borrar insumo", product_delete_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar #{supply.name} de los insumos?" } }, class: "btn btn-cherry my-3 w-100" %>
 							<% end %>
 							<%= link_to  product_show_path(supply.id), class: "card-link btn btn-green w-100" do %>
 								<%= bootstrap_icon "eye", class: "text-center" %> Ver Insumo

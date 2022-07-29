@@ -14,10 +14,16 @@
     <div class="col-11 col-md-10 mx-auto">
       <h1 class="text-center display-6">Todos los Cursos</h1>
       <p class="text-center h3">Cursos totales: <%= @courses.count %></p>
+      <%= link_to academies_index_path, class: "btn btn-green w-100 my-2" do %>
+        <%= bootstrap_icon "book", class: "text-center" %> Ver academias
+      <% end %>
       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
-      <button type="button" class="btn btn-green d-block mx-auto px-5 mb-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
-      </button>
+        <button type="button" class="btn btn-green d-block mx-auto px-5 w-100 mb-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <%= bootstrap_icon "plus", class: "text-center" %> Agregar Curso
+        </button>
+        <%= link_to courses_external_path, class: "btn btn-green w-100 mb-2" do %>
+          <%= bootstrap_icon "book", class: "text-center" %> Ver cursos de control de bienes
+        <% end %>
       <% end %>
       <div class="accordion" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
@@ -83,6 +89,14 @@
                                   <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
                                 </div>
                                 <div class="form-group">
+                                  <%= f.label "Academia", class: "form-label" %>
+                                  <%= f.collection_select :academy_id, Academy.order(name: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-capitalize'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Nivel del curso" %> <br/>
+                                  <%= f.select :level, (1..5).to_a, { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
                                   <%= f.collection_select :id_classroom, Classroom.order(status: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-lowercase'} %>
                                 </div>
@@ -104,11 +118,11 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Estatus del curso" %>
-                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado", "Control de bienes"], { include_blank: false }, {class: 'form-select'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Ficha de contenido" %>
-                                  <%= f.text_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true, value: course.content_tab %>
+                                  <%= f.url_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true, value: course.content_tab %>
                                 </div>
                                 <div class="form-check py-2">
                                   <%= f.label :dias_del_curso %><br/>
@@ -225,12 +239,20 @@
                               <div class="modal-body text-start">
                                 <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                                 <div class="form-group">
-                                  <%= f.label "ID DDC" %><br/>
+                                  <%= f.label "ID DDC", class: "text-uppercase" %><br/>
                                   <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label :nombre_curso %><br/>
                                   <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Academia", class: "form-label" %>
+                                  <%= f.collection_select :academy_id, Academy.order(name: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-capitalize'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Nivel del curso" %> <br/>
+                                  <%= f.select :level, (1..5).to_a, { include_blank: false }, {class: 'form-select'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
@@ -254,7 +276,11 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Estatus del curso" %>
-                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado", "Control de bienes"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Ficha de contenido" %>
+                                  <%= f.url_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true, value: course.content_tab %>
                                 </div>
                                 <div class="form-check py-2">
                                   <%= f.label :dias_del_curso %><br/>
@@ -268,6 +294,10 @@
                                 <div class="form-group">
                                   <%= f.label :número_de_sesiones %><br/>
                                   <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Total de horas del curso" %><br/>
+                                  <%= f.number_field :total_hours, class: 'form-control', value: 0, required: true %>
                                 </div>
                                 <div class="form-group dropdown ">
                                   <%= f.label :modalidad %><br>
@@ -367,12 +397,20 @@
                               <div class="modal-body text-start">
                                 <%= form_for :course, url: edit_course_path(course.id) do |f| %>
                                 <div class="form-group">
-                                  <%= f.label "ID DDC" %><br/>
+                                  <%= f.label "ID DDC", class: "text-uppercase" %><br/>
                                   <%= f.text_field :id_ddc, class: "form-control", required: true, placeholder: "#{course.id_ddc}", value: course.id_ddc %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label :nombre_curso %><br/>
                                   <%= f.text_field :name, class: "form-control", required: true, placeholder: "#{course.name}", value: course.name %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Academia", class: "form-label" %>
+                                  <%= f.collection_select :academy_id, Academy.order(name: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-capitalize'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Nivel del curso" %> <br/>
+                                  <%= f.select :level, (1..5).to_a, { include_blank: false }, {class: 'form-select'} %>
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Salones disponibles", class: "form-label" %>
@@ -396,7 +434,11 @@
                                 </div>
                                 <div class="form-group">
                                   <%= f.label "Estatus del curso" %>
-                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                                  <%= f.select :status, ["En preparación", "En progeso", "Finalizado", "Control de bienes"], { include_blank: false }, {class: 'form-select'} %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Ficha de contenido" %>
+                                  <%= f.url_field :content_tab, class: 'form-control', placeholder: "Url del archivo", required: true, value: course.content_tab %>
                                 </div>
                                 <div class="form-check py-2">
                                   <%= f.label :dias_del_curso %><br/>
@@ -410,6 +452,10 @@
                                 <div class="form-group">
                                   <%= f.label :número_de_sesiones %><br/>
                                   <%= f.select :sessions_number, (1..30).to_a, { include_blank: false }, {class: 'form-select', value: course.sessions_number}  %>
+                                </div>
+                                <div class="form-group">
+                                  <%= f.label "Total de horas del curso" %><br/>
+                                  <%= f.number_field :total_hours, class: 'form-control', value: 0, required: true %>
                                 </div>
                                 <div class="form-group dropdown ">
                                   <%= f.label :modalidad %><br>
@@ -476,6 +522,14 @@
                 <%= f.label :nombre_curso %><br/>
                 <%= f.text_field :name, class: "form-control", required: true %>
               </div>
+              <div class="form-group">
+                <%= f.label "Academia", class: "form-label" %>
+                <%= f.collection_select :academy_id, Academy.order(name: :desc), :id, :name, { include_blank: false }, {class: 'form-select text-capitalize'} %>
+              </div>
+              <div class="form-group">
+                <%= f.label "Nivel del curso" %> <br/>
+                <%= f.select :level, (1..5).to_a, { include_blank: false }, {class: 'form-select'} %>
+              </div>
               <div class="form-group d-none">
                 <%#= f.label :sitio_o_ubicación %><br/>
                 <%#= f.select :site, ["ICAT GAM", "Oficinas centrales", "Otro"], class: "dropdown-item" %>
@@ -486,7 +540,7 @@
               </div>
               <div class="form-group">
                 <%= f.label "Estatus del curso" %>
-                <%= f.select :status, ["En preparación", "En progeso", "Finalizado"], { include_blank: false }, {class: 'form-select'} %>
+                <%= f.select :status, ["En preparación", "En progeso", "Finalizado", "Control de bienes"], { include_blank: false }, {class: 'form-select'} %>
               </div>
               <div class="form-group">
                 <%= f.label :fecha_inicio %><br/>

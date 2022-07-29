@@ -1,0 +1,30 @@
+<section id="academy-show" class="container-fluid">
+    <div class="row">
+        <div class="col-10 mx-auto text-center mt-3">
+            <h2 class="display-6 text-gray">Academia</h2>
+            <h1 class="display-3"><%= @academy.name %></h1>
+            <%= link_to "Regresar a las academias", academies_index_path, class: "btn btn-green my-4" %>
+        </div>
+        <div class="col-10 mx-auto mb-3">
+            <% if @courses.count > 0 %>
+            <div class="container-fluid">
+                <div class="row">
+                    <% @courses.each do |course| %>
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-3 mx-auto border rounded text-center my-1 py-3">
+                        <h5 class="text-capitalize"><%= course.name %></h5>
+                        <p>Nivel del curso: <%= course.level %></p>
+                        <%= link_to course_show_path(course.id), class: "btn btn-green w-100" do %>
+                            Mostrar curso
+                        <% end %>
+                    </div> 
+                    <% end %>
+                </div>
+            </div>
+                
+            <% else %>
+                <p>No hay cursos en esta academia</p>
+                <%= link_to "Mostrar los cursos", courses_index_path, class: "btn btn-green my-2" %>
+            <% end %>
+        </div>
+    </div>
+</section>

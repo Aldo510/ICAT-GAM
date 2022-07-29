@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @supplies = Supply.paginate(page: params[:page], per_page: 15)
+    @suplies_quantity = Supply.all.pluck('SUM(quantity)').first
     @supplies_instrumental = Supply.where(category: "instrumental").count
     @supplies_comsumption = Supply.where(category: "consumo").count
     @supplies_immediate = Supply.where(sub_category: "inmediato").count

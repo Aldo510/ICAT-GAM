@@ -1,10 +1,13 @@
 <ul class="list-group">
     <li class="list-group-item">Ubicación: <%= @course.site %></li>
     <li class="list-group-item">Modalidad: <%= @course.modality %></li>
+    <li class="list-group-item">Nivel del curso: <%= @course.level %></li>
+    <li class="list-group-item">Academia: <%= Academy.find(@course.academy_id).name %></li>
     <li class="list-group-item">Fecha de inicio: <%= @course.start_date.strftime("%d / %B / %Y") %></li>
     <li class="list-group-item">Fecha de finalización: <%= @course.end_date.strftime("%d / %B / %Y") %></li>
     <li class="list-group-item">Hora de inicio: <%= @course.start_hour.strftime('%H:%M') %></li>
     <li class="list-group-item">Hora de finalización: <%= @course.end_hour.strftime('%H:%M') %></li>
+    <li class="list-group-item">Total de horas: <%= @course.total_hours %></li>
     <li class="list-group-item">Estatus del curso: <%= @course.status %></li>
     <li class="list-group-item">Salón del curso: <%= Classroom.find(@course.id_classroom).name %></li>
     <% if @course.pedagocical_package && @course.accreditation_notices &&  @course.trade_number && @course.pedagogical_package_read %>

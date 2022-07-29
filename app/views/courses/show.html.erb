@@ -39,7 +39,7 @@
             </button>
             <% end %>
             <!-- Button trigger modal -->
-            <% if @course.professor && current_worker.role == "Admin" || current_worker.role == "Cursos" %>
+            <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
             <%= render "partials/courses/datasheetshow" %>
             <% end %>
 

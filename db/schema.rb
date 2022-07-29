@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_163032) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_28_150453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "academies", force: :cascade do |t|
+    t.string "name", default: ""
+    t.string "description", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "classrooms", force: :cascade do |t|
     t.string "name"
@@ -63,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_163032) do
     t.integer "approved_women", default: 0
     t.integer "reprobated_women", default: 0
     t.integer "down_women", default: 0
+    t.integer "level", default: 1
   end
 
   create_table "data_sheets", force: :cascade do |t|
