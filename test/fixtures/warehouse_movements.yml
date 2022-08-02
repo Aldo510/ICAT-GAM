@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  supply_id: 1
+  course_id: 1
+  exit_date: MyString
+  return_date: MyString
+  exit_quantity: 1
+  return_quantity: 1
+  supervisor: MyString
+
+two:
+  supply_id: 1
+  course_id: 1
+  exit_date: MyString
+  return_date: MyString
+  exit_quantity: 1
+  return_quantity: 1
+  supervisor: MyString

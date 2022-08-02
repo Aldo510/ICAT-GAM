@@ -94,6 +94,15 @@ class CoursesController < ApplicationController
     end
   end
 
+  def show_control
+    @course = Course.find(params[:id])
+    if @course.data_sheet
+      @supplies = true
+    else
+      @supplies = false
+    end
+  end
+
   def edit
     @course = Course.find(params[:id])
     if @course.update(course_params)

@@ -13,7 +13,7 @@
                     <% @courses.each do |course| %>
                         <div class="row rounden border my-1">
                             <div class="col-6">
-                                <%= link_to course.name, course_show_path(course.id), class: "btn btn-green my-2 w-100" %>
+                                <%= link_to course.name, course_show_control_path(course.id), class: "btn btn-green my-2 w-100" %>
                             </div>
                             <div class="col-6">
                                 <%= button_to course_delete_path(course.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar el curso #{course.name}??" } }, class: "btn my-2 w-100 btn-danger" do %>

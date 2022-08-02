@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   get 'data_sheets/show/:id', to: "data_sheets#show", as: "data_sheet_show"
   post 'data_sheets/create', to: "data_sheets#create", as: "data_sheet_create"
   delete 'data_sheets/delete/:data_sheet_id', to: 'data_sheets#delete', as: "data_sheet_delete"
+  # SupplyDataSheet
+  delete 'supply_data_sheet/delete_control/:id', to: 'supply_data_sheets#delete_control', as: "delete_supply_data_sheet_control"
   #Products
   get 'products/index', to: 'products#index', as: "products_index"
   get 'products/show/:id', to: 'products#show', as: "product_show"
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
   get 'courses/new'
   get 'courses/download_file', to: 'courses#download_csv', as: 'courses_csv'
   get 'courses/show/:id', to: "courses#show", as: "course_show"
+  get 'courses/show_control/:id', to: "courses#show_control", as: "course_show_control"
   get "course/show_description/:id", to: "courses#show_description", as: "course_description"
   get "courses/consolidated_figures", to: "courses#consolidated_figures", as: "courses_consolidated_figures"
   post 'courses/create', to: "courses#create", as: "course_create"
@@ -76,4 +79,8 @@ Rails.application.routes.draw do
   #Warehoouses
   get 'warehouses/index', to: "warehouses#index", as: "warehouses_index"
   get 'warehouses/show/:id', to: 'warehouses#show', as: "warehouse_show"
+  # warehousesMovements
+  get 'warehouseMovement/show/:id', to: "warehouse_movements#show", as: "warehouse_movement_show"
+  post 'warehouseMovement/create', to: "warehouse_movements#create", as: 'warehouse_movement'
+
 end

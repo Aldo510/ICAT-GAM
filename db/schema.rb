@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_28_150453) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_211229) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_150453) do
     t.boolean "confirmed"
     t.string "modality"
     t.integer "academy_id"
-    t.string "status"
+    t.string "status", default: "En preparación"
     t.integer "approved"
     t.integer "reprobated"
     t.string "downs"
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_150453) do
     t.string "name"
     t.string "last_name"
     t.string "second_last_name"
-    t.integer "taken_courses"
+    t.integer "taken_courses", default: 0
     t.string "gender"
     t.string "curp"
     t.string "scholarity"
@@ -161,6 +161,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_150453) do
     t.integer "data_sheet_id"
     t.string "name"
     t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "warehouse_movements", force: :cascade do |t|
+    t.integer "supply_id"
+    t.integer "course_id"
+    t.string "exit_date", default: ""
+    t.string "return_date", default: ""
+    t.integer "exit_quantity", default: 0
+    t.integer "return_quantity", default: 0
+    t.string "supervisor", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

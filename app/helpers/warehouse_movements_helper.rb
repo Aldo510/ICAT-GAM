@@ -1,0 +1,2 @@
+module WarehouseMovementsHelper
+end

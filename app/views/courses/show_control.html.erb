@@ -1,0 +1,99 @@
+<section class="container-fluid" id="show-control">
+    <div class="row">
+        <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+            <h1 class="text-center h6 gray text-gray mt-3">Curso externo</h1>
+            <h1 class="text-center h4 gray text-gray mt-2">Control de bienes</h1>
+            <p class="display-4 text-center"><%= @course.name %></p>
+            <%= link_to course_show_path(@course.id), class: "btn btn-green my-3 d-block w-100" do %>
+                <%= bootstrap_icon "plus-circle", class: "" %> Agregar insumos a la ficha de materiales
+            <% end %>
+        </div>
+        <div class="col-10 mx-auto">
+            <% if @supplies %>
+                <p class="display-6">Lista de insumos</p>
+                 <% if current_worker.role == "Admin" || current_worker.role == "Administración" %>
+                    <%#= render "partials/courses/datasheetshow", plocals: {products: @course.data_sheet.supply_data_sheets } %>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-3">
+                                <p class="h4 text-center">Nombre insumo</p>
+                            </div>
+                            <div class="col-3">
+                                <p class="h4 text-center">Cantidad insumo</p>
+                            </div>
+                            <div class="col-3">
+                                <p class="h4 text-center">Movimiento Insumo</p>
+                            </div>
+                            <div class="col-3">
+                                <p class="h4 text-center">Borrar insumo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <% @course.data_sheet.supply_data_sheets.each_with_index do |supply, index| %>
+                        <div class="row shadow rounded p-3 my-2">
+                            <div class="col-3">
+                                <%= link_to warehouse_movement_show_path(@course.id), class: "btn btn-green" do %>
+                                    <%= bootstrap_icon "eye", class: "text-center" %> <%= Supply.find(supply.name).name %>
+                                <% end %>
+                            </div>
+                            <div class="col-3 text-center">
+                            <p><%= Supply.find(supply.name).quantity %></p>
+                            </div>
+                            <div class="col-3">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-green text-capitalize" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index + 1 %>">
+                                Agregar Movimiento almacenario
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal<%= index + 1 %>" tabindex="-1" aria-labelledby="exampleModal<%= index + 1 %>Label" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModal<%= index + 1 %>Label">Movimiento almacenario: <%= Supply.find(supply.name).name %></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <%= form_for :movement, url: warehouse_movement_path do |f| %>
+                                        <div class="">
+                                            <%= f.hidden_field :supply_id, value: supply.name %>
+                                        </div>
+                                        <div class="">
+                                            <%= f.hidden_field :course_id, value: @course.id %>
+                                        </div>
+                                        <div class="">
+                                            <%= f.label "Fecha de salida", class: "form-label" %>
+                                            <%= f.date_field :exit_date, class: "form-control" %>
+                                        </div>
+                                        <div class="">
+                                            <%= f.label "Cantidad", class: "form-label" %>
+                                            <%= f.number_field :exit_quantity, class: "form-control" %>
+                                        </div>
+                                        <div class="">
+                                            <%= f.label "Supervisor de la salida", class: "form-label" %>
+                                            <%= f.text_field :supervisor, class: "form-control" %>
+                                        </div>
+                                        <%= f.submit "Crear movimiento", class: "btn btn-brown my-3" %>
+                                        <% end %>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <%= button_to delete_supply_data_sheet_control_path(supply.id), method: :delete, form: { data: { turbo_confirm: "Estas seguro de eliminar este insumo de la ficha de materiales??" } }, class: "btn btn-cherry w-100" do %>
+                                    <%= bootstrap_icon "trash", class: "text-center" %> Borrar Insumo
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <p>No hay ficha de materiales para este curso</p>
+            <% end %>
+        </div>
+    </div>
+</section>
