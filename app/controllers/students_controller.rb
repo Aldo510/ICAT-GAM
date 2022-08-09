@@ -62,6 +62,18 @@ class StudentsController < ApplicationController
     end
   end
 
+  def edit_online_certified
+    student = Student.find(params[:id])
+    student.online_certified = !student.online_certified
+    if student.save
+      flash[:success] = "Se ha cambiado el estado de la certificación online de #{student.name} #{student.last_name}"
+      redirect_to course_show_path(student.course_id)
+    else
+      flash[:danger] = "Hubó un problema al cambiar el estado de la certificación online de #{student.name} #{student.last_name}"
+      redirect_to course_show_path(student.course_id)
+    end
+  end
+
   def delete
     @student = Student.find(params[:id])
     if @student.destroy

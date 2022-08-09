@@ -28,6 +28,11 @@
           <%= bootstrap_icon "bar-chart", class: "text-center" %> Mostrar Gráficas
         <% end %>
       </div>
+      <div class="col-12 col-sm-6 col-md-4 align-self-center">
+        <%= link_to courses_hours_path, class: "text-capitalize btn btn-cherry my-2 d-block w-100 " do %>
+          <%= bootstrap_icon "clock", class: "text-center" %> Horas de cursos
+        <% end %>
+      </div>
       <% end %>
       <% if current_worker.role == "Admin" || current_worker.role == "Cursos" %>
       <div class="col-12 col-sm-6 col-md-4 align-self-center">

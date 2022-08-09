@@ -19,7 +19,7 @@ class CertifiedsController < ApplicationController
     if (@students_with_certified + @students_without_certified) > 0
       @advance_percent = (@students_with_certified * 100) / (@students_with_certified + @students_without_certified)
     else
-      @advance_percent = "No se encontraron cursos en esta fecha"
+      @advance_percent = 0
     end
     respond_to do |format|
       format.html

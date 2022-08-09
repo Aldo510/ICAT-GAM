@@ -39,11 +39,14 @@
                     <p class="text-capitalize text-center h3"><%= @students_without_certified %></p>
                 </div>
                 <div class="col-12">
-
-                    <p class="my-4">Porcentaje de avance de entrega de constancias: <%= @advance_percent >= 0 ? "#{@advance_percent}%" : @advance_percent %></p>
+                <% unless @advanced_percent == 0 %>
+                    <p class="my-4">Porcentaje de avance de entrega de constancias: <%= @advance_percent %></p>
                     <div class="progress" style="height: 30px;">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-green" role="progressbar" style="width: <%= @advance_percent %>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"><%= @advance_percent %>%</div>
                     </div>
+                <% else %>
+                    <p class="my-4">No hay certificados en estass fechas</p>
+                <% end %>
                 </div>
             </div>
             <% @courses.each do |course| %>                

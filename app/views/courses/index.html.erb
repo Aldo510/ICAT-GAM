@@ -59,7 +59,7 @@
                     <tr>
                       <!-- <th scope="row"><%#= course.id%></th> -->
                       <td><%= course.id_ddc %></td>
-                      <td><%= link_to "#{course.id} - #{course.name}", course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= link_to "#{course.name}", course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
                       <td><%= course.modality %></td>
                       <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
                       <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
@@ -217,7 +217,7 @@
                     <tr>
                       <!-- <th scope="row"><%#= course.id%></th> -->
                       <td><%= course.id_ddc %></td>
-                      <td><%= link_to "#{course.id} - #{course.name}", course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= link_to course.name, course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
                       <td><%= course.modality %></td>
                       <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
                       <td><%= course.end_date.strftime("%d / %m / %Y") %></td>
@@ -375,7 +375,7 @@
                     <tr>
                       <!-- <th scope="row"><%#= course.id%></th> -->
                       <td><%= course.id_ddc %></td>
-                      <td><%= link_to "#{course.id} - #{course.name}", course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
+                      <td><%= link_to "#{course.name}", course_show_path(course.id), class: "btn-cherry btn w-100 text-capitalize" %></td>
                       <td><%= course.modality %></td>
                       <td><%= course.start_date.strftime("%d / %m / %Y") %></td>
                       <td><%= course.end_date.strftime("%d / %m / %Y") %></td>

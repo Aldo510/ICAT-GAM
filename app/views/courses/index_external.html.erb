@@ -1,13 +1,13 @@
 <section id="index_external" class="container-fluid">
     <div class="row">
         <div class="col-10 mx-auto">
-            <h1 class="displa-3 text-center">Cursos de control de bienes</h1>
-            <p class="text-center">Total de cursos: <%= @courses.count %></p>
+            <h1 class="display-3 text-center mt-3">Cursos de control de bienes</h1>
+            <h3 class="text-center gray">Total de cursos: <%= @courses.count %></h3>
             <% if @courses.count > 0 %>
                 <div class="container">
                     <div class="row">
-                        <div class="col-4">
-                            <p class="h4 text-center">Nombre del curso</p>
+                        <div class="col-10 mx-auto">
+                            <p class="h2 text-center">Cursos</p>
                         </div>
                     </div>
                     <% @courses.each do |course| %>

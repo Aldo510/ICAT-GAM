@@ -23,9 +23,9 @@ class Supply < ApplicationRecord
 			else
 				supply.perishable = true
 			end
-			supply.expiry_date = row[7]
-			supply.category = row[8]
-			supply.sub_category = row[9]
+			supply.category = row[7]
+			supply.sub_category = row[8]
+			supply.expiry_date = row[9]
 			supply.save
 			# Add fields since the csv files
 		end

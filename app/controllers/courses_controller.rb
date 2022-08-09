@@ -73,6 +73,9 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @students = @course.students.order('last_name ASC')
+    
+    @certified_delivered = @course.students.select {|r| r.certified}.size 
+    @certified_online_delivered = @course.students.select {|r| r.online_certified}.size
     if params[:query].present?
       @products = Supply.where("name like ?", "%#{params[:query]}%")
     else
@@ -103,6 +106,10 @@ class CoursesController < ApplicationController
     end
   end
 
+  def hours
+    @courses = Course.where.not(status: "Control de bienes")
+  end
+  
   def edit
     @course = Course.find(params[:id])
     if @course.update(course_params)

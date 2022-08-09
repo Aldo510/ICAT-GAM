@@ -37,13 +37,17 @@
                                 <% end %>
                             </div>
                             <div class="col-3 text-center">
-                            <p><%= Supply.find(supply.name).quantity %></p>
+                            <p class="text-center"><%= Supply.find(supply.name).quantity %></p>
                             </div>
                             <div class="col-3">
                                 <!-- Button trigger modal -->
+                                <% if Supply.find(supply.name).quantity > 0 %>
                                 <button type="button" class="btn btn-green text-capitalize" data-bs-toggle="modal" data-bs-target="#exampleModal<%= index + 1 %>">
                                 Agregar Movimiento almacenario
                                 </button>
+                                <% else %>
+                                    <p class="text-center">Ya no hay dispobilidad de este insumo</p>
+                                <% end %>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal<%= index + 1 %>" tabindex="-1" aria-labelledby="exampleModal<%= index + 1 %>Label" aria-hidden="true">

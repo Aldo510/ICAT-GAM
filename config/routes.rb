@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get 'courses/show_control/:id', to: "courses#show_control", as: "course_show_control"
   get "course/show_description/:id", to: "courses#show_description", as: "course_description"
   get "courses/consolidated_figures", to: "courses#consolidated_figures", as: "courses_consolidated_figures"
+  get 'courses/hours', to: 'courses#hours', as: "courses_hours"
   post 'courses/create', to: "courses#create", as: "course_create"
   post 'courses/edit/:id', to: "courses#edit", as: "edit_course"
   post 'courses/edit_approved/:id', to: 'courses#update_approved', as: "course_approved"
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
   post 'students/create_multiple', to: 'students#create_multiple', as: "students_multiple"
   post 'students/update/:id', to: "students#edit", as: "student_edit"
   post 'student/certified/:id', to: 'students#edit_certified', as: "student_certified"
+  post 'student/online_certified/:id', to: 'students#edit_online_certified', as: "student_online_certified"
   delete 'students/destroy/:id', to: "students#delete", as: "student_delete"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # Workers

@@ -178,7 +178,22 @@
           </div>
           <% end %>
         </div>
+        <% if @course.students.count > 0 %>
+        <h3 class="my-2">Porcentaje de constancias físicas entregadas</h3>
+        <p><%= @certified_delivered  %> / <%= @course.students.count %></p>
+        <div class="progress">
+          <div class="progress-bar bg-green progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="<%= (@certified_delivered * 100 ) / @course.students.count %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= (@certified_delivered * 100 ) / @course.students.count %>%">
+            <%= (@certified_delivered * 100 ) / @course.students.count %>%
+          </div>
+        </div>
+        <h3 class="my-2">Porcentaje de constancias digitales entregadas</h3>
+        <p><%= @certified_online_delivered  %> / <%= @course.students.count %></p>
+        <div class="progress">
+          <div class="progress-bar bg-green progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= (@certified_online_delivered * 100 ) / @course.students.count %>%" aria-valuenow="<%= (@certified_online_delivered * 100 ) / @course.students.count %>" aria-valuemin="0" aria-valuemax="100"><%= (@certified_online_delivered * 100 ) / @course.students.count %>%</div>
+        </div>
+        <% end %>
       </div>
+      
       <% if @students.any? %>
         <button class="btn btn-green my-3 ms-4 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           <%= bootstrap_icon "people", class: "text-center" %> Alumnos Inscritos al curso: <%= @course.students.length %>
@@ -195,7 +210,8 @@
                 <% if current_worker.role != "Administración" && current_worker.role != "Cursos" %>
                 <th scope="col" class="text-center"># Celular</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Certificado</th>
+                <th scope="col" class="text-center">Certificado físico</th>
+                <th scope="col" class="text-center">Certificado digital</th>
                 <th scope="col" class="text-center">Editar</th>
                 <th scope="col" class="text-center">Borrar</th>
                 <% end %>
@@ -218,7 +234,16 @@
                         <%= bootstrap_icon "clipboard-x", class: "text-center red" %> No entregado
                       <% end %>
                   <% end %>
-                  </td>
+                </td>
+                <td class="text-center">
+                <%= button_to student_online_certified_path(student.id), method: :post, form: { data: { turbo_confirm: "¿Estas seguro de cambiar el estatus de certificacion online de este estudiante?" } }, class: "btn btn-brown" do %>
+                    <% if student.online_certified %>
+                        <%= bootstrap_icon "clipboard-check", class: "text-center green" %> Entregado
+                      <% else %>
+                        <%= bootstrap_icon "clipboard-x", class: "text-center red" %> No entregado
+                      <% end %>
+                  <% end %>
+                </td>
                 <td><!-- Button trigger modal Edit Student -->
                 <button type="button" class="btn btn-brown" data-bs-toggle="modal" data-bs-target="#exampleModal<%= student.id %>">
                   <%= bootstrap_icon "pencil", class: "text-center" %> Editar estudiante

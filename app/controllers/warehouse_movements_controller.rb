@@ -1,19 +1,19 @@
 class WarehouseMovementsController < ApplicationController
     def create
+        course = Course.find(params[:movement][:course_id])
         if WarehouseMovement.create(warehouse_movements_params)
             flash[:success] = "Se creó el movimiento exitosamente"
-            Supply.find(params[:movement][:supply_id]).update(quantity: Supply.find(params[:movement][:supply]).quantity - params[:movement][:exit_quantity])
-            debugger
-            redirect_to show_control_path(params[:id])
+            Supply.find(params[:movement][:supply_id]).update(quantity: Supply.find(params[:movement][:supply_id]).quantity.to_i - params[:movement][:exit_quantity].to_i)
+            redirect_to warehouse_movement_show_path(warehouse_movements_params[:course_id])
         else
             flash[:danger] = "Hubó un problema al crear el movimiento"
-            redirect_to show_control_path(params[:id])
+            redirect_to warehouse_movement_show_path(warehouse_movements_params[:course_id])
         end
     end
 
     def show
         @course = Course.find(params[:id])
-        @movements = WarehouseMovement.where(course_id: @course.id)
+        @movements = WarehouseMovement.where(course_id: @course.id).order(created_at: :desc)
     end
 
     private
