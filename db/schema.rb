@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_190422) do
     t.boolean "confirmed"
     t.string "modality"
     t.integer "academy_id"
-    t.string "status", default: "En preparación"
+    t.string "status"
     t.integer "approved"
     t.integer "reprobated"
     t.string "downs"
@@ -119,7 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_190422) do
     t.string "name"
     t.string "last_name"
     t.string "second_last_name"
-    t.integer "taken_courses", default: 0
+    t.integer "taken_courses"
     t.string "gender"
     t.string "curp"
     t.string "scholarity"
